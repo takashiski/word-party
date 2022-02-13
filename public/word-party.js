@@ -1,4 +1,6536 @@
-(()=>{var Le=Object.create;var ee=Object.defineProperty;var Be=Object.getOwnPropertyDescriptor;var Fe=Object.getOwnPropertyNames;var Oe=Object.getPrototypeOf,De=Object.prototype.hasOwnProperty;var Ne=w=>ee(w,"__esModule",{value:!0});var We=(w,T)=>()=>(T||w((T={exports:{}}).exports,T),T.exports);var He=(w,T,f,e)=>{if(T&&typeof T=="object"||typeof T=="function")for(let s of Fe(T))!De.call(w,s)&&(f||s!=="default")&&ee(w,s,{get:()=>T[s],enumerable:!(e=Be(T,s))||e.enumerable});return w},ke=(w,T)=>He(Ne(ee(w!=null?Le(Oe(w)):{},"default",!T&&w&&w.__esModule?{get:()=>w.default,enumerable:!0}:{value:w,enumerable:!0})),w);var Ie=We((J,se)=>{(function(T,f){typeof J=="object"&&typeof se=="object"?se.exports=f():typeof define=="function"&&define.amd?define("Matter",[],f):typeof J=="object"?J.Matter=f():T.Matter=f()})(J,function(){return function(w){var T={};function f(e){if(T[e])return T[e].exports;var s=T[e]={i:e,l:!1,exports:{}};return w[e].call(s.exports,s,s.exports,f),s.l=!0,s.exports}return f.m=w,f.c=T,f.d=function(e,s,a){f.o(e,s)||Object.defineProperty(e,s,{enumerable:!0,get:a})},f.r=function(e){typeof Symbol<"u"&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},f.t=function(e,s){if(s&1&&(e=f(e)),s&8||s&4&&typeof e=="object"&&e&&e.__esModule)return e;var a=Object.create(null);if(f.r(a),Object.defineProperty(a,"default",{enumerable:!0,value:e}),s&2&&typeof e!="string")for(var i in e)f.d(a,i,function(h){return e[h]}.bind(null,i));return a},f.n=function(e){var s=e&&e.__esModule?function(){return e.default}:function(){return e};return f.d(s,"a",s),s},f.o=function(e,s){return Object.prototype.hasOwnProperty.call(e,s)},f.p="",f(f.s=21)}([function(w,T){var f={};w.exports=f,function(){f._nextId=0,f._seed=0,f._nowStartTime=+new Date,f._warnedOnce={},f._decomp=null,f.extend=function(s,a){var i,h,o;typeof a=="boolean"?(i=2,o=a):(i=1,o=!0);for(var u=i;u<arguments.length;u++){var r=arguments[u];if(r)for(var l in r)o&&r[l]&&r[l].constructor===Object&&(!s[l]||s[l].constructor===Object)?(s[l]=s[l]||{},f.extend(s[l],o,r[l])):s[l]=r[l]}return s},f.clone=function(s,a){return f.extend({},a,s)},f.keys=function(s){if(Object.keys)return Object.keys(s);var a=[];for(var i in s)a.push(i);return a},f.values=function(s){var a=[];if(Object.keys){for(var i=Object.keys(s),h=0;h<i.length;h++)a.push(s[i[h]]);return a}for(var o in s)a.push(s[o]);return a},f.get=function(s,a,i,h){a=a.split(".").slice(i,h);for(var o=0;o<a.length;o+=1)s=s[a[o]];return s},f.set=function(s,a,i,h,o){var u=a.split(".").slice(h,o);return f.get(s,a,0,-1)[u[u.length-1]]=i,i},f.shuffle=function(s){for(var a=s.length-1;a>0;a--){var i=Math.floor(f.random()*(a+1)),h=s[a];s[a]=s[i],s[i]=h}return s},f.choose=function(s){return s[Math.floor(f.random()*s.length)]},f.isElement=function(s){return typeof HTMLElement<"u"?s instanceof HTMLElement:!!(s&&s.nodeType&&s.nodeName)},f.isArray=function(s){return Object.prototype.toString.call(s)==="[object Array]"},f.isFunction=function(s){return typeof s=="function"},f.isPlainObject=function(s){return typeof s=="object"&&s.constructor===Object},f.isString=function(s){return toString.call(s)==="[object String]"},f.clamp=function(s,a,i){return s<a?a:s>i?i:s},f.sign=function(s){return s<0?-1:1},f.now=function(){if(typeof window<"u"&&window.performance){if(window.performance.now)return window.performance.now();if(window.performance.webkitNow)return window.performance.webkitNow()}return Date.now?Date.now():new Date-f._nowStartTime},f.random=function(s,a){return s=typeof s<"u"?s:0,a=typeof a<"u"?a:1,s+e()*(a-s)};var e=function(){return f._seed=(f._seed*9301+49297)%233280,f._seed/233280};f.colorToNumber=function(s){return s=s.replace("#",""),s.length==3&&(s=s.charAt(0)+s.charAt(0)+s.charAt(1)+s.charAt(1)+s.charAt(2)+s.charAt(2)),parseInt(s,16)},f.logLevel=1,f.log=function(){console&&f.logLevel>0&&f.logLevel<=3&&console.log.apply(console,["matter-js:"].concat(Array.prototype.slice.call(arguments)))},f.info=function(){console&&f.logLevel>0&&f.logLevel<=2&&console.info.apply(console,["matter-js:"].concat(Array.prototype.slice.call(arguments)))},f.warn=function(){console&&f.logLevel>0&&f.logLevel<=3&&console.warn.apply(console,["matter-js:"].concat(Array.prototype.slice.call(arguments)))},f.warnOnce=function(){var s=Array.prototype.slice.call(arguments).join(" ");f._warnedOnce[s]||(f.warn(s),f._warnedOnce[s]=!0)},f.deprecated=function(s,a,i){s[a]=f.chain(function(){f.warnOnce("\u{1F505} deprecated \u{1F505}",i)},s[a])},f.nextId=function(){return f._nextId++},f.indexOf=function(s,a){if(s.indexOf)return s.indexOf(a);for(var i=0;i<s.length;i++)if(s[i]===a)return i;return-1},f.map=function(s,a){if(s.map)return s.map(a);for(var i=[],h=0;h<s.length;h+=1)i.push(a(s[h]));return i},f.topologicalSort=function(s){var a=[],i=[],h=[];for(var o in s)!i[o]&&!h[o]&&f._topologicalSort(o,i,h,s,a);return a},f._topologicalSort=function(s,a,i,h,o){var u=h[s]||[];i[s]=!0;for(var r=0;r<u.length;r+=1){var l=u[r];i[l]||a[l]||f._topologicalSort(l,a,i,h,o)}i[s]=!1,a[s]=!0,o.push(s)},f.chain=function(){for(var s=[],a=0;a<arguments.length;a+=1){var i=arguments[a];i._chained?s.push.apply(s,i._chained):s.push(i)}var h=function(){for(var o,u=new Array(arguments.length),r=0,l=arguments.length;r<l;r++)u[r]=arguments[r];for(r=0;r<s.length;r+=1){var t=s[r].apply(o,u);typeof t<"u"&&(o=t)}return o};return h._chained=s,h},f.chainPathBefore=function(s,a,i){return f.set(s,a,f.chain(i,f.get(s,a)))},f.chainPathAfter=function(s,a,i){return f.set(s,a,f.chain(f.get(s,a),i))},f.setDecomp=function(s){f._decomp=s},f.getDecomp=function(){var s=f._decomp;try{!s&&typeof window<"u"&&(s=window.decomp),!s&&typeof global<"u"&&(s=global.decomp)}catch{s=null}return s}}()},function(w,T){var f={};w.exports=f,function(){f.create=function(e){var s={min:{x:0,y:0},max:{x:0,y:0}};return e&&f.update(s,e),s},f.update=function(e,s,a){e.min.x=1/0,e.max.x=-1/0,e.min.y=1/0,e.max.y=-1/0;for(var i=0;i<s.length;i++){var h=s[i];h.x>e.max.x&&(e.max.x=h.x),h.x<e.min.x&&(e.min.x=h.x),h.y>e.max.y&&(e.max.y=h.y),h.y<e.min.y&&(e.min.y=h.y)}a&&(a.x>0?e.max.x+=a.x:e.min.x+=a.x,a.y>0?e.max.y+=a.y:e.min.y+=a.y)},f.contains=function(e,s){return s.x>=e.min.x&&s.x<=e.max.x&&s.y>=e.min.y&&s.y<=e.max.y},f.overlaps=function(e,s){return e.min.x<=s.max.x&&e.max.x>=s.min.x&&e.max.y>=s.min.y&&e.min.y<=s.max.y},f.translate=function(e,s){e.min.x+=s.x,e.max.x+=s.x,e.min.y+=s.y,e.max.y+=s.y},f.shift=function(e,s){var a=e.max.x-e.min.x,i=e.max.y-e.min.y;e.min.x=s.x,e.max.x=s.x+a,e.min.y=s.y,e.max.y=s.y+i}}()},function(w,T){var f={};w.exports=f,function(){f.create=function(e,s){return{x:e||0,y:s||0}},f.clone=function(e){return{x:e.x,y:e.y}},f.magnitude=function(e){return Math.sqrt(e.x*e.x+e.y*e.y)},f.magnitudeSquared=function(e){return e.x*e.x+e.y*e.y},f.rotate=function(e,s,a){var i=Math.cos(s),h=Math.sin(s);a||(a={});var o=e.x*i-e.y*h;return a.y=e.x*h+e.y*i,a.x=o,a},f.rotateAbout=function(e,s,a,i){var h=Math.cos(s),o=Math.sin(s);i||(i={});var u=a.x+((e.x-a.x)*h-(e.y-a.y)*o);return i.y=a.y+((e.x-a.x)*o+(e.y-a.y)*h),i.x=u,i},f.normalise=function(e){var s=f.magnitude(e);return s===0?{x:0,y:0}:{x:e.x/s,y:e.y/s}},f.dot=function(e,s){return e.x*s.x+e.y*s.y},f.cross=function(e,s){return e.x*s.y-e.y*s.x},f.cross3=function(e,s,a){return(s.x-e.x)*(a.y-e.y)-(s.y-e.y)*(a.x-e.x)},f.add=function(e,s,a){return a||(a={}),a.x=e.x+s.x,a.y=e.y+s.y,a},f.sub=function(e,s,a){return a||(a={}),a.x=e.x-s.x,a.y=e.y-s.y,a},f.mult=function(e,s){return{x:e.x*s,y:e.y*s}},f.div=function(e,s){return{x:e.x/s,y:e.y/s}},f.perp=function(e,s){return s=s===!0?-1:1,{x:s*-e.y,y:s*e.x}},f.neg=function(e){return{x:-e.x,y:-e.y}},f.angle=function(e,s){return Math.atan2(s.y-e.y,s.x-e.x)},f._temp=[f.create(),f.create(),f.create(),f.create(),f.create(),f.create()]}()},function(w,T,f){var e={};w.exports=e;var s=f(2),a=f(0);(function(){e.create=function(i,h){for(var o=[],u=0;u<i.length;u++){var r=i[u],l={x:r.x,y:r.y,index:u,body:h,isInternal:!1};o.push(l)}return o},e.fromPath=function(i,h){var o=/L?\s*([-\d.e]+)[\s,]*([-\d.e]+)*/ig,u=[];return i.replace(o,function(r,l,t){u.push({x:parseFloat(l),y:parseFloat(t)})}),e.create(u,h)},e.centre=function(i){for(var h=e.area(i,!0),o={x:0,y:0},u,r,l,t=0;t<i.length;t++)l=(t+1)%i.length,u=s.cross(i[t],i[l]),r=s.mult(s.add(i[t],i[l]),u),o=s.add(o,r);return s.div(o,6*h)},e.mean=function(i){for(var h={x:0,y:0},o=0;o<i.length;o++)h.x+=i[o].x,h.y+=i[o].y;return s.div(h,i.length)},e.area=function(i,h){for(var o=0,u=i.length-1,r=0;r<i.length;r++)o+=(i[u].x-i[r].x)*(i[u].y+i[r].y),u=r;return h?o/2:Math.abs(o)/2},e.inertia=function(i,h){for(var o=0,u=0,r=i,l,t,n=0;n<r.length;n++)t=(n+1)%r.length,l=Math.abs(s.cross(r[t],r[n])),o+=l*(s.dot(r[t],r[t])+s.dot(r[t],r[n])+s.dot(r[n],r[n])),u+=l;return h/6*(o/u)},e.translate=function(i,h,o){o=typeof o<"u"?o:1;var u=i.length,r=h.x*o,l=h.y*o,t;for(t=0;t<u;t++)i[t].x+=r,i[t].y+=l;return i},e.rotate=function(i,h,o){if(h!==0){var u=Math.cos(h),r=Math.sin(h),l=o.x,t=o.y,n=i.length,g,c,y,C;for(C=0;C<n;C++)g=i[C],c=g.x-l,y=g.y-t,g.x=l+(c*u-y*r),g.y=t+(c*r+y*u);return i}},e.contains=function(i,h){for(var o=h.x,u=h.y,r=i.length,l=i[r-1],t,n=0;n<r;n++){if(t=i[n],(o-l.x)*(t.y-l.y)+(u-l.y)*(l.x-t.x)>0)return!1;l=t}return!0},e.scale=function(i,h,o,u){if(h===1&&o===1)return i;u=u||e.centre(i);for(var r,l,t=0;t<i.length;t++)r=i[t],l=s.sub(r,u),i[t].x=u.x+l.x*h,i[t].y=u.y+l.y*o;return i},e.chamfer=function(i,h,o,u,r){typeof h=="number"?h=[h]:h=h||[8],o=typeof o<"u"?o:-1,u=u||2,r=r||14;for(var l=[],t=0;t<i.length;t++){var n=i[t-1>=0?t-1:i.length-1],g=i[t],c=i[(t+1)%i.length],y=h[t<h.length?t:h.length-1];if(y===0){l.push(g);continue}var C=s.normalise({x:g.y-n.y,y:n.x-g.x}),v=s.normalise({x:c.y-g.y,y:g.x-c.x}),m=Math.sqrt(2*Math.pow(y,2)),d=s.mult(a.clone(C),y),p=s.normalise(s.mult(s.add(C,v),.5)),S=s.sub(g,s.mult(p,m)),I=o;o===-1&&(I=Math.pow(y,.32)*1.75),I=a.clamp(I,u,r),I%2===1&&(I+=1);for(var x=Math.acos(s.dot(C,v)),M=x/I,P=0;P<I;P++)l.push(s.add(s.rotate(d,M*P),S))}return l},e.clockwiseSort=function(i){var h=e.mean(i);return i.sort(function(o,u){return s.angle(h,o)-s.angle(h,u)}),i},e.isConvex=function(i){var h=0,o=i.length,u,r,l,t;if(o<3)return null;for(u=0;u<o;u++)if(r=(u+1)%o,l=(u+2)%o,t=(i[r].x-i[u].x)*(i[l].y-i[r].y),t-=(i[r].y-i[u].y)*(i[l].x-i[r].x),t<0?h|=1:t>0&&(h|=2),h===3)return!1;return h!==0?!0:null},e.hull=function(i){var h=[],o=[],u,r;for(i=i.slice(0),i.sort(function(l,t){var n=l.x-t.x;return n!==0?n:l.y-t.y}),r=0;r<i.length;r+=1){for(u=i[r];o.length>=2&&s.cross3(o[o.length-2],o[o.length-1],u)<=0;)o.pop();o.push(u)}for(r=i.length-1;r>=0;r-=1){for(u=i[r];h.length>=2&&s.cross3(h[h.length-2],h[h.length-1],u)<=0;)h.pop();h.push(u)}return h.pop(),o.pop(),h.concat(o)}})()},function(w,T,f){var e={};w.exports=e;var s=f(0);(function(){e.on=function(a,i,h){for(var o=i.split(" "),u,r=0;r<o.length;r++)u=o[r],a.events=a.events||{},a.events[u]=a.events[u]||[],a.events[u].push(h);return h},e.off=function(a,i,h){if(!i){a.events={};return}typeof i=="function"&&(h=i,i=s.keys(a.events).join(" "));for(var o=i.split(" "),u=0;u<o.length;u++){var r=a.events[o[u]],l=[];if(h&&r)for(var t=0;t<r.length;t++)r[t]!==h&&l.push(r[t]);a.events[o[u]]=l}},e.trigger=function(a,i,h){var o,u,r,l,t=a.events;if(t&&s.keys(t).length>0){h||(h={}),o=i.split(" ");for(var n=0;n<o.length;n++)if(u=o[n],r=t[u],r){l=s.clone(h,!1),l.name=u,l.source=a;for(var g=0;g<r.length;g++)r[g].apply(a,[l])}}}})()},function(w,T,f){var e={};w.exports=e;var s=f(4),a=f(0),i=f(1),h=f(6);(function(){e.create=function(o){return a.extend({id:a.nextId(),type:"composite",parent:null,isModified:!1,bodies:[],constraints:[],composites:[],label:"Composite",plugin:{},cache:{allBodies:null,allConstraints:null,allComposites:null}},o)},e.setModified=function(o,u,r,l){if(o.isModified=u,u&&o.cache&&(o.cache.allBodies=null,o.cache.allConstraints=null,o.cache.allComposites=null),r&&o.parent&&e.setModified(o.parent,u,r,l),l)for(var t=0;t<o.composites.length;t++){var n=o.composites[t];e.setModified(n,u,r,l)}},e.add=function(o,u){var r=[].concat(u);s.trigger(o,"beforeAdd",{object:u});for(var l=0;l<r.length;l++){var t=r[l];switch(t.type){case"body":if(t.parent!==t){a.warn("Composite.add: skipped adding a compound body part (you must add its parent instead)");break}e.addBody(o,t);break;case"constraint":e.addConstraint(o,t);break;case"composite":e.addComposite(o,t);break;case"mouseConstraint":e.addConstraint(o,t.constraint);break}}return s.trigger(o,"afterAdd",{object:u}),o},e.remove=function(o,u,r){var l=[].concat(u);s.trigger(o,"beforeRemove",{object:u});for(var t=0;t<l.length;t++){var n=l[t];switch(n.type){case"body":e.removeBody(o,n,r);break;case"constraint":e.removeConstraint(o,n,r);break;case"composite":e.removeComposite(o,n,r);break;case"mouseConstraint":e.removeConstraint(o,n.constraint);break}}return s.trigger(o,"afterRemove",{object:u}),o},e.addComposite=function(o,u){return o.composites.push(u),u.parent=o,e.setModified(o,!0,!0,!1),o},e.removeComposite=function(o,u,r){var l=a.indexOf(o.composites,u);if(l!==-1&&e.removeCompositeAt(o,l),r)for(var t=0;t<o.composites.length;t++)e.removeComposite(o.composites[t],u,!0);return o},e.removeCompositeAt=function(o,u){return o.composites.splice(u,1),e.setModified(o,!0,!0,!1),o},e.addBody=function(o,u){return o.bodies.push(u),e.setModified(o,!0,!0,!1),o},e.removeBody=function(o,u,r){var l=a.indexOf(o.bodies,u);if(l!==-1&&e.removeBodyAt(o,l),r)for(var t=0;t<o.composites.length;t++)e.removeBody(o.composites[t],u,!0);return o},e.removeBodyAt=function(o,u){return o.bodies.splice(u,1),e.setModified(o,!0,!0,!1),o},e.addConstraint=function(o,u){return o.constraints.push(u),e.setModified(o,!0,!0,!1),o},e.removeConstraint=function(o,u,r){var l=a.indexOf(o.constraints,u);if(l!==-1&&e.removeConstraintAt(o,l),r)for(var t=0;t<o.composites.length;t++)e.removeConstraint(o.composites[t],u,!0);return o},e.removeConstraintAt=function(o,u){return o.constraints.splice(u,1),e.setModified(o,!0,!0,!1),o},e.clear=function(o,u,r){if(r)for(var l=0;l<o.composites.length;l++)e.clear(o.composites[l],u,!0);return u?o.bodies=o.bodies.filter(function(t){return t.isStatic}):o.bodies.length=0,o.constraints.length=0,o.composites.length=0,e.setModified(o,!0,!0,!1),o},e.allBodies=function(o){if(o.cache&&o.cache.allBodies)return o.cache.allBodies;for(var u=[].concat(o.bodies),r=0;r<o.composites.length;r++)u=u.concat(e.allBodies(o.composites[r]));return o.cache&&(o.cache.allBodies=u),u},e.allConstraints=function(o){if(o.cache&&o.cache.allConstraints)return o.cache.allConstraints;for(var u=[].concat(o.constraints),r=0;r<o.composites.length;r++)u=u.concat(e.allConstraints(o.composites[r]));return o.cache&&(o.cache.allConstraints=u),u},e.allComposites=function(o){if(o.cache&&o.cache.allComposites)return o.cache.allComposites;for(var u=[].concat(o.composites),r=0;r<o.composites.length;r++)u=u.concat(e.allComposites(o.composites[r]));return o.cache&&(o.cache.allComposites=u),u},e.get=function(o,u,r){var l,t;switch(r){case"body":l=e.allBodies(o);break;case"constraint":l=e.allConstraints(o);break;case"composite":l=e.allComposites(o).concat(o);break}return l?(t=l.filter(function(n){return n.id.toString()===u.toString()}),t.length===0?null:t[0]):null},e.move=function(o,u,r){return e.remove(o,u),e.add(r,u),o},e.rebase=function(o){for(var u=e.allBodies(o).concat(e.allConstraints(o)).concat(e.allComposites(o)),r=0;r<u.length;r++)u[r].id=a.nextId();return o},e.translate=function(o,u,r){for(var l=r?e.allBodies(o):o.bodies,t=0;t<l.length;t++)h.translate(l[t],u);return o},e.rotate=function(o,u,r,l){for(var t=Math.cos(u),n=Math.sin(u),g=l?e.allBodies(o):o.bodies,c=0;c<g.length;c++){var y=g[c],C=y.position.x-r.x,v=y.position.y-r.y;h.setPosition(y,{x:r.x+(C*t-v*n),y:r.y+(C*n+v*t)}),h.rotate(y,u)}return o},e.scale=function(o,u,r,l,t){for(var n=t?e.allBodies(o):o.bodies,g=0;g<n.length;g++){var c=n[g],y=c.position.x-l.x,C=c.position.y-l.y;h.setPosition(c,{x:l.x+y*u,y:l.y+C*r}),h.scale(c,u,r)}return o},e.bounds=function(o){for(var u=e.allBodies(o),r=[],l=0;l<u.length;l+=1){var t=u[l];r.push(t.bounds.min,t.bounds.max)}return i.create(r)}})()},function(w,T,f){var e={};w.exports=e;var s=f(3),a=f(2),i=f(7),h=f(16),o=f(0),u=f(1),r=f(11);(function(){e._inertiaScale=4,e._nextCollidingGroupId=1,e._nextNonCollidingGroupId=-1,e._nextCategory=1,e.create=function(t){var n={id:o.nextId(),type:"body",label:"Body",parts:[],plugin:{},angle:0,vertices:s.fromPath("L 0 0 L 40 0 L 40 40 L 0 40"),position:{x:0,y:0},force:{x:0,y:0},torque:0,positionImpulse:{x:0,y:0},constraintImpulse:{x:0,y:0,angle:0},totalContacts:0,speed:0,angularSpeed:0,velocity:{x:0,y:0},angularVelocity:0,isSensor:!1,isStatic:!1,isSleeping:!1,motion:0,sleepThreshold:60,density:.001,restitution:0,friction:.1,frictionStatic:.5,frictionAir:.01,collisionFilter:{category:1,mask:4294967295,group:0},slop:.05,timeScale:1,render:{visible:!0,opacity:1,strokeStyle:null,fillStyle:null,lineWidth:null,sprite:{xScale:1,yScale:1,xOffset:0,yOffset:0}},events:null,bounds:null,chamfer:null,circleRadius:0,positionPrev:null,anglePrev:0,parent:null,axes:null,area:0,mass:0,inertia:0,_original:null},g=o.extend(n,t);return l(g,t),g},e.nextGroup=function(t){return t?e._nextNonCollidingGroupId--:e._nextCollidingGroupId++},e.nextCategory=function(){return e._nextCategory=e._nextCategory<<1,e._nextCategory};var l=function(t,n){n=n||{},e.set(t,{bounds:t.bounds||u.create(t.vertices),positionPrev:t.positionPrev||a.clone(t.position),anglePrev:t.anglePrev||t.angle,vertices:t.vertices,parts:t.parts||[t],isStatic:t.isStatic,isSleeping:t.isSleeping,parent:t.parent||t}),s.rotate(t.vertices,t.angle,t.position),r.rotate(t.axes,t.angle),u.update(t.bounds,t.vertices,t.velocity),e.set(t,{axes:n.axes||t.axes,area:n.area||t.area,mass:n.mass||t.mass,inertia:n.inertia||t.inertia});var g=t.isStatic?"#14151f":o.choose(["#f19648","#f5d259","#f55a3c","#063e7b","#ececd1"]),c=t.isStatic?"#555":"#ccc",y=t.isStatic&&t.render.fillStyle===null?1:0;t.render.fillStyle=t.render.fillStyle||g,t.render.strokeStyle=t.render.strokeStyle||c,t.render.lineWidth=t.render.lineWidth||y,t.render.sprite.xOffset+=-(t.bounds.min.x-t.position.x)/(t.bounds.max.x-t.bounds.min.x),t.render.sprite.yOffset+=-(t.bounds.min.y-t.position.y)/(t.bounds.max.y-t.bounds.min.y)};e.set=function(t,n,g){var c;typeof n=="string"&&(c=n,n={},n[c]=g);for(c in n)if(!!Object.prototype.hasOwnProperty.call(n,c))switch(g=n[c],c){case"isStatic":e.setStatic(t,g);break;case"isSleeping":i.set(t,g);break;case"mass":e.setMass(t,g);break;case"density":e.setDensity(t,g);break;case"inertia":e.setInertia(t,g);break;case"vertices":e.setVertices(t,g);break;case"position":e.setPosition(t,g);break;case"angle":e.setAngle(t,g);break;case"velocity":e.setVelocity(t,g);break;case"angularVelocity":e.setAngularVelocity(t,g);break;case"parts":e.setParts(t,g);break;case"centre":e.setCentre(t,g);break;default:t[c]=g}},e.setStatic=function(t,n){for(var g=0;g<t.parts.length;g++){var c=t.parts[g];c.isStatic=n,n?(c._original={restitution:c.restitution,friction:c.friction,mass:c.mass,inertia:c.inertia,density:c.density,inverseMass:c.inverseMass,inverseInertia:c.inverseInertia},c.restitution=0,c.friction=1,c.mass=c.inertia=c.density=1/0,c.inverseMass=c.inverseInertia=0,c.positionPrev.x=c.position.x,c.positionPrev.y=c.position.y,c.anglePrev=c.angle,c.angularVelocity=0,c.speed=0,c.angularSpeed=0,c.motion=0):c._original&&(c.restitution=c._original.restitution,c.friction=c._original.friction,c.mass=c._original.mass,c.inertia=c._original.inertia,c.density=c._original.density,c.inverseMass=c._original.inverseMass,c.inverseInertia=c._original.inverseInertia,c._original=null)}},e.setMass=function(t,n){var g=t.inertia/(t.mass/6);t.inertia=g*(n/6),t.inverseInertia=1/t.inertia,t.mass=n,t.inverseMass=1/t.mass,t.density=t.mass/t.area},e.setDensity=function(t,n){e.setMass(t,n*t.area),t.density=n},e.setInertia=function(t,n){t.inertia=n,t.inverseInertia=1/t.inertia},e.setVertices=function(t,n){n[0].body===t?t.vertices=n:t.vertices=s.create(n,t),t.axes=r.fromVertices(t.vertices),t.area=s.area(t.vertices),e.setMass(t,t.density*t.area);var g=s.centre(t.vertices);s.translate(t.vertices,g,-1),e.setInertia(t,e._inertiaScale*s.inertia(t.vertices,t.mass)),s.translate(t.vertices,t.position),u.update(t.bounds,t.vertices,t.velocity)},e.setParts=function(t,n,g){var c;for(n=n.slice(0),t.parts.length=0,t.parts.push(t),t.parent=t,c=0;c<n.length;c++){var y=n[c];y!==t&&(y.parent=t,t.parts.push(y))}if(t.parts.length!==1){if(g=typeof g<"u"?g:!0,g){var C=[];for(c=0;c<n.length;c++)C=C.concat(n[c].vertices);s.clockwiseSort(C);var v=s.hull(C),m=s.centre(v);e.setVertices(t,v),s.translate(t.vertices,m)}var d=e._totalProperties(t);t.area=d.area,t.parent=t,t.position.x=d.centre.x,t.position.y=d.centre.y,t.positionPrev.x=d.centre.x,t.positionPrev.y=d.centre.y,e.setMass(t,d.mass),e.setInertia(t,d.inertia),e.setPosition(t,d.centre)}},e.setCentre=function(t,n,g){g?(t.positionPrev.x+=n.x,t.positionPrev.y+=n.y,t.position.x+=n.x,t.position.y+=n.y):(t.positionPrev.x=n.x-(t.position.x-t.positionPrev.x),t.positionPrev.y=n.y-(t.position.y-t.positionPrev.y),t.position.x=n.x,t.position.y=n.y)},e.setPosition=function(t,n){var g=a.sub(n,t.position);t.positionPrev.x+=g.x,t.positionPrev.y+=g.y;for(var c=0;c<t.parts.length;c++){var y=t.parts[c];y.position.x+=g.x,y.position.y+=g.y,s.translate(y.vertices,g),u.update(y.bounds,y.vertices,t.velocity)}},e.setAngle=function(t,n){var g=n-t.angle;t.anglePrev+=g;for(var c=0;c<t.parts.length;c++){var y=t.parts[c];y.angle+=g,s.rotate(y.vertices,g,t.position),r.rotate(y.axes,g),u.update(y.bounds,y.vertices,t.velocity),c>0&&a.rotateAbout(y.position,g,t.position,y.position)}},e.setVelocity=function(t,n){t.positionPrev.x=t.position.x-n.x,t.positionPrev.y=t.position.y-n.y,t.velocity.x=n.x,t.velocity.y=n.y,t.speed=a.magnitude(t.velocity)},e.setAngularVelocity=function(t,n){t.anglePrev=t.angle-n,t.angularVelocity=n,t.angularSpeed=Math.abs(t.angularVelocity)},e.translate=function(t,n){e.setPosition(t,a.add(t.position,n))},e.rotate=function(t,n,g){if(!g)e.setAngle(t,t.angle+n);else{var c=Math.cos(n),y=Math.sin(n),C=t.position.x-g.x,v=t.position.y-g.y;e.setPosition(t,{x:g.x+(C*c-v*y),y:g.y+(C*y+v*c)}),e.setAngle(t,t.angle+n)}},e.scale=function(t,n,g,c){var y=0,C=0;c=c||t.position;for(var v=0;v<t.parts.length;v++){var m=t.parts[v];s.scale(m.vertices,n,g,c),m.axes=r.fromVertices(m.vertices),m.area=s.area(m.vertices),e.setMass(m,t.density*m.area),s.translate(m.vertices,{x:-m.position.x,y:-m.position.y}),e.setInertia(m,e._inertiaScale*s.inertia(m.vertices,m.mass)),s.translate(m.vertices,{x:m.position.x,y:m.position.y}),v>0&&(y+=m.area,C+=m.inertia),m.position.x=c.x+(m.position.x-c.x)*n,m.position.y=c.y+(m.position.y-c.y)*g,u.update(m.bounds,m.vertices,t.velocity)}t.parts.length>1&&(t.area=y,t.isStatic||(e.setMass(t,t.density*y),e.setInertia(t,C))),t.circleRadius&&(n===g?t.circleRadius*=n:t.circleRadius=null)},e.update=function(t,n,g,c){var y=Math.pow(n*g*t.timeScale,2),C=1-t.frictionAir*g*t.timeScale,v=t.position.x-t.positionPrev.x,m=t.position.y-t.positionPrev.y;t.velocity.x=v*C*c+t.force.x/t.mass*y,t.velocity.y=m*C*c+t.force.y/t.mass*y,t.positionPrev.x=t.position.x,t.positionPrev.y=t.position.y,t.position.x+=t.velocity.x,t.position.y+=t.velocity.y,t.angularVelocity=(t.angle-t.anglePrev)*C*c+t.torque/t.inertia*y,t.anglePrev=t.angle,t.angle+=t.angularVelocity,t.speed=a.magnitude(t.velocity),t.angularSpeed=Math.abs(t.angularVelocity);for(var d=0;d<t.parts.length;d++){var p=t.parts[d];s.translate(p.vertices,t.velocity),d>0&&(p.position.x+=t.velocity.x,p.position.y+=t.velocity.y),t.angularVelocity!==0&&(s.rotate(p.vertices,t.angularVelocity,t.position),r.rotate(p.axes,t.angularVelocity),d>0&&a.rotateAbout(p.position,t.angularVelocity,t.position,p.position)),u.update(p.bounds,p.vertices,t.velocity)}},e.applyForce=function(t,n,g){t.force.x+=g.x,t.force.y+=g.y;var c={x:n.x-t.position.x,y:n.y-t.position.y};t.torque+=c.x*g.y-c.y*g.x},e._totalProperties=function(t){for(var n={mass:0,area:0,inertia:0,centre:{x:0,y:0}},g=t.parts.length===1?0:1;g<t.parts.length;g++){var c=t.parts[g],y=c.mass!==1/0?c.mass:1;n.mass+=y,n.area+=c.area,n.inertia+=c.inertia,n.centre=a.add(n.centre,a.mult(c.position,y))}return n.centre=a.div(n.centre,n.mass),n}})()},function(w,T,f){var e={};w.exports=e;var s=f(4);(function(){e._motionWakeThreshold=.18,e._motionSleepThreshold=.08,e._minBias=.9,e.update=function(a,i){for(var h=i*i*i,o=0;o<a.length;o++){var u=a[o],r=u.speed*u.speed+u.angularSpeed*u.angularSpeed;if(u.force.x!==0||u.force.y!==0){e.set(u,!1);continue}var l=Math.min(u.motion,r),t=Math.max(u.motion,r);u.motion=e._minBias*l+(1-e._minBias)*t,u.sleepThreshold>0&&u.motion<e._motionSleepThreshold*h?(u.sleepCounter+=1,u.sleepCounter>=u.sleepThreshold&&e.set(u,!0)):u.sleepCounter>0&&(u.sleepCounter-=1)}},e.afterCollisions=function(a,i){for(var h=i*i*i,o=0;o<a.length;o++){var u=a[o];if(!!u.isActive){var r=u.collision,l=r.bodyA.parent,t=r.bodyB.parent;if(!(l.isSleeping&&t.isSleeping||l.isStatic||t.isStatic)&&(l.isSleeping||t.isSleeping)){var n=l.isSleeping&&!l.isStatic?l:t,g=n===l?t:l;!n.isStatic&&g.motion>e._motionWakeThreshold*h&&e.set(n,!1)}}}},e.set=function(a,i){var h=a.isSleeping;i?(a.isSleeping=!0,a.sleepCounter=a.sleepThreshold,a.positionImpulse.x=0,a.positionImpulse.y=0,a.positionPrev.x=a.position.x,a.positionPrev.y=a.position.y,a.anglePrev=a.angle,a.speed=0,a.angularSpeed=0,a.motion=0,h||s.trigger(a,"sleepStart")):(a.isSleeping=!1,a.sleepCounter=0,h&&s.trigger(a,"sleepEnd"))}})()},function(w,T,f){var e={};w.exports=e;var s=f(3),a=f(9);(function(){var i=[],h={overlap:0,axis:null},o={overlap:0,axis:null};e.create=function(u,r){return{pair:null,collided:!1,bodyA:u,bodyB:r,parentA:u.parent,parentB:r.parent,depth:0,normal:{x:0,y:0},tangent:{x:0,y:0},penetration:{x:0,y:0},supports:[]}},e.collides=function(u,r,l){if(e._overlapAxes(h,u.vertices,r.vertices,u.axes),h.overlap<=0||(e._overlapAxes(o,r.vertices,u.vertices,r.axes),o.overlap<=0))return null;var t=l&&l.table[a.id(u,r)],n;t?n=t.collision:(n=e.create(u,r),n.collided=!0,n.bodyA=u.id<r.id?u:r,n.bodyB=u.id<r.id?r:u,n.parentA=n.bodyA.parent,n.parentB=n.bodyB.parent),u=n.bodyA,r=n.bodyB;var g;h.overlap<o.overlap?g=h:g=o;var c=n.normal,y=n.supports,C=g.axis,v=C.x,m=C.y;v*(r.position.x-u.position.x)+m*(r.position.y-u.position.y)<0?(c.x=v,c.y=m):(c.x=-v,c.y=-m),n.tangent.x=-c.y,n.tangent.y=c.x,n.depth=g.overlap,n.penetration.x=c.x*n.depth,n.penetration.y=c.y*n.depth;var d=e._findSupports(u,r,c,1),p=0;if(s.contains(u.vertices,d[0])&&(y[p++]=d[0]),s.contains(u.vertices,d[1])&&(y[p++]=d[1]),p<2){var S=e._findSupports(r,u,c,-1);s.contains(r.vertices,S[0])&&(y[p++]=S[0]),p<2&&s.contains(r.vertices,S[1])&&(y[p++]=S[1])}return p===0&&(y[p++]=d[0]),y.length=p,n},e._overlapAxes=function(u,r,l,t){var n=r.length,g=l.length,c=r[0].x,y=r[0].y,C=l[0].x,v=l[0].y,m=t.length,d=Number.MAX_VALUE,p=0,S,I,x,M,P,A;for(P=0;P<m;P++){var E=t[P],L=E.x,R=E.y,B=c*L+y*R,O=C*L+v*R,F=B,D=O;for(A=1;A<n;A+=1)M=r[A].x*L+r[A].y*R,M>F?F=M:M<B&&(B=M);for(A=1;A<g;A+=1)M=l[A].x*L+l[A].y*R,M>D?D=M:M<O&&(O=M);if(I=F-O,x=D-B,S=I<x?I:x,S<d&&(d=S,p=P,S<=0))break}u.axis=t[p],u.overlap=d},e._projectToAxis=function(u,r,l){for(var t=r[0].x*l.x+r[0].y*l.y,n=t,g=1;g<r.length;g+=1){var c=r[g].x*l.x+r[g].y*l.y;c>n?n=c:c<t&&(t=c)}u.min=t,u.max=n},e._findSupports=function(u,r,l,t){var n=r.vertices,g=n.length,c=u.position.x,y=u.position.y,C=l.x*t,v=l.y*t,m=Number.MAX_VALUE,d,p,S,I,x;for(x=0;x<g;x+=1)p=n[x],I=C*(c-p.x)+v*(y-p.y),I<m&&(m=I,d=p);return S=n[(g+d.index-1)%g],m=C*(c-S.x)+v*(y-S.y),p=n[(d.index+1)%g],C*(c-p.x)+v*(y-p.y)<m?(i[0]=d,i[1]=p,i):(i[0]=d,i[1]=S,i)}})()},function(w,T,f){var e={};w.exports=e;var s=f(17);(function(){e.create=function(a,i){var h=a.bodyA,o=a.bodyB,u={id:e.id(h,o),bodyA:h,bodyB:o,collision:a,contacts:[],activeContacts:[],separation:0,isActive:!0,confirmedActive:!0,isSensor:h.isSensor||o.isSensor,timeCreated:i,timeUpdated:i,inverseMass:0,friction:0,frictionStatic:0,restitution:0,slop:0};return e.update(u,a,i),u},e.update=function(a,i,h){var o=a.contacts,u=i.supports,r=a.activeContacts,l=i.parentA,t=i.parentB,n=l.vertices.length;a.isActive=!0,a.timeUpdated=h,a.collision=i,a.separation=i.depth,a.inverseMass=l.inverseMass+t.inverseMass,a.friction=l.friction<t.friction?l.friction:t.friction,a.frictionStatic=l.frictionStatic>t.frictionStatic?l.frictionStatic:t.frictionStatic,a.restitution=l.restitution>t.restitution?l.restitution:t.restitution,a.slop=l.slop>t.slop?l.slop:t.slop,i.pair=a,r.length=0;for(var g=0;g<u.length;g++){var c=u[g],y=c.body===l?c.index:n+c.index,C=o[y];C?r.push(C):r.push(o[y]=s.create(c))}},e.setActive=function(a,i,h){i?(a.isActive=!0,a.timeUpdated=h):(a.isActive=!1,a.activeContacts.length=0)},e.id=function(a,i){return a.id<i.id?"A"+a.id+"B"+i.id:"A"+i.id+"B"+a.id}})()},function(w,T,f){var e={};w.exports=e;var s=f(3),a=f(2),i=f(7),h=f(1),o=f(11),u=f(0);(function(){e._warming=.4,e._torqueDampen=1,e._minLength=1e-6,e.create=function(r){var l=r;l.bodyA&&!l.pointA&&(l.pointA={x:0,y:0}),l.bodyB&&!l.pointB&&(l.pointB={x:0,y:0});var t=l.bodyA?a.add(l.bodyA.position,l.pointA):l.pointA,n=l.bodyB?a.add(l.bodyB.position,l.pointB):l.pointB,g=a.magnitude(a.sub(t,n));l.length=typeof l.length<"u"?l.length:g,l.id=l.id||u.nextId(),l.label=l.label||"Constraint",l.type="constraint",l.stiffness=l.stiffness||(l.length>0?1:.7),l.damping=l.damping||0,l.angularStiffness=l.angularStiffness||0,l.angleA=l.bodyA?l.bodyA.angle:l.angleA,l.angleB=l.bodyB?l.bodyB.angle:l.angleB,l.plugin={};var c={visible:!0,lineWidth:2,strokeStyle:"#ffffff",type:"line",anchors:!0};return l.length===0&&l.stiffness>.1?(c.type="pin",c.anchors=!1):l.stiffness<.9&&(c.type="spring"),l.render=u.extend(c,l.render),l},e.preSolveAll=function(r){for(var l=0;l<r.length;l+=1){var t=r[l],n=t.constraintImpulse;t.isStatic||n.x===0&&n.y===0&&n.angle===0||(t.position.x+=n.x,t.position.y+=n.y,t.angle+=n.angle)}},e.solveAll=function(r,l){for(var t=0;t<r.length;t+=1){var n=r[t],g=!n.bodyA||n.bodyA&&n.bodyA.isStatic,c=!n.bodyB||n.bodyB&&n.bodyB.isStatic;(g||c)&&e.solve(r[t],l)}for(t=0;t<r.length;t+=1)n=r[t],g=!n.bodyA||n.bodyA&&n.bodyA.isStatic,c=!n.bodyB||n.bodyB&&n.bodyB.isStatic,!g&&!c&&e.solve(r[t],l)},e.solve=function(r,l){var t=r.bodyA,n=r.bodyB,g=r.pointA,c=r.pointB;if(!(!t&&!n)){t&&!t.isStatic&&(a.rotate(g,t.angle-r.angleA,g),r.angleA=t.angle),n&&!n.isStatic&&(a.rotate(c,n.angle-r.angleB,c),r.angleB=n.angle);var y=g,C=c;if(t&&(y=a.add(t.position,g)),n&&(C=a.add(n.position,c)),!(!y||!C)){var v=a.sub(y,C),m=a.magnitude(v);m<e._minLength&&(m=e._minLength);var d=(m-r.length)/m,p=r.stiffness<1?r.stiffness*l:r.stiffness,S=a.mult(v,d*p),I=(t?t.inverseMass:0)+(n?n.inverseMass:0),x=(t?t.inverseInertia:0)+(n?n.inverseInertia:0),M=I+x,P,A,E,L,R;if(r.damping){var B=a.create();E=a.div(v,m),R=a.sub(n&&a.sub(n.position,n.positionPrev)||B,t&&a.sub(t.position,t.positionPrev)||B),L=a.dot(E,R)}t&&!t.isStatic&&(A=t.inverseMass/I,t.constraintImpulse.x-=S.x*A,t.constraintImpulse.y-=S.y*A,t.position.x-=S.x*A,t.position.y-=S.y*A,r.damping&&(t.positionPrev.x-=r.damping*E.x*L*A,t.positionPrev.y-=r.damping*E.y*L*A),P=a.cross(g,S)/M*e._torqueDampen*t.inverseInertia*(1-r.angularStiffness),t.constraintImpulse.angle-=P,t.angle-=P),n&&!n.isStatic&&(A=n.inverseMass/I,n.constraintImpulse.x+=S.x*A,n.constraintImpulse.y+=S.y*A,n.position.x+=S.x*A,n.position.y+=S.y*A,r.damping&&(n.positionPrev.x+=r.damping*E.x*L*A,n.positionPrev.y+=r.damping*E.y*L*A),P=a.cross(c,S)/M*e._torqueDampen*n.inverseInertia*(1-r.angularStiffness),n.constraintImpulse.angle+=P,n.angle+=P)}}},e.postSolveAll=function(r){for(var l=0;l<r.length;l++){var t=r[l],n=t.constraintImpulse;if(!(t.isStatic||n.x===0&&n.y===0&&n.angle===0)){i.set(t,!1);for(var g=0;g<t.parts.length;g++){var c=t.parts[g];s.translate(c.vertices,n),g>0&&(c.position.x+=n.x,c.position.y+=n.y),n.angle!==0&&(s.rotate(c.vertices,n.angle,t.position),o.rotate(c.axes,n.angle),g>0&&a.rotateAbout(c.position,n.angle,t.position,c.position)),h.update(c.bounds,c.vertices,t.velocity)}n.angle*=e._warming,n.x*=e._warming,n.y*=e._warming}}},e.pointAWorld=function(r){return{x:(r.bodyA?r.bodyA.position.x:0)+r.pointA.x,y:(r.bodyA?r.bodyA.position.y:0)+r.pointA.y}},e.pointBWorld=function(r){return{x:(r.bodyB?r.bodyB.position.x:0)+r.pointB.x,y:(r.bodyB?r.bodyB.position.y:0)+r.pointB.y}}})()},function(w,T,f){var e={};w.exports=e;var s=f(2),a=f(0);(function(){e.fromVertices=function(i){for(var h={},o=0;o<i.length;o++){var u=(o+1)%i.length,r=s.normalise({x:i[u].y-i[o].y,y:i[o].x-i[u].x}),l=r.y===0?1/0:r.x/r.y;l=l.toFixed(3).toString(),h[l]=r}return a.values(h)},e.rotate=function(i,h){if(h!==0)for(var o=Math.cos(h),u=Math.sin(h),r=0;r<i.length;r++){var l=i[r],t;t=l.x*o-l.y*u,l.y=l.x*u+l.y*o,l.x=t}}})()},function(w,T,f){var e={};w.exports=e;var s=f(3),a=f(0),i=f(6),h=f(1),o=f(2);(function(){e.rectangle=function(u,r,l,t,n){n=n||{};var g={label:"Rectangle Body",position:{x:u,y:r},vertices:s.fromPath("L 0 0 L "+l+" 0 L "+l+" "+t+" L 0 "+t)};if(n.chamfer){var c=n.chamfer;g.vertices=s.chamfer(g.vertices,c.radius,c.quality,c.qualityMin,c.qualityMax),delete n.chamfer}return i.create(a.extend({},g,n))},e.trapezoid=function(u,r,l,t,n,g){g=g||{},n*=.5;var c=(1-n*2)*l,y=l*n,C=y+c,v=C+y,m;n<.5?m="L 0 0 L "+y+" "+-t+" L "+C+" "+-t+" L "+v+" 0":m="L 0 0 L "+C+" "+-t+" L "+v+" 0";var d={label:"Trapezoid Body",position:{x:u,y:r},vertices:s.fromPath(m)};if(g.chamfer){var p=g.chamfer;d.vertices=s.chamfer(d.vertices,p.radius,p.quality,p.qualityMin,p.qualityMax),delete g.chamfer}return i.create(a.extend({},d,g))},e.circle=function(u,r,l,t,n){t=t||{};var g={label:"Circle Body",circleRadius:l};n=n||25;var c=Math.ceil(Math.max(10,Math.min(n,l)));return c%2===1&&(c+=1),e.polygon(u,r,c,l,a.extend({},g,t))},e.polygon=function(u,r,l,t,n){if(n=n||{},l<3)return e.circle(u,r,t,n);for(var g=2*Math.PI/l,c="",y=g*.5,C=0;C<l;C+=1){var v=y+C*g,m=Math.cos(v)*t,d=Math.sin(v)*t;c+="L "+m.toFixed(3)+" "+d.toFixed(3)+" "}var p={label:"Polygon Body",position:{x:u,y:r},vertices:s.fromPath(c)};if(n.chamfer){var S=n.chamfer;p.vertices=s.chamfer(p.vertices,S.radius,S.quality,S.qualityMin,S.qualityMax),delete n.chamfer}return i.create(a.extend({},p,n))},e.fromVertices=function(u,r,l,t,n,g,c,y){var C=a.getDecomp(),v,m,d,p,S,I,x,M,P,A,E;for(v=Boolean(C&&C.quickDecomp),t=t||{},d=[],n=typeof n<"u"?n:!1,g=typeof g<"u"?g:.01,c=typeof c<"u"?c:10,y=typeof y<"u"?y:.01,a.isArray(l[0])||(l=[l]),A=0;A<l.length;A+=1)if(I=l[A],p=s.isConvex(I),S=!p,S&&!v&&a.warnOnce("Bodies.fromVertices: Install the 'poly-decomp' library and use Common.setDecomp or provide 'decomp' as a global to decompose concave vertices."),p||!v)p?I=s.clockwiseSort(I):I=s.hull(I),d.push({position:{x:u,y:r},vertices:I});else{var L=I.map(function(b){return[b.x,b.y]});C.makeCCW(L),g!==!1&&C.removeCollinearPoints(L,g),y!==!1&&C.removeDuplicatePoints&&C.removeDuplicatePoints(L,y);var R=C.quickDecomp(L);for(x=0;x<R.length;x++){var B=R[x],O=B.map(function(b){return{x:b[0],y:b[1]}});c>0&&s.area(O)<c||d.push({position:s.centre(O),vertices:O})}}for(x=0;x<d.length;x++)d[x]=i.create(a.extend(d[x],t));if(n){var F=5;for(x=0;x<d.length;x++){var D=d[x];for(M=x+1;M<d.length;M++){var W=d[M];if(h.overlaps(D.bounds,W.bounds)){var H=D.vertices,N=W.vertices;for(P=0;P<D.vertices.length;P++)for(E=0;E<W.vertices.length;E++){var U=o.magnitudeSquared(o.sub(H[(P+1)%H.length],N[E])),V=o.magnitudeSquared(o.sub(H[P],N[(E+1)%N.length]));U<F&&V<F&&(H[P].isInternal=!0,N[E].isInternal=!0)}}}}}return d.length>1?(m=i.create(a.extend({parts:d.slice(0)},t)),i.setPosition(m,{x:u,y:r}),m):d[0]}})()},function(w,T,f){var e={};w.exports=e;var s=f(0);(function(){e.create=function(a){var i={};return a||s.log("Mouse.create: element was undefined, defaulting to document.body","warn"),i.element=a||document.body,i.absolute={x:0,y:0},i.position={x:0,y:0},i.mousedownPosition={x:0,y:0},i.mouseupPosition={x:0,y:0},i.offset={x:0,y:0},i.scale={x:1,y:1},i.wheelDelta=0,i.button=-1,i.pixelRatio=parseInt(i.element.getAttribute("data-pixel-ratio"),10)||1,i.sourceEvents={mousemove:null,mousedown:null,mouseup:null,mousewheel:null},i.mousemove=function(h){var o=e._getRelativeMousePosition(h,i.element,i.pixelRatio),u=h.changedTouches;u&&(i.button=0,h.preventDefault()),i.absolute.x=o.x,i.absolute.y=o.y,i.position.x=i.absolute.x*i.scale.x+i.offset.x,i.position.y=i.absolute.y*i.scale.y+i.offset.y,i.sourceEvents.mousemove=h},i.mousedown=function(h){var o=e._getRelativeMousePosition(h,i.element,i.pixelRatio),u=h.changedTouches;u?(i.button=0,h.preventDefault()):i.button=h.button,i.absolute.x=o.x,i.absolute.y=o.y,i.position.x=i.absolute.x*i.scale.x+i.offset.x,i.position.y=i.absolute.y*i.scale.y+i.offset.y,i.mousedownPosition.x=i.position.x,i.mousedownPosition.y=i.position.y,i.sourceEvents.mousedown=h},i.mouseup=function(h){var o=e._getRelativeMousePosition(h,i.element,i.pixelRatio),u=h.changedTouches;u&&h.preventDefault(),i.button=-1,i.absolute.x=o.x,i.absolute.y=o.y,i.position.x=i.absolute.x*i.scale.x+i.offset.x,i.position.y=i.absolute.y*i.scale.y+i.offset.y,i.mouseupPosition.x=i.position.x,i.mouseupPosition.y=i.position.y,i.sourceEvents.mouseup=h},i.mousewheel=function(h){i.wheelDelta=Math.max(-1,Math.min(1,h.wheelDelta||-h.detail)),h.preventDefault()},e.setElement(i,i.element),i},e.setElement=function(a,i){a.element=i,i.addEventListener("mousemove",a.mousemove),i.addEventListener("mousedown",a.mousedown),i.addEventListener("mouseup",a.mouseup),i.addEventListener("mousewheel",a.mousewheel),i.addEventListener("DOMMouseScroll",a.mousewheel),i.addEventListener("touchmove",a.mousemove),i.addEventListener("touchstart",a.mousedown),i.addEventListener("touchend",a.mouseup)},e.clearSourceEvents=function(a){a.sourceEvents.mousemove=null,a.sourceEvents.mousedown=null,a.sourceEvents.mouseup=null,a.sourceEvents.mousewheel=null,a.wheelDelta=0},e.setOffset=function(a,i){a.offset.x=i.x,a.offset.y=i.y,a.position.x=a.absolute.x*a.scale.x+a.offset.x,a.position.y=a.absolute.y*a.scale.y+a.offset.y},e.setScale=function(a,i){a.scale.x=i.x,a.scale.y=i.y,a.position.x=a.absolute.x*a.scale.x+a.offset.x,a.position.y=a.absolute.y*a.scale.y+a.offset.y},e._getRelativeMousePosition=function(a,i,h){var o=i.getBoundingClientRect(),u=document.documentElement||document.body.parentNode||document.body,r=window.pageXOffset!==void 0?window.pageXOffset:u.scrollLeft,l=window.pageYOffset!==void 0?window.pageYOffset:u.scrollTop,t=a.changedTouches,n,g;return t?(n=t[0].pageX-o.left-r,g=t[0].pageY-o.top-l):(n=a.pageX-o.left-r,g=a.pageY-o.top-l),{x:n/(i.clientWidth/(i.width||i.clientWidth)*h),y:g/(i.clientHeight/(i.height||i.clientHeight)*h)}}})()},function(w,T,f){var e={};w.exports=e;var s=f(0),a=f(8);(function(){e.create=function(i){var h={bodies:[],pairs:null};return s.extend(h,i)},e.setBodies=function(i,h){i.bodies=h.slice(0)},e.clear=function(i){i.bodies=[]},e.collisions=function(i){var h=[],o=i.pairs,u=i.bodies,r=u.length,l=e.canCollide,t=a.collides,n,g;for(u.sort(e._compareBoundsX),n=0;n<r;n++){var c=u[n],y=c.bounds,C=c.bounds.max.x,v=c.bounds.max.y,m=c.bounds.min.y,d=c.isStatic||c.isSleeping,p=c.parts.length,S=p===1;for(g=n+1;g<r;g++){var I=u[g],x=I.bounds;if(x.min.x>C)break;if(!(v<x.min.y||m>x.max.y)&&!(d&&(I.isStatic||I.isSleeping))&&!!l(c.collisionFilter,I.collisionFilter)){var M=I.parts.length;if(S&&M===1){var P=t(c,I,o);P&&h.push(P)}else for(var A=p>1?1:0,E=M>1?1:0,L=A;L<p;L++)for(var R=c.parts[L],y=R.bounds,B=E;B<M;B++){var O=I.parts[B],x=O.bounds;if(!(y.min.x>x.max.x||y.max.x<x.min.x||y.max.y<x.min.y||y.min.y>x.max.y)){var P=t(R,O,o);P&&h.push(P)}}}}}return h},e.canCollide=function(i,h){return i.group===h.group&&i.group!==0?i.group>0:(i.mask&h.category)!==0&&(h.mask&i.category)!==0},e._compareBoundsX=function(i,h){return i.bounds.min.x-h.bounds.min.x}})()},function(w,T,f){var e={};w.exports=e;var s=f(0);(function(){e._registry={},e.register=function(a){if(e.isPlugin(a)||s.warn("Plugin.register:",e.toString(a),"does not implement all required fields."),a.name in e._registry){var i=e._registry[a.name],h=e.versionParse(a.version).number,o=e.versionParse(i.version).number;h>o?(s.warn("Plugin.register:",e.toString(i),"was upgraded to",e.toString(a)),e._registry[a.name]=a):h<o?s.warn("Plugin.register:",e.toString(i),"can not be downgraded to",e.toString(a)):a!==i&&s.warn("Plugin.register:",e.toString(a),"is already registered to different plugin object")}else e._registry[a.name]=a;return a},e.resolve=function(a){return e._registry[e.dependencyParse(a).name]},e.toString=function(a){return typeof a=="string"?a:(a.name||"anonymous")+"@"+(a.version||a.range||"0.0.0")},e.isPlugin=function(a){return a&&a.name&&a.version&&a.install},e.isUsed=function(a,i){return a.used.indexOf(i)>-1},e.isFor=function(a,i){var h=a.for&&e.dependencyParse(a.for);return!a.for||i.name===h.name&&e.versionSatisfies(i.version,h.range)},e.use=function(a,i){if(a.uses=(a.uses||[]).concat(i||[]),a.uses.length===0){s.warn("Plugin.use:",e.toString(a),"does not specify any dependencies to install.");return}for(var h=e.dependencies(a),o=s.topologicalSort(h),u=[],r=0;r<o.length;r+=1)if(o[r]!==a.name){var l=e.resolve(o[r]);if(!l){u.push("\u274C "+o[r]);continue}e.isUsed(a,l.name)||(e.isFor(l,a)||(s.warn("Plugin.use:",e.toString(l),"is for",l.for,"but installed on",e.toString(a)+"."),l._warned=!0),l.install?l.install(a):(s.warn("Plugin.use:",e.toString(l),"does not specify an install function."),l._warned=!0),l._warned?(u.push("\u{1F536} "+e.toString(l)),delete l._warned):u.push("\u2705 "+e.toString(l)),a.used.push(l.name))}u.length>0&&s.info(u.join("  "))},e.dependencies=function(a,i){var h=e.dependencyParse(a),o=h.name;if(i=i||{},!(o in i)){a=e.resolve(a)||a,i[o]=s.map(a.uses||[],function(r){e.isPlugin(r)&&e.register(r);var l=e.dependencyParse(r),t=e.resolve(r);return t&&!e.versionSatisfies(t.version,l.range)?(s.warn("Plugin.dependencies:",e.toString(t),"does not satisfy",e.toString(l),"used by",e.toString(h)+"."),t._warned=!0,a._warned=!0):t||(s.warn("Plugin.dependencies:",e.toString(r),"used by",e.toString(h),"could not be resolved."),a._warned=!0),l.name});for(var u=0;u<i[o].length;u+=1)e.dependencies(i[o][u],i);return i}},e.dependencyParse=function(a){if(s.isString(a)){var i=/^[\w-]+(@(\*|[\^~]?\d+\.\d+\.\d+(-[0-9A-Za-z-+]+)?))?$/;return i.test(a)||s.warn("Plugin.dependencyParse:",a,"is not a valid dependency string."),{name:a.split("@")[0],range:a.split("@")[1]||"*"}}return{name:a.name,range:a.range||a.version}},e.versionParse=function(a){var i=/^(\*)|(\^|~|>=|>)?\s*((\d+)\.(\d+)\.(\d+))(-[0-9A-Za-z-+]+)?$/;i.test(a)||s.warn("Plugin.versionParse:",a,"is not a valid version or range.");var h=i.exec(a),o=Number(h[4]),u=Number(h[5]),r=Number(h[6]);return{isRange:Boolean(h[1]||h[2]),version:h[3],range:a,operator:h[1]||h[2]||"",major:o,minor:u,patch:r,parts:[o,u,r],prerelease:h[7],number:o*1e8+u*1e4+r}},e.versionSatisfies=function(a,i){i=i||"*";var h=e.versionParse(i),o=e.versionParse(a);if(h.isRange){if(h.operator==="*"||a==="*")return!0;if(h.operator===">")return o.number>h.number;if(h.operator===">=")return o.number>=h.number;if(h.operator==="~")return o.major===h.major&&o.minor===h.minor&&o.patch>=h.patch;if(h.operator==="^")return h.major>0?o.major===h.major&&o.number>=h.number:h.minor>0?o.minor===h.minor&&o.patch>=h.patch:o.patch===h.patch}return a===i||a==="*"}})()},function(w,T,f){var e={};w.exports=e;var s=f(0),a=f(5),i=f(1),h=f(4),o=f(2),u=f(13);(function(){var r,l;typeof window<"u"&&(r=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.msRequestAnimationFrame||function(v){window.setTimeout(function(){v(s.now())},1e3/60)},l=window.cancelAnimationFrame||window.mozCancelAnimationFrame||window.webkitCancelAnimationFrame||window.msCancelAnimationFrame),e._goodFps=30,e._goodDelta=1e3/60,e.create=function(v){var m={controller:e,engine:null,element:null,canvas:null,mouse:null,frameRequestId:null,timing:{historySize:60,delta:0,deltaHistory:[],lastTime:0,lastTimestamp:0,lastElapsed:0,timestampElapsed:0,timestampElapsedHistory:[],engineDeltaHistory:[],engineElapsedHistory:[],elapsedHistory:[]},options:{width:800,height:600,pixelRatio:1,background:"#14151f",wireframeBackground:"#14151f",hasBounds:!!v.bounds,enabled:!0,wireframes:!0,showSleeping:!0,showDebug:!1,showStats:!1,showPerformance:!1,showBounds:!1,showVelocity:!1,showCollisions:!1,showSeparations:!1,showAxes:!1,showPositions:!1,showAngleIndicator:!1,showIds:!1,showVertexNumbers:!1,showConvexHulls:!1,showInternalEdges:!1,showMousePosition:!1}},d=s.extend(m,v);return d.canvas&&(d.canvas.width=d.options.width||d.canvas.width,d.canvas.height=d.options.height||d.canvas.height),d.mouse=v.mouse,d.engine=v.engine,d.canvas=d.canvas||g(d.options.width,d.options.height),d.context=d.canvas.getContext("2d"),d.textures={},d.bounds=d.bounds||{min:{x:0,y:0},max:{x:d.canvas.width,y:d.canvas.height}},d.options.showBroadphase=!1,d.options.pixelRatio!==1&&e.setPixelRatio(d,d.options.pixelRatio),s.isElement(d.element)?d.element.appendChild(d.canvas):d.canvas.parentNode||s.log("Render.create: options.element was undefined, render.canvas was created but not appended","warn"),d},e.run=function(v){(function m(d){v.frameRequestId=r(m),t(v,d),e.world(v,d),(v.options.showStats||v.options.showDebug)&&e.stats(v,v.context,d),(v.options.showPerformance||v.options.showDebug)&&e.performance(v,v.context,d)})()},e.stop=function(v){l(v.frameRequestId)},e.setPixelRatio=function(v,m){var d=v.options,p=v.canvas;m==="auto"&&(m=c(p)),d.pixelRatio=m,p.setAttribute("data-pixel-ratio",m),p.width=d.width*m,p.height=d.height*m,p.style.width=d.width+"px",p.style.height=d.height+"px"},e.lookAt=function(v,m,d,p){p=typeof p<"u"?p:!0,m=s.isArray(m)?m:[m],d=d||{x:0,y:0};for(var S={min:{x:1/0,y:1/0},max:{x:-1/0,y:-1/0}},I=0;I<m.length;I+=1){var x=m[I],M=x.bounds?x.bounds.min:x.min||x.position||x,P=x.bounds?x.bounds.max:x.max||x.position||x;M&&P&&(M.x<S.min.x&&(S.min.x=M.x),P.x>S.max.x&&(S.max.x=P.x),M.y<S.min.y&&(S.min.y=M.y),P.y>S.max.y&&(S.max.y=P.y))}var A=S.max.x-S.min.x+2*d.x,E=S.max.y-S.min.y+2*d.y,L=v.canvas.height,R=v.canvas.width,B=R/L,O=A/E,F=1,D=1;O>B?D=O/B:F=B/O,v.options.hasBounds=!0,v.bounds.min.x=S.min.x,v.bounds.max.x=S.min.x+A*F,v.bounds.min.y=S.min.y,v.bounds.max.y=S.min.y+E*D,p&&(v.bounds.min.x+=A*.5-A*F*.5,v.bounds.max.x+=A*.5-A*F*.5,v.bounds.min.y+=E*.5-E*D*.5,v.bounds.max.y+=E*.5-E*D*.5),v.bounds.min.x-=d.x,v.bounds.max.x-=d.x,v.bounds.min.y-=d.y,v.bounds.max.y-=d.y,v.mouse&&(u.setScale(v.mouse,{x:(v.bounds.max.x-v.bounds.min.x)/v.canvas.width,y:(v.bounds.max.y-v.bounds.min.y)/v.canvas.height}),u.setOffset(v.mouse,v.bounds.min))},e.startViewTransform=function(v){var m=v.bounds.max.x-v.bounds.min.x,d=v.bounds.max.y-v.bounds.min.y,p=m/v.options.width,S=d/v.options.height;v.context.setTransform(v.options.pixelRatio/p,0,0,v.options.pixelRatio/S,0,0),v.context.translate(-v.bounds.min.x,-v.bounds.min.y)},e.endViewTransform=function(v){v.context.setTransform(v.options.pixelRatio,0,0,v.options.pixelRatio,0,0)},e.world=function(v,m){var d=s.now(),p=v.engine,S=p.world,I=v.canvas,x=v.context,M=v.options,P=v.timing,A=a.allBodies(S),E=a.allConstraints(S),L=M.wireframes?M.wireframeBackground:M.background,R=[],B=[],O,F={timestamp:p.timing.timestamp};if(h.trigger(v,"beforeRender",F),v.currentBackground!==L&&C(v,L),x.globalCompositeOperation="source-in",x.fillStyle="transparent",x.fillRect(0,0,I.width,I.height),x.globalCompositeOperation="source-over",M.hasBounds){for(O=0;O<A.length;O++){var D=A[O];i.overlaps(D.bounds,v.bounds)&&R.push(D)}for(O=0;O<E.length;O++){var W=E[O],H=W.bodyA,N=W.bodyB,U=W.pointA,V=W.pointB;H&&(U=o.add(H.position,W.pointA)),N&&(V=o.add(N.position,W.pointB)),!(!U||!V)&&(i.contains(v.bounds,U)||i.contains(v.bounds,V))&&B.push(W)}e.startViewTransform(v),v.mouse&&(u.setScale(v.mouse,{x:(v.bounds.max.x-v.bounds.min.x)/v.options.width,y:(v.bounds.max.y-v.bounds.min.y)/v.options.height}),u.setOffset(v.mouse,v.bounds.min))}else B=E,R=A,v.options.pixelRatio!==1&&v.context.setTransform(v.options.pixelRatio,0,0,v.options.pixelRatio,0,0);!M.wireframes||p.enableSleeping&&M.showSleeping?e.bodies(v,R,x):(M.showConvexHulls&&e.bodyConvexHulls(v,R,x),e.bodyWireframes(v,R,x)),M.showBounds&&e.bodyBounds(v,R,x),(M.showAxes||M.showAngleIndicator)&&e.bodyAxes(v,R,x),M.showPositions&&e.bodyPositions(v,R,x),M.showVelocity&&e.bodyVelocity(v,R,x),M.showIds&&e.bodyIds(v,R,x),M.showSeparations&&e.separations(v,p.pairs.list,x),M.showCollisions&&e.collisions(v,p.pairs.list,x),M.showVertexNumbers&&e.vertexNumbers(v,R,x),M.showMousePosition&&e.mousePosition(v,v.mouse,x),e.constraints(B,x),M.hasBounds&&e.endViewTransform(v),h.trigger(v,"afterRender",F),P.lastElapsed=s.now()-d},e.stats=function(v,m,d){for(var p=v.engine,S=p.world,I=a.allBodies(S),x=0,M=55,P=44,A=0,E=0,L=0;L<I.length;L+=1)x+=I[L].parts.length;var R={Part:x,Body:I.length,Cons:a.allConstraints(S).length,Comp:a.allComposites(S).length,Pair:p.pairs.list.length};m.fillStyle="#0e0f19",m.fillRect(A,E,M*5.5,P),m.font="12px Arial",m.textBaseline="top",m.textAlign="right";for(var B in R){var O=R[B];m.fillStyle="#aaa",m.fillText(B,A+M,E+8),m.fillStyle="#eee",m.fillText(O,A+M,E+26),A+=M}},e.performance=function(v,m){var d=v.engine,p=v.timing,S=p.deltaHistory,I=p.elapsedHistory,x=p.timestampElapsedHistory,M=p.engineDeltaHistory,P=p.engineElapsedHistory,A=d.timing.lastDelta,E=n(S),L=n(I),R=n(M),B=n(P),O=n(x),F=O/E||0,D=1e3/E||0,W=4,H=12,N=60,U=34,V=10,b=69;m.fillStyle="#0e0f19",m.fillRect(0,50,H*4+N*5+22,U),e.status(m,V,b,N,W,S.length,Math.round(D)+" fps",D/e._goodFps,function(z){return S[z]/E-1}),e.status(m,V+H+N,b,N,W,M.length,A.toFixed(2)+" dt",e._goodDelta/A,function(z){return M[z]/R-1}),e.status(m,V+(H+N)*2,b,N,W,P.length,B.toFixed(2)+" ut",1-B/e._goodFps,function(z){return P[z]/B-1}),e.status(m,V+(H+N)*3,b,N,W,I.length,L.toFixed(2)+" rt",1-L/e._goodFps,function(z){return I[z]/L-1}),e.status(m,V+(H+N)*4,b,N,W,x.length,F.toFixed(2)+" x",F*F*F,function(z){return(x[z]/S[z]/F||0)-1})},e.status=function(v,m,d,p,S,I,x,M,P){v.strokeStyle="#888",v.fillStyle="#444",v.lineWidth=1,v.fillRect(m,d+7,p,1),v.beginPath(),v.moveTo(m,d+7-S*s.clamp(.4*P(0),-2,2));for(var A=0;A<p;A+=1)v.lineTo(m+A,d+7-(A<I?S*s.clamp(.4*P(A),-2,2):0));v.stroke(),v.fillStyle="hsl("+s.clamp(25+95*M,0,120)+",100%,60%)",v.fillRect(m,d-7,4,4),v.font="12px Arial",v.textBaseline="middle",v.textAlign="right",v.fillStyle="#eee",v.fillText(x,m+p,d-5)},e.constraints=function(v,m){for(var d=m,p=0;p<v.length;p++){var S=v[p];if(!(!S.render.visible||!S.pointA||!S.pointB)){var I=S.bodyA,x=S.bodyB,M,P;if(I?M=o.add(I.position,S.pointA):M=S.pointA,S.render.type==="pin")d.beginPath(),d.arc(M.x,M.y,3,0,2*Math.PI),d.closePath();else{if(x?P=o.add(x.position,S.pointB):P=S.pointB,d.beginPath(),d.moveTo(M.x,M.y),S.render.type==="spring")for(var A=o.sub(P,M),E=o.perp(o.normalise(A)),L=Math.ceil(s.clamp(S.length/5,12,20)),R,B=1;B<L;B+=1)R=B%2===0?1:-1,d.lineTo(M.x+A.x*(B/L)+E.x*R*4,M.y+A.y*(B/L)+E.y*R*4);d.lineTo(P.x,P.y)}S.render.lineWidth&&(d.lineWidth=S.render.lineWidth,d.strokeStyle=S.render.strokeStyle,d.stroke()),S.render.anchors&&(d.fillStyle=S.render.strokeStyle,d.beginPath(),d.arc(M.x,M.y,3,0,2*Math.PI),d.arc(P.x,P.y,3,0,2*Math.PI),d.closePath(),d.fill())}}},e.bodies=function(v,m,d){var p=d,S=v.engine,I=v.options,x=I.showInternalEdges||!I.wireframes,M,P,A,E;for(A=0;A<m.length;A++)if(M=m[A],!!M.render.visible){for(E=M.parts.length>1?1:0;E<M.parts.length;E++)if(P=M.parts[E],!!P.render.visible){if(I.showSleeping&&M.isSleeping?p.globalAlpha=.5*P.render.opacity:P.render.opacity!==1&&(p.globalAlpha=P.render.opacity),P.render.sprite&&P.render.sprite.texture&&!I.wireframes){var L=P.render.sprite,R=y(v,L.texture);p.translate(P.position.x,P.position.y),p.rotate(P.angle),p.drawImage(R,R.width*-L.xOffset*L.xScale,R.height*-L.yOffset*L.yScale,R.width*L.xScale,R.height*L.yScale),p.rotate(-P.angle),p.translate(-P.position.x,-P.position.y)}else{if(P.circleRadius)p.beginPath(),p.arc(P.position.x,P.position.y,P.circleRadius,0,2*Math.PI);else{p.beginPath(),p.moveTo(P.vertices[0].x,P.vertices[0].y);for(var B=1;B<P.vertices.length;B++)!P.vertices[B-1].isInternal||x?p.lineTo(P.vertices[B].x,P.vertices[B].y):p.moveTo(P.vertices[B].x,P.vertices[B].y),P.vertices[B].isInternal&&!x&&p.moveTo(P.vertices[(B+1)%P.vertices.length].x,P.vertices[(B+1)%P.vertices.length].y);p.lineTo(P.vertices[0].x,P.vertices[0].y),p.closePath()}I.wireframes?(p.lineWidth=1,p.strokeStyle="#bbb",p.stroke()):(p.fillStyle=P.render.fillStyle,P.render.lineWidth&&(p.lineWidth=P.render.lineWidth,p.strokeStyle=P.render.strokeStyle,p.stroke()),p.fill())}p.globalAlpha=1}}},e.bodyWireframes=function(v,m,d){var p=d,S=v.options.showInternalEdges,I,x,M,P,A;for(p.beginPath(),M=0;M<m.length;M++)if(I=m[M],!!I.render.visible)for(A=I.parts.length>1?1:0;A<I.parts.length;A++){for(x=I.parts[A],p.moveTo(x.vertices[0].x,x.vertices[0].y),P=1;P<x.vertices.length;P++)!x.vertices[P-1].isInternal||S?p.lineTo(x.vertices[P].x,x.vertices[P].y):p.moveTo(x.vertices[P].x,x.vertices[P].y),x.vertices[P].isInternal&&!S&&p.moveTo(x.vertices[(P+1)%x.vertices.length].x,x.vertices[(P+1)%x.vertices.length].y);p.lineTo(x.vertices[0].x,x.vertices[0].y)}p.lineWidth=1,p.strokeStyle="#bbb",p.stroke()},e.bodyConvexHulls=function(v,m,d){var p=d,S,I,x,M,P;for(p.beginPath(),x=0;x<m.length;x++)if(S=m[x],!(!S.render.visible||S.parts.length===1)){for(p.moveTo(S.vertices[0].x,S.vertices[0].y),M=1;M<S.vertices.length;M++)p.lineTo(S.vertices[M].x,S.vertices[M].y);p.lineTo(S.vertices[0].x,S.vertices[0].y)}p.lineWidth=1,p.strokeStyle="rgba(255,255,255,0.2)",p.stroke()},e.vertexNumbers=function(v,m,d){var p=d,S,I,x;for(S=0;S<m.length;S++){var M=m[S].parts;for(x=M.length>1?1:0;x<M.length;x++){var P=M[x];for(I=0;I<P.vertices.length;I++)p.fillStyle="rgba(255,255,255,0.2)",p.fillText(S+"_"+I,P.position.x+(P.vertices[I].x-P.position.x)*.8,P.position.y+(P.vertices[I].y-P.position.y)*.8)}}},e.mousePosition=function(v,m,d){var p=d;p.fillStyle="rgba(255,255,255,0.8)",p.fillText(m.position.x+"  "+m.position.y,m.position.x+5,m.position.y-5)},e.bodyBounds=function(v,m,d){var p=d,S=v.engine,I=v.options;p.beginPath();for(var x=0;x<m.length;x++){var M=m[x];if(M.render.visible)for(var P=m[x].parts,A=P.length>1?1:0;A<P.length;A++){var E=P[A];p.rect(E.bounds.min.x,E.bounds.min.y,E.bounds.max.x-E.bounds.min.x,E.bounds.max.y-E.bounds.min.y)}}I.wireframes?p.strokeStyle="rgba(255,255,255,0.08)":p.strokeStyle="rgba(0,0,0,0.1)",p.lineWidth=1,p.stroke()},e.bodyAxes=function(v,m,d){var p=d,S=v.engine,I=v.options,x,M,P,A;for(p.beginPath(),M=0;M<m.length;M++){var E=m[M],L=E.parts;if(!!E.render.visible)if(I.showAxes)for(P=L.length>1?1:0;P<L.length;P++)for(x=L[P],A=0;A<x.axes.length;A++){var R=x.axes[A];p.moveTo(x.position.x,x.position.y),p.lineTo(x.position.x+R.x*20,x.position.y+R.y*20)}else for(P=L.length>1?1:0;P<L.length;P++)for(x=L[P],A=0;A<x.axes.length;A++)p.moveTo(x.position.x,x.position.y),p.lineTo((x.vertices[0].x+x.vertices[x.vertices.length-1].x)/2,(x.vertices[0].y+x.vertices[x.vertices.length-1].y)/2)}I.wireframes?(p.strokeStyle="indianred",p.lineWidth=1):(p.strokeStyle="rgba(255, 255, 255, 0.4)",p.globalCompositeOperation="overlay",p.lineWidth=2),p.stroke(),p.globalCompositeOperation="source-over"},e.bodyPositions=function(v,m,d){var p=d,S=v.engine,I=v.options,x,M,P,A;for(p.beginPath(),P=0;P<m.length;P++)if(x=m[P],!!x.render.visible)for(A=0;A<x.parts.length;A++)M=x.parts[A],p.arc(M.position.x,M.position.y,3,0,2*Math.PI,!1),p.closePath();for(I.wireframes?p.fillStyle="indianred":p.fillStyle="rgba(0,0,0,0.5)",p.fill(),p.beginPath(),P=0;P<m.length;P++)x=m[P],x.render.visible&&(p.arc(x.positionPrev.x,x.positionPrev.y,2,0,2*Math.PI,!1),p.closePath());p.fillStyle="rgba(255,165,0,0.8)",p.fill()},e.bodyVelocity=function(v,m,d){var p=d;p.beginPath();for(var S=0;S<m.length;S++){var I=m[S];!I.render.visible||(p.moveTo(I.position.x,I.position.y),p.lineTo(I.position.x+(I.position.x-I.positionPrev.x)*2,I.position.y+(I.position.y-I.positionPrev.y)*2))}p.lineWidth=3,p.strokeStyle="cornflowerblue",p.stroke()},e.bodyIds=function(v,m,d){var p=d,S,I;for(S=0;S<m.length;S++)if(!!m[S].render.visible){var x=m[S].parts;for(I=x.length>1?1:0;I<x.length;I++){var M=x[I];p.font="12px Arial",p.fillStyle="rgba(255,255,255,0.5)",p.fillText(M.id,M.position.x+10,M.position.y-10)}}},e.collisions=function(v,m,d){var p=d,S=v.options,I,x,M,P,A,E,L;for(p.beginPath(),E=0;E<m.length;E++)if(I=m[E],!!I.isActive)for(x=I.collision,L=0;L<I.activeContacts.length;L++){var R=I.activeContacts[L],B=R.vertex;p.rect(B.x-1.5,B.y-1.5,3.5,3.5)}for(S.wireframes?p.fillStyle="rgba(255,255,255,0.7)":p.fillStyle="orange",p.fill(),p.beginPath(),E=0;E<m.length;E++)if(I=m[E],!!I.isActive&&(x=I.collision,I.activeContacts.length>0)){var O=I.activeContacts[0].vertex.x,F=I.activeContacts[0].vertex.y;I.activeContacts.length===2&&(O=(I.activeContacts[0].vertex.x+I.activeContacts[1].vertex.x)/2,F=(I.activeContacts[0].vertex.y+I.activeContacts[1].vertex.y)/2),x.bodyB===x.supports[0].body||x.bodyA.isStatic===!0?p.moveTo(O-x.normal.x*8,F-x.normal.y*8):p.moveTo(O+x.normal.x*8,F+x.normal.y*8),p.lineTo(O,F)}S.wireframes?p.strokeStyle="rgba(255,165,0,0.7)":p.strokeStyle="orange",p.lineWidth=1,p.stroke()},e.separations=function(v,m,d){var p=d,S=v.options,I,x,M,P,A,E,L;for(p.beginPath(),E=0;E<m.length;E++)if(I=m[E],!!I.isActive){x=I.collision,P=x.bodyA,A=x.bodyB;var R=1;!A.isStatic&&!P.isStatic&&(R=.5),A.isStatic&&(R=0),p.moveTo(A.position.x,A.position.y),p.lineTo(A.position.x-x.penetration.x*R,A.position.y-x.penetration.y*R),R=1,!A.isStatic&&!P.isStatic&&(R=.5),P.isStatic&&(R=0),p.moveTo(P.position.x,P.position.y),p.lineTo(P.position.x+x.penetration.x*R,P.position.y+x.penetration.y*R)}S.wireframes?p.strokeStyle="rgba(255,165,0,0.5)":p.strokeStyle="orange",p.stroke()},e.inspector=function(v,m){var d=v.engine,p=v.selected,S=v.render,I=S.options,x;if(I.hasBounds){var M=S.bounds.max.x-S.bounds.min.x,P=S.bounds.max.y-S.bounds.min.y,A=M/S.options.width,E=P/S.options.height;m.scale(1/A,1/E),m.translate(-S.bounds.min.x,-S.bounds.min.y)}for(var L=0;L<p.length;L++){var R=p[L].data;switch(m.translate(.5,.5),m.lineWidth=1,m.strokeStyle="rgba(255,165,0,0.9)",m.setLineDash([1,2]),R.type){case"body":x=R.bounds,m.beginPath(),m.rect(Math.floor(x.min.x-3),Math.floor(x.min.y-3),Math.floor(x.max.x-x.min.x+6),Math.floor(x.max.y-x.min.y+6)),m.closePath(),m.stroke();break;case"constraint":var B=R.pointA;R.bodyA&&(B=R.pointB),m.beginPath(),m.arc(B.x,B.y,10,0,2*Math.PI),m.closePath(),m.stroke();break}m.setLineDash([]),m.translate(-.5,-.5)}v.selectStart!==null&&(m.translate(.5,.5),m.lineWidth=1,m.strokeStyle="rgba(255,165,0,0.6)",m.fillStyle="rgba(255,165,0,0.1)",x=v.selectBounds,m.beginPath(),m.rect(Math.floor(x.min.x),Math.floor(x.min.y),Math.floor(x.max.x-x.min.x),Math.floor(x.max.y-x.min.y)),m.closePath(),m.stroke(),m.fill(),m.translate(-.5,-.5)),I.hasBounds&&m.setTransform(1,0,0,1,0,0)};var t=function(v,m){var d=v.engine,p=v.timing,S=p.historySize,I=d.timing.timestamp;p.delta=m-p.lastTime||e._goodDelta,p.lastTime=m,p.timestampElapsed=I-p.lastTimestamp||0,p.lastTimestamp=I,p.deltaHistory.unshift(p.delta),p.deltaHistory.length=Math.min(p.deltaHistory.length,S),p.engineDeltaHistory.unshift(d.timing.lastDelta),p.engineDeltaHistory.length=Math.min(p.engineDeltaHistory.length,S),p.timestampElapsedHistory.unshift(p.timestampElapsed),p.timestampElapsedHistory.length=Math.min(p.timestampElapsedHistory.length,S),p.engineElapsedHistory.unshift(d.timing.lastElapsed),p.engineElapsedHistory.length=Math.min(p.engineElapsedHistory.length,S),p.elapsedHistory.unshift(p.lastElapsed),p.elapsedHistory.length=Math.min(p.elapsedHistory.length,S)},n=function(v){for(var m=0,d=0;d<v.length;d+=1)m+=v[d];return m/v.length||0},g=function(v,m){var d=document.createElement("canvas");return d.width=v,d.height=m,d.oncontextmenu=function(){return!1},d.onselectstart=function(){return!1},d},c=function(v){var m=v.getContext("2d"),d=window.devicePixelRatio||1,p=m.webkitBackingStorePixelRatio||m.mozBackingStorePixelRatio||m.msBackingStorePixelRatio||m.oBackingStorePixelRatio||m.backingStorePixelRatio||1;return d/p},y=function(v,m){var d=v.textures[m];return d||(d=v.textures[m]=new Image,d.src=m,d)},C=function(v,m){var d=m;/(jpg|gif|png)$/.test(m)&&(d="url("+m+")"),v.canvas.style.background=d,v.canvas.style.backgroundSize="contain",v.currentBackground=m}})()},function(w,T){var f={};w.exports=f,function(){f.create=function(e){return{vertex:e,normalImpulse:0,tangentImpulse:0}}}()},function(w,T,f){var e={};w.exports=e;var s=f(7),a=f(19),i=f(14),h=f(20),o=f(4),u=f(5),r=f(10),l=f(0),t=f(6);(function(){e.create=function(n){n=n||{};var g={positionIterations:6,velocityIterations:4,constraintIterations:2,enableSleeping:!1,events:[],plugin:{},gravity:{x:0,y:1,scale:.001},timing:{timestamp:0,timeScale:1,lastDelta:0,lastElapsed:0}},c=l.extend(g,n);return c.world=n.world||u.create({label:"World"}),c.pairs=n.pairs||h.create(),c.detector=n.detector||i.create(),c.grid={buckets:[]},c.world.gravity=c.gravity,c.broadphase=c.grid,c.metrics={},c},e.update=function(n,g,c){var y=l.now();g=g||1e3/60,c=c||1;var C=n.world,v=n.detector,m=n.pairs,d=n.timing,p=d.timestamp,S;d.timestamp+=g*d.timeScale,d.lastDelta=g*d.timeScale;var I={timestamp:d.timestamp};o.trigger(n,"beforeUpdate",I);var x=u.allBodies(C),M=u.allConstraints(C);for(C.isModified&&i.setBodies(v,x),C.isModified&&u.setModified(C,!1,!1,!0),n.enableSleeping&&s.update(x,d.timeScale),e._bodiesApplyGravity(x,n.gravity),e._bodiesUpdate(x,g,d.timeScale,c,C.bounds),r.preSolveAll(x),S=0;S<n.constraintIterations;S++)r.solveAll(M,d.timeScale);r.postSolveAll(x),v.pairs=n.pairs;var P=i.collisions(v);for(h.update(m,P,p),n.enableSleeping&&s.afterCollisions(m.list,d.timeScale),m.collisionStart.length>0&&o.trigger(n,"collisionStart",{pairs:m.collisionStart}),a.preSolvePosition(m.list),S=0;S<n.positionIterations;S++)a.solvePosition(m.list,d.timeScale);for(a.postSolvePosition(x),r.preSolveAll(x),S=0;S<n.constraintIterations;S++)r.solveAll(M,d.timeScale);for(r.postSolveAll(x),a.preSolveVelocity(m.list),S=0;S<n.velocityIterations;S++)a.solveVelocity(m.list,d.timeScale);return m.collisionActive.length>0&&o.trigger(n,"collisionActive",{pairs:m.collisionActive}),m.collisionEnd.length>0&&o.trigger(n,"collisionEnd",{pairs:m.collisionEnd}),e._bodiesClearForces(x),o.trigger(n,"afterUpdate",I),n.timing.lastElapsed=l.now()-y,n},e.merge=function(n,g){if(l.extend(n,g),g.world){n.world=g.world,e.clear(n);for(var c=u.allBodies(n.world),y=0;y<c.length;y++){var C=c[y];s.set(C,!1),C.id=l.nextId()}}},e.clear=function(n){h.clear(n.pairs),i.clear(n.detector)},e._bodiesClearForces=function(n){for(var g=0;g<n.length;g++){var c=n[g];c.force.x=0,c.force.y=0,c.torque=0}},e._bodiesApplyGravity=function(n,g){var c=typeof g.scale<"u"?g.scale:.001;if(!(g.x===0&&g.y===0||c===0))for(var y=0;y<n.length;y++){var C=n[y];C.isStatic||C.isSleeping||(C.force.y+=C.mass*g.y*c,C.force.x+=C.mass*g.x*c)}},e._bodiesUpdate=function(n,g,c,y,C){for(var v=0;v<n.length;v++){var m=n[v];m.isStatic||m.isSleeping||t.update(m,g,c,y)}}})()},function(w,T,f){var e={};w.exports=e;var s=f(3),a=f(1);(function(){e._restingThresh=4,e._restingThreshTangent=6,e._positionDampen=.9,e._positionWarming=.8,e._frictionNormalMultiplier=5,e.preSolvePosition=function(i){var h,o,u,r=i.length;for(h=0;h<r;h++)o=i[h],!!o.isActive&&(u=o.activeContacts.length,o.collision.parentA.totalContacts+=u,o.collision.parentB.totalContacts+=u)},e.solvePosition=function(i,h){var o,u,r,l,t,n,g,c,y=e._positionDampen,C=i.length;for(o=0;o<C;o++)u=i[o],!(!u.isActive||u.isSensor)&&(r=u.collision,l=r.parentA,t=r.parentB,n=r.normal,u.separation=n.x*(t.positionImpulse.x+r.penetration.x-l.positionImpulse.x)+n.y*(t.positionImpulse.y+r.penetration.y-l.positionImpulse.y));for(o=0;o<C;o++)u=i[o],!(!u.isActive||u.isSensor)&&(r=u.collision,l=r.parentA,t=r.parentB,n=r.normal,c=(u.separation-u.slop)*h,(l.isStatic||t.isStatic)&&(c*=2),l.isStatic||l.isSleeping||(g=y/l.totalContacts,l.positionImpulse.x+=n.x*c*g,l.positionImpulse.y+=n.y*c*g),t.isStatic||t.isSleeping||(g=y/t.totalContacts,t.positionImpulse.x-=n.x*c*g,t.positionImpulse.y-=n.y*c*g))},e.postSolvePosition=function(i){for(var h=e._positionWarming,o=i.length,u=s.translate,r=a.update,l=0;l<o;l++){var t=i[l],n=t.positionImpulse,g=n.x,c=n.y,y=t.velocity;if(t.totalContacts=0,g!==0||c!==0){for(var C=0;C<t.parts.length;C++){var v=t.parts[C];u(v.vertices,n),r(v.bounds,v.vertices,y),v.position.x+=g,v.position.y+=c}t.positionPrev.x+=g,t.positionPrev.y+=c,g*y.x+c*y.y<0?(n.x=0,n.y=0):(n.x*=h,n.y*=h)}}},e.preSolveVelocity=function(i){var h=i.length,o,u;for(o=0;o<h;o++){var r=i[o];if(!(!r.isActive||r.isSensor)){var l=r.activeContacts,t=l.length,n=r.collision,g=n.parentA,c=n.parentB,y=n.normal,C=n.tangent;for(u=0;u<t;u++){var v=l[u],m=v.vertex,d=v.normalImpulse,p=v.tangentImpulse;if(d!==0||p!==0){var S=y.x*d+C.x*p,I=y.y*d+C.y*p;g.isStatic||g.isSleeping||(g.positionPrev.x+=S*g.inverseMass,g.positionPrev.y+=I*g.inverseMass,g.anglePrev+=g.inverseInertia*((m.x-g.position.x)*I-(m.y-g.position.y)*S)),c.isStatic||c.isSleeping||(c.positionPrev.x-=S*c.inverseMass,c.positionPrev.y-=I*c.inverseMass,c.anglePrev-=c.inverseInertia*((m.x-c.position.x)*I-(m.y-c.position.y)*S))}}}}},e.solveVelocity=function(i,h){var o=h*h,u=e._restingThresh*o,r=e._frictionNormalMultiplier,l=e._restingThreshTangent*o,t=Number.MAX_VALUE,n=i.length,g,c,y,C;for(y=0;y<n;y++){var v=i[y];if(!(!v.isActive||v.isSensor)){var m=v.collision,d=m.parentA,p=m.parentB,S=d.velocity,I=p.velocity,x=m.normal.x,M=m.normal.y,P=m.tangent.x,A=m.tangent.y,E=v.activeContacts,L=E.length,R=1/L,B=d.inverseMass+p.inverseMass,O=v.friction*v.frictionStatic*r*o;for(S.x=d.position.x-d.positionPrev.x,S.y=d.position.y-d.positionPrev.y,I.x=p.position.x-p.positionPrev.x,I.y=p.position.y-p.positionPrev.y,d.angularVelocity=d.angle-d.anglePrev,p.angularVelocity=p.angle-p.anglePrev,C=0;C<L;C++){var F=E[C],D=F.vertex,W=D.x-d.position.x,H=D.y-d.position.y,N=D.x-p.position.x,U=D.y-p.position.y,V=S.x-H*d.angularVelocity,b=S.y+W*d.angularVelocity,z=I.x-U*p.angularVelocity,Ae=I.y+N*p.angularVelocity,ue=V-z,ce=b-Ae,Q=x*ue+M*ce,j=P*ue+A*ce,ve=v.separation+Q,_=Math.min(ve,1);_=ve<0?0:_;var he=_*O;j>he||-j>he?(c=j>0?j:-j,g=v.friction*(j>0?1:-1)*o,g<-c?g=-c:g>c&&(g=c)):(g=j,c=t);var me=W*M-H*x,ge=N*M-U*x,pe=R/(B+d.inverseInertia*me*me+p.inverseInertia*ge*ge),Z=(1+v.restitution)*Q*pe;if(g*=pe,Q*Q>u&&Q<0)F.normalImpulse=0;else{var Ee=F.normalImpulse;F.normalImpulse+=Z,F.normalImpulse=Math.min(F.normalImpulse,0),Z=F.normalImpulse-Ee}if(j*j>l)F.tangentImpulse=0;else{var Re=F.tangentImpulse;F.tangentImpulse+=g,F.tangentImpulse<-c&&(F.tangentImpulse=-c),F.tangentImpulse>c&&(F.tangentImpulse=c),g=F.tangentImpulse-Re}var X=x*Z+P*g,K=M*Z+A*g;d.isStatic||d.isSleeping||(d.positionPrev.x+=X*d.inverseMass,d.positionPrev.y+=K*d.inverseMass,d.anglePrev+=(W*K-H*X)*d.inverseInertia),p.isStatic||p.isSleeping||(p.positionPrev.x-=X*p.inverseMass,p.positionPrev.y-=K*p.inverseMass,p.anglePrev-=(N*K-U*X)*p.inverseInertia)}}}}})()},function(w,T,f){var e={};w.exports=e;var s=f(9),a=f(0);(function(){e.create=function(i){return a.extend({table:{},list:[],collisionStart:[],collisionActive:[],collisionEnd:[]},i)},e.update=function(i,h,o){var u=i.list,r=u.length,l=i.table,t=h.length,n=i.collisionStart,g=i.collisionEnd,c=i.collisionActive,y,C,v,m;for(n.length=0,g.length=0,c.length=0,m=0;m<r;m++)u[m].confirmedActive=!1;for(m=0;m<t;m++)y=h[m],v=y.pair,v?(v.isActive?c.push(v):n.push(v),s.update(v,y,o),v.confirmedActive=!0):(v=s.create(y,o),l[v.id]=v,n.push(v),u.push(v));var d=[];for(r=u.length,m=0;m<r;m++)v=u[m],v.confirmedActive||(s.setActive(v,!1,o),g.push(v),!v.collision.bodyA.isSleeping&&!v.collision.bodyB.isSleeping&&d.push(m));for(m=0;m<d.length;m++)C=d[m]-m,v=u[C],u.splice(C,1),delete l[v.id]},e.clear=function(i){return i.table={},i.list.length=0,i.collisionStart.length=0,i.collisionActive.length=0,i.collisionEnd.length=0,i}})()},function(w,T,f){var e=w.exports=f(22);e.Axes=f(11),e.Bodies=f(12),e.Body=f(6),e.Bounds=f(1),e.Collision=f(8),e.Common=f(0),e.Composite=f(5),e.Composites=f(23),e.Constraint=f(10),e.Contact=f(17),e.Detector=f(14),e.Engine=f(18),e.Events=f(4),e.Grid=f(24),e.Mouse=f(13),e.MouseConstraint=f(25),e.Pair=f(9),e.Pairs=f(20),e.Plugin=f(15),e.Query=f(26),e.Render=f(16),e.Resolver=f(19),e.Runner=f(27),e.SAT=f(28),e.Sleeping=f(7),e.Svg=f(29),e.Vector=f(2),e.Vertices=f(3),e.World=f(30),e.Engine.run=e.Runner.run,e.Common.deprecated(e.Engine,"run","Engine.run \u27A4 use Matter.Runner.run(engine) instead")},function(w,T,f){var e={};w.exports=e;var s=f(15),a=f(0);(function(){e.name="matter-js",e.version="0.18.0",e.uses=[],e.used=[],e.use=function(){s.use(e,Array.prototype.slice.call(arguments))},e.before=function(i,h){return i=i.replace(/^Matter./,""),a.chainPathBefore(e,i,h)},e.after=function(i,h){return i=i.replace(/^Matter./,""),a.chainPathAfter(e,i,h)}})()},function(w,T,f){var e={};w.exports=e;var s=f(5),a=f(10),i=f(0),h=f(6),o=f(12),u=i.deprecated;(function(){e.stack=function(r,l,t,n,g,c,y){for(var C=s.create({label:"Stack"}),v=r,m=l,d,p=0,S=0;S<n;S++){for(var I=0,x=0;x<t;x++){var M=y(v,m,x,S,d,p);if(M){var P=M.bounds.max.y-M.bounds.min.y,A=M.bounds.max.x-M.bounds.min.x;P>I&&(I=P),h.translate(M,{x:A*.5,y:P*.5}),v=M.bounds.max.x+g,s.addBody(C,M),d=M,p+=1}else v+=g}m+=I+c,v=r}return C},e.chain=function(r,l,t,n,g,c){for(var y=r.bodies,C=1;C<y.length;C++){var v=y[C-1],m=y[C],d=v.bounds.max.y-v.bounds.min.y,p=v.bounds.max.x-v.bounds.min.x,S=m.bounds.max.y-m.bounds.min.y,I=m.bounds.max.x-m.bounds.min.x,x={bodyA:v,pointA:{x:p*l,y:d*t},bodyB:m,pointB:{x:I*n,y:S*g}},M=i.extend(x,c);s.addConstraint(r,a.create(M))}return r.label+=" Chain",r},e.mesh=function(r,l,t,n,g){var c=r.bodies,y,C,v,m,d;for(y=0;y<t;y++){for(C=1;C<l;C++)v=c[C-1+y*l],m=c[C+y*l],s.addConstraint(r,a.create(i.extend({bodyA:v,bodyB:m},g)));if(y>0)for(C=0;C<l;C++)v=c[C+(y-1)*l],m=c[C+y*l],s.addConstraint(r,a.create(i.extend({bodyA:v,bodyB:m},g))),n&&C>0&&(d=c[C-1+(y-1)*l],s.addConstraint(r,a.create(i.extend({bodyA:d,bodyB:m},g)))),n&&C<l-1&&(d=c[C+1+(y-1)*l],s.addConstraint(r,a.create(i.extend({bodyA:d,bodyB:m},g))))}return r.label+=" Mesh",r},e.pyramid=function(r,l,t,n,g,c,y){return e.stack(r,l,t,n,g,c,function(C,v,m,d,p,S){var I=Math.min(n,Math.ceil(t/2)),x=p?p.bounds.max.x-p.bounds.min.x:0;if(!(d>I)){d=I-d;var M=d,P=t-1-d;if(!(m<M||m>P)){S===1&&h.translate(p,{x:(m+(t%2===1?1:-1))*x,y:0});var A=p?m*x:0;return y(r+A+m*g,v,m,d,p,S)}}})},e.newtonsCradle=function(r,l,t,n,g){for(var c=s.create({label:"Newtons Cradle"}),y=0;y<t;y++){var C=1.9,v=o.circle(r+y*(n*C),l+g,n,{inertia:1/0,restitution:1,friction:0,frictionAir:1e-4,slop:1}),m=a.create({pointA:{x:r+y*(n*C),y:l},bodyB:v});s.addBody(c,v),s.addConstraint(c,m)}return c},u(e,"newtonsCradle","Composites.newtonsCradle \u27A4 moved to newtonsCradle example"),e.car=function(r,l,t,n,g){var c=h.nextGroup(!0),y=20,C=-t*.5+y,v=t*.5-y,m=0,d=s.create({label:"Car"}),p=o.rectangle(r,l,t,n,{collisionFilter:{group:c},chamfer:{radius:n*.5},density:2e-4}),S=o.circle(r+C,l+m,g,{collisionFilter:{group:c},friction:.8}),I=o.circle(r+v,l+m,g,{collisionFilter:{group:c},friction:.8}),x=a.create({bodyB:p,pointB:{x:C,y:m},bodyA:S,stiffness:1,length:0}),M=a.create({bodyB:p,pointB:{x:v,y:m},bodyA:I,stiffness:1,length:0});return s.addBody(d,p),s.addBody(d,S),s.addBody(d,I),s.addConstraint(d,x),s.addConstraint(d,M),d},u(e,"car","Composites.car \u27A4 moved to car example"),e.softBody=function(r,l,t,n,g,c,y,C,v,m){v=i.extend({inertia:1/0},v),m=i.extend({stiffness:.2,render:{type:"line",anchors:!1}},m);var d=e.stack(r,l,t,n,g,c,function(p,S){return o.circle(p,S,C,v)});return e.mesh(d,t,n,y,m),d.label="Soft Body",d},u(e,"softBody","Composites.softBody \u27A4 moved to softBody and cloth examples")})()},function(w,T,f){var e={};w.exports=e;var s=f(9),a=f(0),i=a.deprecated;(function(){e.create=function(h){var o={buckets:{},pairs:{},pairsList:[],bucketWidth:48,bucketHeight:48};return a.extend(o,h)},e.update=function(h,o,u,r){var l,t,n,g=u.world,c=h.buckets,y,C,v=!1;for(l=0;l<o.length;l++){var m=o[l];if(!(m.isSleeping&&!r)&&!(g.bounds&&(m.bounds.max.x<g.bounds.min.x||m.bounds.min.x>g.bounds.max.x||m.bounds.max.y<g.bounds.min.y||m.bounds.min.y>g.bounds.max.y))){var d=e._getRegion(h,m);if(!m.region||d.id!==m.region.id||r){(!m.region||r)&&(m.region=d);var p=e._regionUnion(d,m.region);for(t=p.startCol;t<=p.endCol;t++)for(n=p.startRow;n<=p.endRow;n++){C=e._getBucketId(t,n),y=c[C];var S=t>=d.startCol&&t<=d.endCol&&n>=d.startRow&&n<=d.endRow,I=t>=m.region.startCol&&t<=m.region.endCol&&n>=m.region.startRow&&n<=m.region.endRow;!S&&I&&I&&y&&e._bucketRemoveBody(h,y,m),(m.region===d||S&&!I||r)&&(y||(y=e._createBucket(c,C)),e._bucketAddBody(h,y,m))}m.region=d,v=!0}}}v&&(h.pairsList=e._createActivePairsList(h))},i(e,"update","Grid.update \u27A4 replaced by Matter.Detector"),e.clear=function(h){h.buckets={},h.pairs={},h.pairsList=[]},i(e,"clear","Grid.clear \u27A4 replaced by Matter.Detector"),e._regionUnion=function(h,o){var u=Math.min(h.startCol,o.startCol),r=Math.max(h.endCol,o.endCol),l=Math.min(h.startRow,o.startRow),t=Math.max(h.endRow,o.endRow);return e._createRegion(u,r,l,t)},e._getRegion=function(h,o){var u=o.bounds,r=Math.floor(u.min.x/h.bucketWidth),l=Math.floor(u.max.x/h.bucketWidth),t=Math.floor(u.min.y/h.bucketHeight),n=Math.floor(u.max.y/h.bucketHeight);return e._createRegion(r,l,t,n)},e._createRegion=function(h,o,u,r){return{id:h+","+o+","+u+","+r,startCol:h,endCol:o,startRow:u,endRow:r}},e._getBucketId=function(h,o){return"C"+h+"R"+o},e._createBucket=function(h,o){var u=h[o]=[];return u},e._bucketAddBody=function(h,o,u){var r=h.pairs,l=s.id,t=o.length,n;for(n=0;n<t;n++){var g=o[n];if(!(u.id===g.id||u.isStatic&&g.isStatic)){var c=l(u,g),y=r[c];y?y[2]+=1:r[c]=[u,g,1]}}o.push(u)},e._bucketRemoveBody=function(h,o,u){var r=h.pairs,l=s.id,t;o.splice(a.indexOf(o,u),1);var n=o.length;for(t=0;t<n;t++){var g=r[l(u,o[t])];g&&(g[2]-=1)}},e._createActivePairsList=function(h){var o,u=h.pairs,r=a.keys(u),l=r.length,t=[],n;for(n=0;n<l;n++)o=u[r[n]],o[2]>0?t.push(o):delete u[r[n]];return t}})()},function(w,T,f){var e={};w.exports=e;var s=f(3),a=f(7),i=f(13),h=f(4),o=f(14),u=f(10),r=f(5),l=f(0),t=f(1);(function(){e.create=function(n,g){var c=(n?n.mouse:null)||(g?g.mouse:null);c||(n&&n.render&&n.render.canvas?c=i.create(n.render.canvas):g&&g.element?c=i.create(g.element):(c=i.create(),l.warn("MouseConstraint.create: options.mouse was undefined, options.element was undefined, may not function as expected")));var y=u.create({label:"Mouse Constraint",pointA:c.position,pointB:{x:0,y:0},length:.01,stiffness:.1,angularStiffness:1,render:{strokeStyle:"#90EE90",lineWidth:3}}),C={type:"mouseConstraint",mouse:c,element:null,body:null,constraint:y,collisionFilter:{category:1,mask:4294967295,group:0}},v=l.extend(C,g);return h.on(n,"beforeUpdate",function(){var m=r.allBodies(n.world);e.update(v,m),e._triggerEvents(v)}),v},e.update=function(n,g){var c=n.mouse,y=n.constraint,C=n.body;if(c.button===0){if(y.bodyB)a.set(y.bodyB,!1),y.pointA=c.position;else for(var v=0;v<g.length;v++)if(C=g[v],t.contains(C.bounds,c.position)&&o.canCollide(C.collisionFilter,n.collisionFilter))for(var m=C.parts.length>1?1:0;m<C.parts.length;m++){var d=C.parts[m];if(s.contains(d.vertices,c.position)){y.pointA=c.position,y.bodyB=n.body=C,y.pointB={x:c.position.x-C.position.x,y:c.position.y-C.position.y},y.angleB=C.angle,a.set(C,!1),h.trigger(n,"startdrag",{mouse:c,body:C});break}}}else y.bodyB=n.body=null,y.pointB=null,C&&h.trigger(n,"enddrag",{mouse:c,body:C})},e._triggerEvents=function(n){var g=n.mouse,c=g.sourceEvents;c.mousemove&&h.trigger(n,"mousemove",{mouse:g}),c.mousedown&&h.trigger(n,"mousedown",{mouse:g}),c.mouseup&&h.trigger(n,"mouseup",{mouse:g}),i.clearSourceEvents(g)}})()},function(w,T,f){var e={};w.exports=e;var s=f(2),a=f(8),i=f(1),h=f(12),o=f(3);(function(){e.collides=function(u,r){for(var l=[],t=r.length,n=u.bounds,g=a.collides,c=i.overlaps,y=0;y<t;y++){var C=r[y],v=C.parts.length,m=v===1?0:1;if(c(C.bounds,n))for(var d=m;d<v;d++){var p=C.parts[d];if(c(p.bounds,n)){var S=g(p,u);if(S){l.push(S);break}}}}return l},e.ray=function(u,r,l,t){t=t||1e-100;for(var n=s.angle(r,l),g=s.magnitude(s.sub(r,l)),c=(l.x+r.x)*.5,y=(l.y+r.y)*.5,C=h.rectangle(c,y,g,t,{angle:n}),v=e.collides(C,u),m=0;m<v.length;m+=1){var d=v[m];d.body=d.bodyB=d.bodyA}return v},e.region=function(u,r,l){for(var t=[],n=0;n<u.length;n++){var g=u[n],c=i.overlaps(g.bounds,r);(c&&!l||!c&&l)&&t.push(g)}return t},e.point=function(u,r){for(var l=[],t=0;t<u.length;t++){var n=u[t];if(i.contains(n.bounds,r))for(var g=n.parts.length===1?0:1;g<n.parts.length;g++){var c=n.parts[g];if(i.contains(c.bounds,r)&&o.contains(c.vertices,r)){l.push(n);break}}}return l}})()},function(w,T,f){var e={};w.exports=e;var s=f(4),a=f(18),i=f(0);(function(){var h,o;if(typeof window<"u"&&(h=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.msRequestAnimationFrame,o=window.cancelAnimationFrame||window.mozCancelAnimationFrame||window.webkitCancelAnimationFrame||window.msCancelAnimationFrame),!h){var u;h=function(r){u=setTimeout(function(){r(i.now())},1e3/60)},o=function(){clearTimeout(u)}}e.create=function(r){var l={fps:60,correction:1,deltaSampleSize:60,counterTimestamp:0,frameCounter:0,deltaHistory:[],timePrev:null,timeScalePrev:1,frameRequestId:null,isFixed:!1,enabled:!0},t=i.extend(l,r);return t.delta=t.delta||1e3/t.fps,t.deltaMin=t.deltaMin||1e3/t.fps,t.deltaMax=t.deltaMax||1e3/(t.fps*.5),t.fps=1e3/t.delta,t},e.run=function(r,l){return typeof r.positionIterations<"u"&&(l=r,r=e.create()),function t(n){r.frameRequestId=h(t),n&&r.enabled&&e.tick(r,l,n)}(),r},e.tick=function(r,l,t){var n=l.timing,g=1,c,y={timestamp:n.timestamp};s.trigger(r,"beforeTick",y),r.isFixed?c=r.delta:(c=t-r.timePrev||r.delta,r.timePrev=t,r.deltaHistory.push(c),r.deltaHistory=r.deltaHistory.slice(-r.deltaSampleSize),c=Math.min.apply(null,r.deltaHistory),c=c<r.deltaMin?r.deltaMin:c,c=c>r.deltaMax?r.deltaMax:c,g=c/r.delta,r.delta=c),r.timeScalePrev!==0&&(g*=n.timeScale/r.timeScalePrev),n.timeScale===0&&(g=0),r.timeScalePrev=n.timeScale,r.correction=g,r.frameCounter+=1,t-r.counterTimestamp>=1e3&&(r.fps=r.frameCounter*((t-r.counterTimestamp)/1e3),r.counterTimestamp=t,r.frameCounter=0),s.trigger(r,"tick",y),s.trigger(r,"beforeUpdate",y),a.update(l,c,g),s.trigger(r,"afterUpdate",y),s.trigger(r,"afterTick",y)},e.stop=function(r){o(r.frameRequestId)},e.start=function(r,l){e.run(r,l)}})()},function(w,T,f){var e={};w.exports=e;var s=f(8),a=f(0),i=a.deprecated;(function(){e.collides=function(h,o){return s.collides(h,o)},i(e,"collides","SAT.collides \u27A4 replaced by Collision.collides")})()},function(w,T,f){var e={};w.exports=e;var s=f(1),a=f(0);(function(){e.pathToVertices=function(i,h){typeof window<"u"&&!("SVGPathSeg"in window)&&a.warn("Svg.pathToVertices: SVGPathSeg not defined, a polyfill is required.");var o,u,r,l,t,n,g,c,y,C,v=[],m,d,p=0,S=0,I=0;h=h||15;var x=function(P,A,E){var L=E%2===1&&E>1;if(!y||P!=y.x||A!=y.y){y&&L?(m=y.x,d=y.y):(m=0,d=0);var R={x:m+P,y:d+A};(L||!y)&&(y=R),v.push(R),S=m+P,I=d+A}},M=function(P){var A=P.pathSegTypeAsLetter.toUpperCase();if(A!=="Z"){switch(A){case"M":case"L":case"T":case"C":case"S":case"Q":S=P.x,I=P.y;break;case"H":S=P.x;break;case"V":I=P.y;break}x(S,I,P.pathSegType)}};for(e._svgPathToAbsolute(i),r=i.getTotalLength(),n=[],o=0;o<i.pathSegList.numberOfItems;o+=1)n.push(i.pathSegList.getItem(o));for(g=n.concat();p<r;){if(C=i.getPathSegAtLength(p),t=n[C],t!=c){for(;g.length&&g[0]!=t;)M(g.shift());c=t}switch(t.pathSegTypeAsLetter.toUpperCase()){case"C":case"T":case"S":case"Q":case"A":l=i.getPointAtLength(p),x(l.x,l.y,0);break}p+=h}for(o=0,u=g.length;o<u;++o)M(g[o]);return v},e._svgPathToAbsolute=function(i){for(var h,o,u,r,l,t,n=i.pathSegList,g=0,c=0,y=n.numberOfItems,C=0;C<y;++C){var v=n.getItem(C),m=v.pathSegTypeAsLetter;if(/[MLHVCSQTA]/.test(m))"x"in v&&(g=v.x),"y"in v&&(c=v.y);else switch("x1"in v&&(u=g+v.x1),"x2"in v&&(l=g+v.x2),"y1"in v&&(r=c+v.y1),"y2"in v&&(t=c+v.y2),"x"in v&&(g+=v.x),"y"in v&&(c+=v.y),m){case"m":n.replaceItem(i.createSVGPathSegMovetoAbs(g,c),C);break;case"l":n.replaceItem(i.createSVGPathSegLinetoAbs(g,c),C);break;case"h":n.replaceItem(i.createSVGPathSegLinetoHorizontalAbs(g),C);break;case"v":n.replaceItem(i.createSVGPathSegLinetoVerticalAbs(c),C);break;case"c":n.replaceItem(i.createSVGPathSegCurvetoCubicAbs(g,c,u,r,l,t),C);break;case"s":n.replaceItem(i.createSVGPathSegCurvetoCubicSmoothAbs(g,c,l,t),C);break;case"q":n.replaceItem(i.createSVGPathSegCurvetoQuadraticAbs(g,c,u,r),C);break;case"t":n.replaceItem(i.createSVGPathSegCurvetoQuadraticSmoothAbs(g,c),C);break;case"a":n.replaceItem(i.createSVGPathSegArcAbs(g,c,v.r1,v.r2,v.angle,v.largeArcFlag,v.sweepFlag),C);break;case"z":case"Z":g=h,c=o;break}(m=="M"||m=="m")&&(h=g,o=c)}}})()},function(w,T,f){var e={};w.exports=e;var s=f(5),a=f(0);(function(){e.create=s.create,e.add=s.add,e.remove=s.remove,e.clear=s.clear,e.addComposite=s.addComposite,e.addBody=s.addBody,e.addConstraint=s.addConstraint})()}])})});function ie(w,T){if(!(w instanceof T))throw new TypeError("Cannot call a class as a function")}function de(w,T){for(var f=0;f<T.length;f++){var e=T[f];e.enumerable=e.enumerable||!1,e.configurable=!0,"value"in e&&(e.writable=!0),Object.defineProperty(w,e.key,e)}}function ne(w,T,f){return T&&de(w.prototype,T),f&&de(w,f),w}function xe(w){return+w.replace(/px/,"")}function Ve(w){var T=window.devicePixelRatio,f=getComputedStyle(w),e=xe(f.getPropertyValue("width")),s=xe(f.getPropertyValue("height"));w.setAttribute("width",(e*T).toString()),w.setAttribute("height",(s*T).toString())}function G(w,T){var f=arguments.length>2&&arguments[2]!==void 0?arguments[2]:0,e=Math.random()*(T-w)+w;return Math.floor(e*Math.pow(10,f))/Math.pow(10,f)}function te(w){return w[G(0,w.length)]}var be=.00125,ze=5e-4,Ue=9e-4,Ge=1e-5,je=6,$e=80,Qe=.9,Je=1.7,Ze=.2,Xe=.6,Ke=.03,Ye=.07,ye=15,Se=82,qe=150,_e=100,et=250,tt=40,it=["#fcf403","#62fc03","#f4fc03","#03e7fc","#03fca5","#a503fc","#fc03ad","#fc03c2"];function Ce(w){var T=1920;return Math.log(w)/Math.log(T)}var Pe=function(){function w(T){ie(this,w);var f=T.initialPosition,e=T.direction,s=T.confettiRadius,a=T.confettiColors,i=T.emojis,h=T.emojiSize,o=T.canvasWidth;T.images;var u=T.resources,r=G(Qe,Je,3),l=r*Ce(o);this.confettiSpeed={x:l,y:l},this.finalConfettiSpeedX=G(Ze,Xe,3),this.rotationSpeed=i.length||u.length?.01:G(Ke,Ye,3)*Ce(o),this.dragForceCoefficient=G(ze,Ue,6),this.radius={x:s,y:s},this.initialRadius=s,this.rotationAngle=e==="left"?G(0,.2,3):G(-.2,0,3),this.emojiSize=h,this.emojiRotationAngle=G(0,2*Math.PI),this.radiusYUpdateDirection="down";var t=e==="left"?G(Se,ye)*Math.PI/180:G(-ye,-Se)*Math.PI/180;this.absCos=Math.abs(Math.cos(t)),this.absSin=Math.abs(Math.sin(t));var n=G(-qe,0),g={x:f.x+(e==="left"?-n:n)*this.absCos,y:f.y-n*this.absSin};this.currentPosition=Object.assign({},g),this.initialPosition=Object.assign({},g),this.color=i.length||u.length?null:te(a),this.emoji=i.length?te(i):null,this.image=u.length?te(u):null,this.createdAt=new Date().getTime(),this.direction=e}return ne(w,[{key:"draw",value:function(f){var e=this.currentPosition,s=this.radius,a=this.color,i=this.emoji,h=this.rotationAngle,o=this.emojiRotationAngle,u=this.emojiSize,r=this.image,l=window.devicePixelRatio;a?(f.fillStyle=a,f.beginPath(),f.ellipse(e.x*l,e.y*l,s.x*l,s.y*l,h,0,2*Math.PI),f.fill()):r?(f.save(),f.translate(l*e.x,l*e.y),f.rotate(o),f.drawImage(r,-r.width/2,-r.height/2,r.width,r.height),f.restore()):i&&(f.font="".concat(u,"px serif"),f.save(),f.translate(l*e.x,l*e.y),f.rotate(o),f.textAlign="center",f.fillText(i,0,0),f.restore())}},{key:"updatePosition",value:function(f,e){var s=this.confettiSpeed,a=this.dragForceCoefficient,i=this.finalConfettiSpeedX,h=this.radiusYUpdateDirection,o=this.rotationSpeed,u=this.createdAt,r=this.direction,l=e-u;if(s.x>i&&(this.confettiSpeed.x-=a*f),this.currentPosition.x+=s.x*(r==="left"?-this.absCos:this.absCos)*f,this.currentPosition.y=this.initialPosition.y-s.y*this.absSin*l+be*Math.pow(l,2)/2,this.rotationSpeed-=this.emoji||this.image?1e-4:Ge*f,this.rotationSpeed<0&&(this.rotationSpeed=0),this.emoji||this.image){this.emojiRotationAngle+=this.rotationSpeed*f%(2*Math.PI);return}h==="down"?(this.radius.y-=f*o,this.radius.y<=0&&(this.radius.y=0,this.radiusYUpdateDirection="up")):(this.radius.y+=f*o,this.radius.y>=this.initialRadius&&(this.radius.y=this.initialRadius,this.radiusYUpdateDirection="down"))}},{key:"getIsVisibleOnCanvas",value:function(f){return this.currentPosition.y<f+_e}}]),w}();function nt(){var w=document.createElement("canvas");return w.style.position="fixed",w.style.width="100%",w.style.height="100%",w.style.top="0",w.style.left="0",w.style.zIndex="1000",w.style.pointerEvents="none",document.body.appendChild(w),w}function rt(w){var T=w.confettiRadius,f=T===void 0?je:T,e=w.confettiNumber,s=e===void 0?w.confettiesNumber||(w.emojis?tt:et):e,a=w.confettiColors,i=a===void 0?it:a,h=w.emojis,o=h===void 0?w.emojies||[]:h,u=w.emojiSize,r=u===void 0?$e:u,l=w.images,t=l===void 0?[]:l;return w.emojies&&console.error("emojies argument is deprecated, please use emojis instead"),w.confettiesNumber&&console.error("confettiesNumber argument is deprecated, please use confettiNumber instead"),{confettiRadius:f,confettiNumber:s,confettiColors:i,emojis:o,emojiSize:r,images:t}}var st=function(){function w(T){var f=this;ie(this,w),this.canvasContext=T,this.shapes=[],this.promise=new Promise(function(e){return f.resolvePromise=e})}return ne(w,[{key:"getBatchCompletePromise",value:function(){return this.promise}},{key:"addShapes",value:function(){var f;(f=this.shapes).push.apply(f,arguments)}},{key:"complete",value:function(){var f;return this.shapes.length?!1:((f=this.resolvePromise)===null||f===void 0||f.call(this),!0)}},{key:"processShapes",value:function(f,e,s){var a=this,i=f.timeDelta,h=f.currentTime;this.shapes=this.shapes.filter(function(o){return o.updatePosition(i,h),o.draw(a.canvasContext),s?o.getIsVisibleOnCanvas(e):!0})}}]),w}(),at=function(){function w(){var T=arguments.length>0&&arguments[0]!==void 0?arguments[0]:{};ie(this,w),this.activeConfettiBatches=[],this.canvas=T.canvas||nt(),this.canvasContext=this.canvas.getContext("2d"),this.requestAnimationFrameRequested=!1,this.lastUpdated=new Date().getTime(),this.iterationIndex=0,this.loop=this.loop.bind(this),requestAnimationFrame(this.loop)}return ne(w,[{key:"loop",value:function(){this.requestAnimationFrameRequested=!1,Ve(this.canvas);var f=new Date().getTime(),e=f-this.lastUpdated,s=this.canvas.offsetHeight,a=this.iterationIndex%10===0;this.activeConfettiBatches=this.activeConfettiBatches.filter(function(i){return i.processShapes({timeDelta:e,currentTime:f},s,a),a?!i.complete():!0}),this.iterationIndex++,this.queueAnimationFrameIfNeeded(f)}},{key:"queueAnimationFrameIfNeeded",value:function(f){this.requestAnimationFrameRequested||this.activeConfettiBatches.length<1||(this.requestAnimationFrameRequested=!0,this.lastUpdated=f||new Date().getTime(),requestAnimationFrame(this.loop))}},{key:"_load",value:function(f){return new Promise(function(e,s){var a=new Image;a.onload=function(){e(a)},a.onerror=function(i){s(i)},a.src=f,a.complete&&(a.onload=null,e(a))})}},{key:"_loadImages",value:function(f){var e=this;if(f.length===0)return Promise.resolve([]);var s=f.map(function(a){return e._load(a)});return Promise.all(s)}},{key:"addConfetti",value:function(){var f=this,e=arguments.length>0&&arguments[0]!==void 0?arguments[0]:{},s=rt(e),a=s.confettiRadius,i=s.confettiNumber,h=s.confettiColors,o=s.emojis,u=s.emojiSize,r=s.images,l=this.canvas.getBoundingClientRect(),t=l.width,n=l.height,g=n*5/7,c={x:0,y:g},y={x:t,y:g},C=new st(this.canvasContext);return this._loadImages(r).then(function(v){for(var m=0;m<i/2;m++){var d=new Pe({initialPosition:c,direction:"right",confettiRadius:a,confettiColors:h,confettiNumber:i,emojis:o,emojiSize:u,canvasWidth:t,images:r,resources:v}),p=new Pe({initialPosition:y,direction:"left",confettiRadius:a,confettiColors:h,confettiNumber:i,emojis:o,emojiSize:u,canvasWidth:t,images:r,resources:v});C.addShapes(d,p)}f.activeConfettiBatches.push(C),f.queueAnimationFrameIfNeeded()}),C.getBatchCompletePromise()}}]),w}(),we=at;var re=class{constructor(T={}){this.confetti=new we({canvas:document.getElementById("popper")});this.options={pattern:[/8+|👏+/gim]};this._confetti=async()=>this.confetti.addConfetti(this.options);Object.assign(this.options,T),document.body.addEventListener("click",()=>this._confetti())}verify(T){let f=T.reduce((e,s)=>this.options.pattern.reduce((a,i)=>(typeof i=="string"&&(i=new RegExp(i,"igm")),console.log(s.data.comment,i),s.data.comment.search(i)!==-1?a+1:a),e),0);for(let e=0;e<Math.min(f,10);e++)setTimeout(this._confetti,e*200)}};var k=ke(Ie()),$=30,ae={isStatic:!0,render:{fillStyle:"transparent"}};var Y={pattern:[/w/gim],lifeTime:3e3,textures:[],magnification:3,maxItems:50},Me=class{constructor(T,f,e,s,a){this.x=T;this.y=f;this.lifeTime=e;this.texture=s;this.callback=a;this._item=k.Bodies.circle(T,f,s.size,{restitution:.9,render:{sprite:{texture:s.src,xScale:s.xScale||1,yScale:s.yScale||1}}}),this._timer=setTimeout(()=>{a(this._item)},e)}get body(){return this._item}remove(){clearTimeout(this._timer),this.callback(this._item)}},oe=class{constructor(T){this.stageWidth=window.innerWidth;this.stageHeight=window.innerHeight;this.engine=k.Engine.create();this.options=Object.assign({},Y);this._items=[];Object.assign(this.options,T);let f=document.getElementById("dropper");this.render=k.Render.create({canvas:f,engine:this.engine,options:{background:"transparent",width:this.stageWidth,height:this.stageHeight,wireframes:!1}});let e=k.Bodies.rectangle(-($/2-1),this.stageHeight/2,$,this.stageHeight,ae),s=k.Bodies.rectangle(this.stageWidth+$/2-1,this.stageHeight/2,$,this.stageHeight,ae),a=k.Bodies.rectangle(this.stageWidth/2,this.stageHeight+$/2-1,this.stageWidth,$,ae);k.Composite.add(this.engine.world,[a,e,s]),k.Render.run(this.render);let i=k.Runner.create();k.Runner.run(i,this.engine),document.body.addEventListener("click",()=>this.drop())}drop(){let T=Math.random()*this.stageWidth,f=Math.random()*this.stageHeight/3,e=this.options.textures[Math.floor(Math.random()*this.options.textures.length)],s=new Me(T,f,this.options.lifeTime||Y.lifeTime,e,i=>{k.Composite.remove(this.engine.world,i)});this._items.unshift(s),k.Composite.add(this.engine.world,[s.body]);let a=this.options.maxItems||Y.maxItems;this._items.length>a&&this._items.splice(a,this._items.length).forEach(h=>{h.remove()})}verify(T){let f=T.reduce((s,a)=>this.options.pattern.reduce((i,h)=>{typeof h=="string"&&(h=new RegExp(h,"igm"));let o=a.data.comment.split(h).length-1;return i+o},s),0),e=this.options.magnification||Y.magnification;for(let s=0;s<f*e;s++)this.drop()}};var le={_timer:-1,_lastId:"",_commentSubscribers:new Map,_listenerSubscribers:new Map,init(w){let T=()=>{fetch(w).then(f=>f.json()).then(async f=>{let{comments:e,listeners:s}=f,a=e.findIndex(h=>this._lastId===h.data.id);a===-1&&(a=0);let i=e.slice(a+1);i.length!==0&&(this._lastId=i[i.length-1].data.id,this._publishComment(i)),this._publishListener(s),this._timer=setTimeout(T,2e3)}).catch(f=>{console.error(f),this._timer=setTimeout(T,5e3)})};T()},_publishComment(w){this._commentSubscribers.forEach(T=>{T(w)})},_publishListener(w){this._listenerSubscribers.forEach(T=>{T(w)})},subscribeComment(w){this._commentSubscribers.set(w,w)},unsbscribeComment(w){this._commentSubscribers.delete(w)},subscribeListener(w){this._listenerSubscribers.set(w,w)},unsubscribeListener(w){this._listenerSubscribers.delete(w)}};var q=300,Te=class{constructor(T,f,e){this.parent=T;this.conf=f;this._element=document.createElement("div");let s=new Image;s.src=f.image,f.width&&(s.width=f.width),f.height&&(s.height=f.height);let a=f.x||Math.floor(Math.random()*window.innerWidth-q+q/2),i=f.y||Math.floor(Math.random()*window.innerHeight-q+q/2);this._element.className="notify",this._element.style.transform=`translate(${a}px, ${i}px)`,this._element.appendChild(s),this.parent.appendChild(this._element),this._timer=setTimeout(()=>{this.remove()},f.lifeTime||5e3)}remove(){clearInterval(this._timer),this._element&&(this.parent.removeChild(this._element),this._element=null)}},fe=class{constructor(T){this._options={items:[],maxItems:20};this._container=document.getElementById("notify");this._items=[];Object.assign(this._options,T),document.body.addEventListener("click",()=>{let f=this._options.items[Math.floor(Math.random()*this._options.items.length)];this.showItem(f)})}showItem(T){let f=new Te(this._container,T,s=>{s.remove()});if(T.only){let s=this._items.findIndex(a=>a.conf===T);console.log(s),s!==-1&&this._items.splice(s,1).forEach(i=>{i.remove()})}this._items.unshift(f);let e=this._options.maxItems||20;this._items.length>e&&this._items.splice(e,this._items.length).forEach(a=>{a.remove()})}verify(T){let f=[];T.forEach(e=>{let s=this._options.items.find(a=>a.pattern.some(i=>(typeof i=="string"&&(i=new RegExp(i,"gim")),e.data.comment.search(i)!==-1)));s&&f.push(s)}),console.log(f),f.length!==0&&f.forEach(e=>{this.showItem(e)})}};var ot={jsonPath:"../../comment.json",use:{popper:!0,dropper:!0,notify:!0},popperConfig:{pattern:["88","\u{1F44F}"]},dropperConfig:{pattern:["ww","\u8349"],textures:[{src:"./paw.png",size:24,xScale:1.5,yScale:1.5}]},notifyConfig:{items:[],maxItems:20}};function lt(w={}){let T=Object.assign({},ot,w),f=[];if(T.use.popper){let e=new re(T.popperConfig);f.push(e)}if(T.use.dropper){let e=new oe(T.dropperConfig);f.push(e)}if(T.use.notify){let e=new fe(T.notifyConfig);f.push(e)}le.init(T.jsonPath),le.subscribeComment(e=>{f.forEach(s=>{s.verify(e)})})}window.WordParty={start:lt};})();
+(() => {
+  var __create = Object.create;
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getProtoOf = Object.getPrototypeOf;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
+  var __commonJS = (cb, mod) => function __require() {
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  };
+  var __reExport = (target, module, copyDefault, desc) => {
+    if (module && typeof module === "object" || typeof module === "function") {
+      for (let key of __getOwnPropNames(module))
+        if (!__hasOwnProp.call(target, key) && (copyDefault || key !== "default"))
+          __defProp(target, key, { get: () => module[key], enumerable: !(desc = __getOwnPropDesc(module, key)) || desc.enumerable });
+    }
+    return target;
+  };
+  var __toESM = (module, isNodeMode) => {
+    return __reExport(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", !isNodeMode && module && module.__esModule ? { get: () => module.default, enumerable: true } : { value: module, enumerable: true })), module);
+  };
+
+  // node_modules/matter-js/build/matter.js
+  var require_matter = __commonJS({
+    "node_modules/matter-js/build/matter.js"(exports, module) {
+      (function webpackUniversalModuleDefinition(root, factory) {
+        if (typeof exports === "object" && typeof module === "object")
+          module.exports = factory();
+        else if (typeof define === "function" && define.amd)
+          define("Matter", [], factory);
+        else if (typeof exports === "object")
+          exports["Matter"] = factory();
+        else
+          root["Matter"] = factory();
+      })(exports, function() {
+        return function(modules) {
+          var installedModules = {};
+          function __webpack_require__(moduleId) {
+            if (installedModules[moduleId]) {
+              return installedModules[moduleId].exports;
+            }
+            var module2 = installedModules[moduleId] = {
+              i: moduleId,
+              l: false,
+              exports: {}
+            };
+            modules[moduleId].call(module2.exports, module2, module2.exports, __webpack_require__);
+            module2.l = true;
+            return module2.exports;
+          }
+          __webpack_require__.m = modules;
+          __webpack_require__.c = installedModules;
+          __webpack_require__.d = function(exports2, name, getter) {
+            if (!__webpack_require__.o(exports2, name)) {
+              Object.defineProperty(exports2, name, { enumerable: true, get: getter });
+            }
+          };
+          __webpack_require__.r = function(exports2) {
+            if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
+              Object.defineProperty(exports2, Symbol.toStringTag, { value: "Module" });
+            }
+            Object.defineProperty(exports2, "__esModule", { value: true });
+          };
+          __webpack_require__.t = function(value, mode) {
+            if (mode & 1)
+              value = __webpack_require__(value);
+            if (mode & 8)
+              return value;
+            if (mode & 4 && typeof value === "object" && value && value.__esModule)
+              return value;
+            var ns = /* @__PURE__ */ Object.create(null);
+            __webpack_require__.r(ns);
+            Object.defineProperty(ns, "default", { enumerable: true, value });
+            if (mode & 2 && typeof value != "string")
+              for (var key in value)
+                __webpack_require__.d(ns, key, function(key2) {
+                  return value[key2];
+                }.bind(null, key));
+            return ns;
+          };
+          __webpack_require__.n = function(module2) {
+            var getter = module2 && module2.__esModule ? function getDefault() {
+              return module2["default"];
+            } : function getModuleExports() {
+              return module2;
+            };
+            __webpack_require__.d(getter, "a", getter);
+            return getter;
+          };
+          __webpack_require__.o = function(object, property) {
+            return Object.prototype.hasOwnProperty.call(object, property);
+          };
+          __webpack_require__.p = "";
+          return __webpack_require__(__webpack_require__.s = 21);
+        }([
+          function(module2, exports2) {
+            var Common = {};
+            module2.exports = Common;
+            (function() {
+              Common._nextId = 0;
+              Common._seed = 0;
+              Common._nowStartTime = +new Date();
+              Common._warnedOnce = {};
+              Common._decomp = null;
+              Common.extend = function(obj, deep) {
+                var argsStart, args, deepClone;
+                if (typeof deep === "boolean") {
+                  argsStart = 2;
+                  deepClone = deep;
+                } else {
+                  argsStart = 1;
+                  deepClone = true;
+                }
+                for (var i = argsStart; i < arguments.length; i++) {
+                  var source = arguments[i];
+                  if (source) {
+                    for (var prop in source) {
+                      if (deepClone && source[prop] && source[prop].constructor === Object) {
+                        if (!obj[prop] || obj[prop].constructor === Object) {
+                          obj[prop] = obj[prop] || {};
+                          Common.extend(obj[prop], deepClone, source[prop]);
+                        } else {
+                          obj[prop] = source[prop];
+                        }
+                      } else {
+                        obj[prop] = source[prop];
+                      }
+                    }
+                  }
+                }
+                return obj;
+              };
+              Common.clone = function(obj, deep) {
+                return Common.extend({}, deep, obj);
+              };
+              Common.keys = function(obj) {
+                if (Object.keys)
+                  return Object.keys(obj);
+                var keys = [];
+                for (var key in obj)
+                  keys.push(key);
+                return keys;
+              };
+              Common.values = function(obj) {
+                var values = [];
+                if (Object.keys) {
+                  var keys = Object.keys(obj);
+                  for (var i = 0; i < keys.length; i++) {
+                    values.push(obj[keys[i]]);
+                  }
+                  return values;
+                }
+                for (var key in obj)
+                  values.push(obj[key]);
+                return values;
+              };
+              Common.get = function(obj, path, begin, end) {
+                path = path.split(".").slice(begin, end);
+                for (var i = 0; i < path.length; i += 1) {
+                  obj = obj[path[i]];
+                }
+                return obj;
+              };
+              Common.set = function(obj, path, val, begin, end) {
+                var parts = path.split(".").slice(begin, end);
+                Common.get(obj, path, 0, -1)[parts[parts.length - 1]] = val;
+                return val;
+              };
+              Common.shuffle = function(array) {
+                for (var i = array.length - 1; i > 0; i--) {
+                  var j = Math.floor(Common.random() * (i + 1));
+                  var temp = array[i];
+                  array[i] = array[j];
+                  array[j] = temp;
+                }
+                return array;
+              };
+              Common.choose = function(choices) {
+                return choices[Math.floor(Common.random() * choices.length)];
+              };
+              Common.isElement = function(obj) {
+                if (typeof HTMLElement !== "undefined") {
+                  return obj instanceof HTMLElement;
+                }
+                return !!(obj && obj.nodeType && obj.nodeName);
+              };
+              Common.isArray = function(obj) {
+                return Object.prototype.toString.call(obj) === "[object Array]";
+              };
+              Common.isFunction = function(obj) {
+                return typeof obj === "function";
+              };
+              Common.isPlainObject = function(obj) {
+                return typeof obj === "object" && obj.constructor === Object;
+              };
+              Common.isString = function(obj) {
+                return toString.call(obj) === "[object String]";
+              };
+              Common.clamp = function(value, min, max) {
+                if (value < min)
+                  return min;
+                if (value > max)
+                  return max;
+                return value;
+              };
+              Common.sign = function(value) {
+                return value < 0 ? -1 : 1;
+              };
+              Common.now = function() {
+                if (typeof window !== "undefined" && window.performance) {
+                  if (window.performance.now) {
+                    return window.performance.now();
+                  } else if (window.performance.webkitNow) {
+                    return window.performance.webkitNow();
+                  }
+                }
+                if (Date.now) {
+                  return Date.now();
+                }
+                return new Date() - Common._nowStartTime;
+              };
+              Common.random = function(min, max) {
+                min = typeof min !== "undefined" ? min : 0;
+                max = typeof max !== "undefined" ? max : 1;
+                return min + _seededRandom() * (max - min);
+              };
+              var _seededRandom = function() {
+                Common._seed = (Common._seed * 9301 + 49297) % 233280;
+                return Common._seed / 233280;
+              };
+              Common.colorToNumber = function(colorString) {
+                colorString = colorString.replace("#", "");
+                if (colorString.length == 3) {
+                  colorString = colorString.charAt(0) + colorString.charAt(0) + colorString.charAt(1) + colorString.charAt(1) + colorString.charAt(2) + colorString.charAt(2);
+                }
+                return parseInt(colorString, 16);
+              };
+              Common.logLevel = 1;
+              Common.log = function() {
+                if (console && Common.logLevel > 0 && Common.logLevel <= 3) {
+                  console.log.apply(console, ["matter-js:"].concat(Array.prototype.slice.call(arguments)));
+                }
+              };
+              Common.info = function() {
+                if (console && Common.logLevel > 0 && Common.logLevel <= 2) {
+                  console.info.apply(console, ["matter-js:"].concat(Array.prototype.slice.call(arguments)));
+                }
+              };
+              Common.warn = function() {
+                if (console && Common.logLevel > 0 && Common.logLevel <= 3) {
+                  console.warn.apply(console, ["matter-js:"].concat(Array.prototype.slice.call(arguments)));
+                }
+              };
+              Common.warnOnce = function() {
+                var message = Array.prototype.slice.call(arguments).join(" ");
+                if (!Common._warnedOnce[message]) {
+                  Common.warn(message);
+                  Common._warnedOnce[message] = true;
+                }
+              };
+              Common.deprecated = function(obj, prop, warning) {
+                obj[prop] = Common.chain(function() {
+                  Common.warnOnce("\u{1F505} deprecated \u{1F505}", warning);
+                }, obj[prop]);
+              };
+              Common.nextId = function() {
+                return Common._nextId++;
+              };
+              Common.indexOf = function(haystack, needle) {
+                if (haystack.indexOf)
+                  return haystack.indexOf(needle);
+                for (var i = 0; i < haystack.length; i++) {
+                  if (haystack[i] === needle)
+                    return i;
+                }
+                return -1;
+              };
+              Common.map = function(list, func) {
+                if (list.map) {
+                  return list.map(func);
+                }
+                var mapped = [];
+                for (var i = 0; i < list.length; i += 1) {
+                  mapped.push(func(list[i]));
+                }
+                return mapped;
+              };
+              Common.topologicalSort = function(graph) {
+                var result = [], visited = [], temp = [];
+                for (var node in graph) {
+                  if (!visited[node] && !temp[node]) {
+                    Common._topologicalSort(node, visited, temp, graph, result);
+                  }
+                }
+                return result;
+              };
+              Common._topologicalSort = function(node, visited, temp, graph, result) {
+                var neighbors = graph[node] || [];
+                temp[node] = true;
+                for (var i = 0; i < neighbors.length; i += 1) {
+                  var neighbor = neighbors[i];
+                  if (temp[neighbor]) {
+                    continue;
+                  }
+                  if (!visited[neighbor]) {
+                    Common._topologicalSort(neighbor, visited, temp, graph, result);
+                  }
+                }
+                temp[node] = false;
+                visited[node] = true;
+                result.push(node);
+              };
+              Common.chain = function() {
+                var funcs = [];
+                for (var i = 0; i < arguments.length; i += 1) {
+                  var func = arguments[i];
+                  if (func._chained) {
+                    funcs.push.apply(funcs, func._chained);
+                  } else {
+                    funcs.push(func);
+                  }
+                }
+                var chain = function() {
+                  var lastResult, args = new Array(arguments.length);
+                  for (var i2 = 0, l = arguments.length; i2 < l; i2++) {
+                    args[i2] = arguments[i2];
+                  }
+                  for (i2 = 0; i2 < funcs.length; i2 += 1) {
+                    var result = funcs[i2].apply(lastResult, args);
+                    if (typeof result !== "undefined") {
+                      lastResult = result;
+                    }
+                  }
+                  return lastResult;
+                };
+                chain._chained = funcs;
+                return chain;
+              };
+              Common.chainPathBefore = function(base, path, func) {
+                return Common.set(base, path, Common.chain(func, Common.get(base, path)));
+              };
+              Common.chainPathAfter = function(base, path, func) {
+                return Common.set(base, path, Common.chain(Common.get(base, path), func));
+              };
+              Common.setDecomp = function(decomp) {
+                Common._decomp = decomp;
+              };
+              Common.getDecomp = function() {
+                var decomp = Common._decomp;
+                try {
+                  if (!decomp && typeof window !== "undefined") {
+                    decomp = window.decomp;
+                  }
+                  if (!decomp && typeof global !== "undefined") {
+                    decomp = global.decomp;
+                  }
+                } catch (e) {
+                  decomp = null;
+                }
+                return decomp;
+              };
+            })();
+          },
+          function(module2, exports2) {
+            var Bounds = {};
+            module2.exports = Bounds;
+            (function() {
+              Bounds.create = function(vertices) {
+                var bounds = {
+                  min: { x: 0, y: 0 },
+                  max: { x: 0, y: 0 }
+                };
+                if (vertices)
+                  Bounds.update(bounds, vertices);
+                return bounds;
+              };
+              Bounds.update = function(bounds, vertices, velocity) {
+                bounds.min.x = Infinity;
+                bounds.max.x = -Infinity;
+                bounds.min.y = Infinity;
+                bounds.max.y = -Infinity;
+                for (var i = 0; i < vertices.length; i++) {
+                  var vertex = vertices[i];
+                  if (vertex.x > bounds.max.x)
+                    bounds.max.x = vertex.x;
+                  if (vertex.x < bounds.min.x)
+                    bounds.min.x = vertex.x;
+                  if (vertex.y > bounds.max.y)
+                    bounds.max.y = vertex.y;
+                  if (vertex.y < bounds.min.y)
+                    bounds.min.y = vertex.y;
+                }
+                if (velocity) {
+                  if (velocity.x > 0) {
+                    bounds.max.x += velocity.x;
+                  } else {
+                    bounds.min.x += velocity.x;
+                  }
+                  if (velocity.y > 0) {
+                    bounds.max.y += velocity.y;
+                  } else {
+                    bounds.min.y += velocity.y;
+                  }
+                }
+              };
+              Bounds.contains = function(bounds, point) {
+                return point.x >= bounds.min.x && point.x <= bounds.max.x && point.y >= bounds.min.y && point.y <= bounds.max.y;
+              };
+              Bounds.overlaps = function(boundsA, boundsB) {
+                return boundsA.min.x <= boundsB.max.x && boundsA.max.x >= boundsB.min.x && boundsA.max.y >= boundsB.min.y && boundsA.min.y <= boundsB.max.y;
+              };
+              Bounds.translate = function(bounds, vector) {
+                bounds.min.x += vector.x;
+                bounds.max.x += vector.x;
+                bounds.min.y += vector.y;
+                bounds.max.y += vector.y;
+              };
+              Bounds.shift = function(bounds, position) {
+                var deltaX = bounds.max.x - bounds.min.x, deltaY = bounds.max.y - bounds.min.y;
+                bounds.min.x = position.x;
+                bounds.max.x = position.x + deltaX;
+                bounds.min.y = position.y;
+                bounds.max.y = position.y + deltaY;
+              };
+            })();
+          },
+          function(module2, exports2) {
+            var Vector = {};
+            module2.exports = Vector;
+            (function() {
+              Vector.create = function(x, y) {
+                return { x: x || 0, y: y || 0 };
+              };
+              Vector.clone = function(vector) {
+                return { x: vector.x, y: vector.y };
+              };
+              Vector.magnitude = function(vector) {
+                return Math.sqrt(vector.x * vector.x + vector.y * vector.y);
+              };
+              Vector.magnitudeSquared = function(vector) {
+                return vector.x * vector.x + vector.y * vector.y;
+              };
+              Vector.rotate = function(vector, angle, output) {
+                var cos = Math.cos(angle), sin = Math.sin(angle);
+                if (!output)
+                  output = {};
+                var x = vector.x * cos - vector.y * sin;
+                output.y = vector.x * sin + vector.y * cos;
+                output.x = x;
+                return output;
+              };
+              Vector.rotateAbout = function(vector, angle, point, output) {
+                var cos = Math.cos(angle), sin = Math.sin(angle);
+                if (!output)
+                  output = {};
+                var x = point.x + ((vector.x - point.x) * cos - (vector.y - point.y) * sin);
+                output.y = point.y + ((vector.x - point.x) * sin + (vector.y - point.y) * cos);
+                output.x = x;
+                return output;
+              };
+              Vector.normalise = function(vector) {
+                var magnitude = Vector.magnitude(vector);
+                if (magnitude === 0)
+                  return { x: 0, y: 0 };
+                return { x: vector.x / magnitude, y: vector.y / magnitude };
+              };
+              Vector.dot = function(vectorA, vectorB) {
+                return vectorA.x * vectorB.x + vectorA.y * vectorB.y;
+              };
+              Vector.cross = function(vectorA, vectorB) {
+                return vectorA.x * vectorB.y - vectorA.y * vectorB.x;
+              };
+              Vector.cross3 = function(vectorA, vectorB, vectorC) {
+                return (vectorB.x - vectorA.x) * (vectorC.y - vectorA.y) - (vectorB.y - vectorA.y) * (vectorC.x - vectorA.x);
+              };
+              Vector.add = function(vectorA, vectorB, output) {
+                if (!output)
+                  output = {};
+                output.x = vectorA.x + vectorB.x;
+                output.y = vectorA.y + vectorB.y;
+                return output;
+              };
+              Vector.sub = function(vectorA, vectorB, output) {
+                if (!output)
+                  output = {};
+                output.x = vectorA.x - vectorB.x;
+                output.y = vectorA.y - vectorB.y;
+                return output;
+              };
+              Vector.mult = function(vector, scalar) {
+                return { x: vector.x * scalar, y: vector.y * scalar };
+              };
+              Vector.div = function(vector, scalar) {
+                return { x: vector.x / scalar, y: vector.y / scalar };
+              };
+              Vector.perp = function(vector, negate) {
+                negate = negate === true ? -1 : 1;
+                return { x: negate * -vector.y, y: negate * vector.x };
+              };
+              Vector.neg = function(vector) {
+                return { x: -vector.x, y: -vector.y };
+              };
+              Vector.angle = function(vectorA, vectorB) {
+                return Math.atan2(vectorB.y - vectorA.y, vectorB.x - vectorA.x);
+              };
+              Vector._temp = [
+                Vector.create(),
+                Vector.create(),
+                Vector.create(),
+                Vector.create(),
+                Vector.create(),
+                Vector.create()
+              ];
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Vertices = {};
+            module2.exports = Vertices;
+            var Vector = __webpack_require__(2);
+            var Common = __webpack_require__(0);
+            (function() {
+              Vertices.create = function(points, body) {
+                var vertices = [];
+                for (var i = 0; i < points.length; i++) {
+                  var point = points[i], vertex = {
+                    x: point.x,
+                    y: point.y,
+                    index: i,
+                    body,
+                    isInternal: false
+                  };
+                  vertices.push(vertex);
+                }
+                return vertices;
+              };
+              Vertices.fromPath = function(path, body) {
+                var pathPattern = /L?\s*([-\d.e]+)[\s,]*([-\d.e]+)*/ig, points = [];
+                path.replace(pathPattern, function(match, x, y) {
+                  points.push({ x: parseFloat(x), y: parseFloat(y) });
+                });
+                return Vertices.create(points, body);
+              };
+              Vertices.centre = function(vertices) {
+                var area = Vertices.area(vertices, true), centre = { x: 0, y: 0 }, cross, temp, j;
+                for (var i = 0; i < vertices.length; i++) {
+                  j = (i + 1) % vertices.length;
+                  cross = Vector.cross(vertices[i], vertices[j]);
+                  temp = Vector.mult(Vector.add(vertices[i], vertices[j]), cross);
+                  centre = Vector.add(centre, temp);
+                }
+                return Vector.div(centre, 6 * area);
+              };
+              Vertices.mean = function(vertices) {
+                var average = { x: 0, y: 0 };
+                for (var i = 0; i < vertices.length; i++) {
+                  average.x += vertices[i].x;
+                  average.y += vertices[i].y;
+                }
+                return Vector.div(average, vertices.length);
+              };
+              Vertices.area = function(vertices, signed) {
+                var area = 0, j = vertices.length - 1;
+                for (var i = 0; i < vertices.length; i++) {
+                  area += (vertices[j].x - vertices[i].x) * (vertices[j].y + vertices[i].y);
+                  j = i;
+                }
+                if (signed)
+                  return area / 2;
+                return Math.abs(area) / 2;
+              };
+              Vertices.inertia = function(vertices, mass) {
+                var numerator = 0, denominator = 0, v = vertices, cross, j;
+                for (var n = 0; n < v.length; n++) {
+                  j = (n + 1) % v.length;
+                  cross = Math.abs(Vector.cross(v[j], v[n]));
+                  numerator += cross * (Vector.dot(v[j], v[j]) + Vector.dot(v[j], v[n]) + Vector.dot(v[n], v[n]));
+                  denominator += cross;
+                }
+                return mass / 6 * (numerator / denominator);
+              };
+              Vertices.translate = function(vertices, vector, scalar) {
+                scalar = typeof scalar !== "undefined" ? scalar : 1;
+                var verticesLength = vertices.length, translateX = vector.x * scalar, translateY = vector.y * scalar, i;
+                for (i = 0; i < verticesLength; i++) {
+                  vertices[i].x += translateX;
+                  vertices[i].y += translateY;
+                }
+                return vertices;
+              };
+              Vertices.rotate = function(vertices, angle, point) {
+                if (angle === 0)
+                  return;
+                var cos = Math.cos(angle), sin = Math.sin(angle), pointX = point.x, pointY = point.y, verticesLength = vertices.length, vertex, dx, dy, i;
+                for (i = 0; i < verticesLength; i++) {
+                  vertex = vertices[i];
+                  dx = vertex.x - pointX;
+                  dy = vertex.y - pointY;
+                  vertex.x = pointX + (dx * cos - dy * sin);
+                  vertex.y = pointY + (dx * sin + dy * cos);
+                }
+                return vertices;
+              };
+              Vertices.contains = function(vertices, point) {
+                var pointX = point.x, pointY = point.y, verticesLength = vertices.length, vertex = vertices[verticesLength - 1], nextVertex;
+                for (var i = 0; i < verticesLength; i++) {
+                  nextVertex = vertices[i];
+                  if ((pointX - vertex.x) * (nextVertex.y - vertex.y) + (pointY - vertex.y) * (vertex.x - nextVertex.x) > 0) {
+                    return false;
+                  }
+                  vertex = nextVertex;
+                }
+                return true;
+              };
+              Vertices.scale = function(vertices, scaleX, scaleY, point) {
+                if (scaleX === 1 && scaleY === 1)
+                  return vertices;
+                point = point || Vertices.centre(vertices);
+                var vertex, delta;
+                for (var i = 0; i < vertices.length; i++) {
+                  vertex = vertices[i];
+                  delta = Vector.sub(vertex, point);
+                  vertices[i].x = point.x + delta.x * scaleX;
+                  vertices[i].y = point.y + delta.y * scaleY;
+                }
+                return vertices;
+              };
+              Vertices.chamfer = function(vertices, radius, quality, qualityMin, qualityMax) {
+                if (typeof radius === "number") {
+                  radius = [radius];
+                } else {
+                  radius = radius || [8];
+                }
+                quality = typeof quality !== "undefined" ? quality : -1;
+                qualityMin = qualityMin || 2;
+                qualityMax = qualityMax || 14;
+                var newVertices = [];
+                for (var i = 0; i < vertices.length; i++) {
+                  var prevVertex = vertices[i - 1 >= 0 ? i - 1 : vertices.length - 1], vertex = vertices[i], nextVertex = vertices[(i + 1) % vertices.length], currentRadius = radius[i < radius.length ? i : radius.length - 1];
+                  if (currentRadius === 0) {
+                    newVertices.push(vertex);
+                    continue;
+                  }
+                  var prevNormal = Vector.normalise({
+                    x: vertex.y - prevVertex.y,
+                    y: prevVertex.x - vertex.x
+                  });
+                  var nextNormal = Vector.normalise({
+                    x: nextVertex.y - vertex.y,
+                    y: vertex.x - nextVertex.x
+                  });
+                  var diagonalRadius = Math.sqrt(2 * Math.pow(currentRadius, 2)), radiusVector = Vector.mult(Common.clone(prevNormal), currentRadius), midNormal = Vector.normalise(Vector.mult(Vector.add(prevNormal, nextNormal), 0.5)), scaledVertex = Vector.sub(vertex, Vector.mult(midNormal, diagonalRadius));
+                  var precision = quality;
+                  if (quality === -1) {
+                    precision = Math.pow(currentRadius, 0.32) * 1.75;
+                  }
+                  precision = Common.clamp(precision, qualityMin, qualityMax);
+                  if (precision % 2 === 1)
+                    precision += 1;
+                  var alpha = Math.acos(Vector.dot(prevNormal, nextNormal)), theta = alpha / precision;
+                  for (var j = 0; j < precision; j++) {
+                    newVertices.push(Vector.add(Vector.rotate(radiusVector, theta * j), scaledVertex));
+                  }
+                }
+                return newVertices;
+              };
+              Vertices.clockwiseSort = function(vertices) {
+                var centre = Vertices.mean(vertices);
+                vertices.sort(function(vertexA, vertexB) {
+                  return Vector.angle(centre, vertexA) - Vector.angle(centre, vertexB);
+                });
+                return vertices;
+              };
+              Vertices.isConvex = function(vertices) {
+                var flag = 0, n = vertices.length, i, j, k, z;
+                if (n < 3)
+                  return null;
+                for (i = 0; i < n; i++) {
+                  j = (i + 1) % n;
+                  k = (i + 2) % n;
+                  z = (vertices[j].x - vertices[i].x) * (vertices[k].y - vertices[j].y);
+                  z -= (vertices[j].y - vertices[i].y) * (vertices[k].x - vertices[j].x);
+                  if (z < 0) {
+                    flag |= 1;
+                  } else if (z > 0) {
+                    flag |= 2;
+                  }
+                  if (flag === 3) {
+                    return false;
+                  }
+                }
+                if (flag !== 0) {
+                  return true;
+                } else {
+                  return null;
+                }
+              };
+              Vertices.hull = function(vertices) {
+                var upper = [], lower = [], vertex, i;
+                vertices = vertices.slice(0);
+                vertices.sort(function(vertexA, vertexB) {
+                  var dx = vertexA.x - vertexB.x;
+                  return dx !== 0 ? dx : vertexA.y - vertexB.y;
+                });
+                for (i = 0; i < vertices.length; i += 1) {
+                  vertex = vertices[i];
+                  while (lower.length >= 2 && Vector.cross3(lower[lower.length - 2], lower[lower.length - 1], vertex) <= 0) {
+                    lower.pop();
+                  }
+                  lower.push(vertex);
+                }
+                for (i = vertices.length - 1; i >= 0; i -= 1) {
+                  vertex = vertices[i];
+                  while (upper.length >= 2 && Vector.cross3(upper[upper.length - 2], upper[upper.length - 1], vertex) <= 0) {
+                    upper.pop();
+                  }
+                  upper.push(vertex);
+                }
+                upper.pop();
+                lower.pop();
+                return upper.concat(lower);
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Events = {};
+            module2.exports = Events;
+            var Common = __webpack_require__(0);
+            (function() {
+              Events.on = function(object, eventNames, callback) {
+                var names = eventNames.split(" "), name;
+                for (var i = 0; i < names.length; i++) {
+                  name = names[i];
+                  object.events = object.events || {};
+                  object.events[name] = object.events[name] || [];
+                  object.events[name].push(callback);
+                }
+                return callback;
+              };
+              Events.off = function(object, eventNames, callback) {
+                if (!eventNames) {
+                  object.events = {};
+                  return;
+                }
+                if (typeof eventNames === "function") {
+                  callback = eventNames;
+                  eventNames = Common.keys(object.events).join(" ");
+                }
+                var names = eventNames.split(" ");
+                for (var i = 0; i < names.length; i++) {
+                  var callbacks = object.events[names[i]], newCallbacks = [];
+                  if (callback && callbacks) {
+                    for (var j = 0; j < callbacks.length; j++) {
+                      if (callbacks[j] !== callback)
+                        newCallbacks.push(callbacks[j]);
+                    }
+                  }
+                  object.events[names[i]] = newCallbacks;
+                }
+              };
+              Events.trigger = function(object, eventNames, event) {
+                var names, name, callbacks, eventClone;
+                var events = object.events;
+                if (events && Common.keys(events).length > 0) {
+                  if (!event)
+                    event = {};
+                  names = eventNames.split(" ");
+                  for (var i = 0; i < names.length; i++) {
+                    name = names[i];
+                    callbacks = events[name];
+                    if (callbacks) {
+                      eventClone = Common.clone(event, false);
+                      eventClone.name = name;
+                      eventClone.source = object;
+                      for (var j = 0; j < callbacks.length; j++) {
+                        callbacks[j].apply(object, [eventClone]);
+                      }
+                    }
+                  }
+                }
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Composite2 = {};
+            module2.exports = Composite2;
+            var Events = __webpack_require__(4);
+            var Common = __webpack_require__(0);
+            var Bounds = __webpack_require__(1);
+            var Body = __webpack_require__(6);
+            (function() {
+              Composite2.create = function(options) {
+                return Common.extend({
+                  id: Common.nextId(),
+                  type: "composite",
+                  parent: null,
+                  isModified: false,
+                  bodies: [],
+                  constraints: [],
+                  composites: [],
+                  label: "Composite",
+                  plugin: {},
+                  cache: {
+                    allBodies: null,
+                    allConstraints: null,
+                    allComposites: null
+                  }
+                }, options);
+              };
+              Composite2.setModified = function(composite, isModified, updateParents, updateChildren) {
+                composite.isModified = isModified;
+                if (isModified && composite.cache) {
+                  composite.cache.allBodies = null;
+                  composite.cache.allConstraints = null;
+                  composite.cache.allComposites = null;
+                }
+                if (updateParents && composite.parent) {
+                  Composite2.setModified(composite.parent, isModified, updateParents, updateChildren);
+                }
+                if (updateChildren) {
+                  for (var i = 0; i < composite.composites.length; i++) {
+                    var childComposite = composite.composites[i];
+                    Composite2.setModified(childComposite, isModified, updateParents, updateChildren);
+                  }
+                }
+              };
+              Composite2.add = function(composite, object) {
+                var objects = [].concat(object);
+                Events.trigger(composite, "beforeAdd", { object });
+                for (var i = 0; i < objects.length; i++) {
+                  var obj = objects[i];
+                  switch (obj.type) {
+                    case "body":
+                      if (obj.parent !== obj) {
+                        Common.warn("Composite.add: skipped adding a compound body part (you must add its parent instead)");
+                        break;
+                      }
+                      Composite2.addBody(composite, obj);
+                      break;
+                    case "constraint":
+                      Composite2.addConstraint(composite, obj);
+                      break;
+                    case "composite":
+                      Composite2.addComposite(composite, obj);
+                      break;
+                    case "mouseConstraint":
+                      Composite2.addConstraint(composite, obj.constraint);
+                      break;
+                  }
+                }
+                Events.trigger(composite, "afterAdd", { object });
+                return composite;
+              };
+              Composite2.remove = function(composite, object, deep) {
+                var objects = [].concat(object);
+                Events.trigger(composite, "beforeRemove", { object });
+                for (var i = 0; i < objects.length; i++) {
+                  var obj = objects[i];
+                  switch (obj.type) {
+                    case "body":
+                      Composite2.removeBody(composite, obj, deep);
+                      break;
+                    case "constraint":
+                      Composite2.removeConstraint(composite, obj, deep);
+                      break;
+                    case "composite":
+                      Composite2.removeComposite(composite, obj, deep);
+                      break;
+                    case "mouseConstraint":
+                      Composite2.removeConstraint(composite, obj.constraint);
+                      break;
+                  }
+                }
+                Events.trigger(composite, "afterRemove", { object });
+                return composite;
+              };
+              Composite2.addComposite = function(compositeA, compositeB) {
+                compositeA.composites.push(compositeB);
+                compositeB.parent = compositeA;
+                Composite2.setModified(compositeA, true, true, false);
+                return compositeA;
+              };
+              Composite2.removeComposite = function(compositeA, compositeB, deep) {
+                var position = Common.indexOf(compositeA.composites, compositeB);
+                if (position !== -1) {
+                  Composite2.removeCompositeAt(compositeA, position);
+                }
+                if (deep) {
+                  for (var i = 0; i < compositeA.composites.length; i++) {
+                    Composite2.removeComposite(compositeA.composites[i], compositeB, true);
+                  }
+                }
+                return compositeA;
+              };
+              Composite2.removeCompositeAt = function(composite, position) {
+                composite.composites.splice(position, 1);
+                Composite2.setModified(composite, true, true, false);
+                return composite;
+              };
+              Composite2.addBody = function(composite, body) {
+                composite.bodies.push(body);
+                Composite2.setModified(composite, true, true, false);
+                return composite;
+              };
+              Composite2.removeBody = function(composite, body, deep) {
+                var position = Common.indexOf(composite.bodies, body);
+                if (position !== -1) {
+                  Composite2.removeBodyAt(composite, position);
+                }
+                if (deep) {
+                  for (var i = 0; i < composite.composites.length; i++) {
+                    Composite2.removeBody(composite.composites[i], body, true);
+                  }
+                }
+                return composite;
+              };
+              Composite2.removeBodyAt = function(composite, position) {
+                composite.bodies.splice(position, 1);
+                Composite2.setModified(composite, true, true, false);
+                return composite;
+              };
+              Composite2.addConstraint = function(composite, constraint) {
+                composite.constraints.push(constraint);
+                Composite2.setModified(composite, true, true, false);
+                return composite;
+              };
+              Composite2.removeConstraint = function(composite, constraint, deep) {
+                var position = Common.indexOf(composite.constraints, constraint);
+                if (position !== -1) {
+                  Composite2.removeConstraintAt(composite, position);
+                }
+                if (deep) {
+                  for (var i = 0; i < composite.composites.length; i++) {
+                    Composite2.removeConstraint(composite.composites[i], constraint, true);
+                  }
+                }
+                return composite;
+              };
+              Composite2.removeConstraintAt = function(composite, position) {
+                composite.constraints.splice(position, 1);
+                Composite2.setModified(composite, true, true, false);
+                return composite;
+              };
+              Composite2.clear = function(composite, keepStatic, deep) {
+                if (deep) {
+                  for (var i = 0; i < composite.composites.length; i++) {
+                    Composite2.clear(composite.composites[i], keepStatic, true);
+                  }
+                }
+                if (keepStatic) {
+                  composite.bodies = composite.bodies.filter(function(body) {
+                    return body.isStatic;
+                  });
+                } else {
+                  composite.bodies.length = 0;
+                }
+                composite.constraints.length = 0;
+                composite.composites.length = 0;
+                Composite2.setModified(composite, true, true, false);
+                return composite;
+              };
+              Composite2.allBodies = function(composite) {
+                if (composite.cache && composite.cache.allBodies) {
+                  return composite.cache.allBodies;
+                }
+                var bodies = [].concat(composite.bodies);
+                for (var i = 0; i < composite.composites.length; i++)
+                  bodies = bodies.concat(Composite2.allBodies(composite.composites[i]));
+                if (composite.cache) {
+                  composite.cache.allBodies = bodies;
+                }
+                return bodies;
+              };
+              Composite2.allConstraints = function(composite) {
+                if (composite.cache && composite.cache.allConstraints) {
+                  return composite.cache.allConstraints;
+                }
+                var constraints = [].concat(composite.constraints);
+                for (var i = 0; i < composite.composites.length; i++)
+                  constraints = constraints.concat(Composite2.allConstraints(composite.composites[i]));
+                if (composite.cache) {
+                  composite.cache.allConstraints = constraints;
+                }
+                return constraints;
+              };
+              Composite2.allComposites = function(composite) {
+                if (composite.cache && composite.cache.allComposites) {
+                  return composite.cache.allComposites;
+                }
+                var composites = [].concat(composite.composites);
+                for (var i = 0; i < composite.composites.length; i++)
+                  composites = composites.concat(Composite2.allComposites(composite.composites[i]));
+                if (composite.cache) {
+                  composite.cache.allComposites = composites;
+                }
+                return composites;
+              };
+              Composite2.get = function(composite, id, type) {
+                var objects, object;
+                switch (type) {
+                  case "body":
+                    objects = Composite2.allBodies(composite);
+                    break;
+                  case "constraint":
+                    objects = Composite2.allConstraints(composite);
+                    break;
+                  case "composite":
+                    objects = Composite2.allComposites(composite).concat(composite);
+                    break;
+                }
+                if (!objects)
+                  return null;
+                object = objects.filter(function(object2) {
+                  return object2.id.toString() === id.toString();
+                });
+                return object.length === 0 ? null : object[0];
+              };
+              Composite2.move = function(compositeA, objects, compositeB) {
+                Composite2.remove(compositeA, objects);
+                Composite2.add(compositeB, objects);
+                return compositeA;
+              };
+              Composite2.rebase = function(composite) {
+                var objects = Composite2.allBodies(composite).concat(Composite2.allConstraints(composite)).concat(Composite2.allComposites(composite));
+                for (var i = 0; i < objects.length; i++) {
+                  objects[i].id = Common.nextId();
+                }
+                return composite;
+              };
+              Composite2.translate = function(composite, translation, recursive) {
+                var bodies = recursive ? Composite2.allBodies(composite) : composite.bodies;
+                for (var i = 0; i < bodies.length; i++) {
+                  Body.translate(bodies[i], translation);
+                }
+                return composite;
+              };
+              Composite2.rotate = function(composite, rotation, point, recursive) {
+                var cos = Math.cos(rotation), sin = Math.sin(rotation), bodies = recursive ? Composite2.allBodies(composite) : composite.bodies;
+                for (var i = 0; i < bodies.length; i++) {
+                  var body = bodies[i], dx = body.position.x - point.x, dy = body.position.y - point.y;
+                  Body.setPosition(body, {
+                    x: point.x + (dx * cos - dy * sin),
+                    y: point.y + (dx * sin + dy * cos)
+                  });
+                  Body.rotate(body, rotation);
+                }
+                return composite;
+              };
+              Composite2.scale = function(composite, scaleX, scaleY, point, recursive) {
+                var bodies = recursive ? Composite2.allBodies(composite) : composite.bodies;
+                for (var i = 0; i < bodies.length; i++) {
+                  var body = bodies[i], dx = body.position.x - point.x, dy = body.position.y - point.y;
+                  Body.setPosition(body, {
+                    x: point.x + dx * scaleX,
+                    y: point.y + dy * scaleY
+                  });
+                  Body.scale(body, scaleX, scaleY);
+                }
+                return composite;
+              };
+              Composite2.bounds = function(composite) {
+                var bodies = Composite2.allBodies(composite), vertices = [];
+                for (var i = 0; i < bodies.length; i += 1) {
+                  var body = bodies[i];
+                  vertices.push(body.bounds.min, body.bounds.max);
+                }
+                return Bounds.create(vertices);
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Body = {};
+            module2.exports = Body;
+            var Vertices = __webpack_require__(3);
+            var Vector = __webpack_require__(2);
+            var Sleeping = __webpack_require__(7);
+            var Render2 = __webpack_require__(16);
+            var Common = __webpack_require__(0);
+            var Bounds = __webpack_require__(1);
+            var Axes = __webpack_require__(11);
+            (function() {
+              Body._inertiaScale = 4;
+              Body._nextCollidingGroupId = 1;
+              Body._nextNonCollidingGroupId = -1;
+              Body._nextCategory = 1;
+              Body.create = function(options) {
+                var defaults = {
+                  id: Common.nextId(),
+                  type: "body",
+                  label: "Body",
+                  parts: [],
+                  plugin: {},
+                  angle: 0,
+                  vertices: Vertices.fromPath("L 0 0 L 40 0 L 40 40 L 0 40"),
+                  position: { x: 0, y: 0 },
+                  force: { x: 0, y: 0 },
+                  torque: 0,
+                  positionImpulse: { x: 0, y: 0 },
+                  constraintImpulse: { x: 0, y: 0, angle: 0 },
+                  totalContacts: 0,
+                  speed: 0,
+                  angularSpeed: 0,
+                  velocity: { x: 0, y: 0 },
+                  angularVelocity: 0,
+                  isSensor: false,
+                  isStatic: false,
+                  isSleeping: false,
+                  motion: 0,
+                  sleepThreshold: 60,
+                  density: 1e-3,
+                  restitution: 0,
+                  friction: 0.1,
+                  frictionStatic: 0.5,
+                  frictionAir: 0.01,
+                  collisionFilter: {
+                    category: 1,
+                    mask: 4294967295,
+                    group: 0
+                  },
+                  slop: 0.05,
+                  timeScale: 1,
+                  render: {
+                    visible: true,
+                    opacity: 1,
+                    strokeStyle: null,
+                    fillStyle: null,
+                    lineWidth: null,
+                    sprite: {
+                      xScale: 1,
+                      yScale: 1,
+                      xOffset: 0,
+                      yOffset: 0
+                    }
+                  },
+                  events: null,
+                  bounds: null,
+                  chamfer: null,
+                  circleRadius: 0,
+                  positionPrev: null,
+                  anglePrev: 0,
+                  parent: null,
+                  axes: null,
+                  area: 0,
+                  mass: 0,
+                  inertia: 0,
+                  _original: null
+                };
+                var body = Common.extend(defaults, options);
+                _initProperties(body, options);
+                return body;
+              };
+              Body.nextGroup = function(isNonColliding) {
+                if (isNonColliding)
+                  return Body._nextNonCollidingGroupId--;
+                return Body._nextCollidingGroupId++;
+              };
+              Body.nextCategory = function() {
+                Body._nextCategory = Body._nextCategory << 1;
+                return Body._nextCategory;
+              };
+              var _initProperties = function(body, options) {
+                options = options || {};
+                Body.set(body, {
+                  bounds: body.bounds || Bounds.create(body.vertices),
+                  positionPrev: body.positionPrev || Vector.clone(body.position),
+                  anglePrev: body.anglePrev || body.angle,
+                  vertices: body.vertices,
+                  parts: body.parts || [body],
+                  isStatic: body.isStatic,
+                  isSleeping: body.isSleeping,
+                  parent: body.parent || body
+                });
+                Vertices.rotate(body.vertices, body.angle, body.position);
+                Axes.rotate(body.axes, body.angle);
+                Bounds.update(body.bounds, body.vertices, body.velocity);
+                Body.set(body, {
+                  axes: options.axes || body.axes,
+                  area: options.area || body.area,
+                  mass: options.mass || body.mass,
+                  inertia: options.inertia || body.inertia
+                });
+                var defaultFillStyle = body.isStatic ? "#14151f" : Common.choose(["#f19648", "#f5d259", "#f55a3c", "#063e7b", "#ececd1"]), defaultStrokeStyle = body.isStatic ? "#555" : "#ccc", defaultLineWidth = body.isStatic && body.render.fillStyle === null ? 1 : 0;
+                body.render.fillStyle = body.render.fillStyle || defaultFillStyle;
+                body.render.strokeStyle = body.render.strokeStyle || defaultStrokeStyle;
+                body.render.lineWidth = body.render.lineWidth || defaultLineWidth;
+                body.render.sprite.xOffset += -(body.bounds.min.x - body.position.x) / (body.bounds.max.x - body.bounds.min.x);
+                body.render.sprite.yOffset += -(body.bounds.min.y - body.position.y) / (body.bounds.max.y - body.bounds.min.y);
+              };
+              Body.set = function(body, settings, value) {
+                var property;
+                if (typeof settings === "string") {
+                  property = settings;
+                  settings = {};
+                  settings[property] = value;
+                }
+                for (property in settings) {
+                  if (!Object.prototype.hasOwnProperty.call(settings, property))
+                    continue;
+                  value = settings[property];
+                  switch (property) {
+                    case "isStatic":
+                      Body.setStatic(body, value);
+                      break;
+                    case "isSleeping":
+                      Sleeping.set(body, value);
+                      break;
+                    case "mass":
+                      Body.setMass(body, value);
+                      break;
+                    case "density":
+                      Body.setDensity(body, value);
+                      break;
+                    case "inertia":
+                      Body.setInertia(body, value);
+                      break;
+                    case "vertices":
+                      Body.setVertices(body, value);
+                      break;
+                    case "position":
+                      Body.setPosition(body, value);
+                      break;
+                    case "angle":
+                      Body.setAngle(body, value);
+                      break;
+                    case "velocity":
+                      Body.setVelocity(body, value);
+                      break;
+                    case "angularVelocity":
+                      Body.setAngularVelocity(body, value);
+                      break;
+                    case "parts":
+                      Body.setParts(body, value);
+                      break;
+                    case "centre":
+                      Body.setCentre(body, value);
+                      break;
+                    default:
+                      body[property] = value;
+                  }
+                }
+              };
+              Body.setStatic = function(body, isStatic) {
+                for (var i = 0; i < body.parts.length; i++) {
+                  var part = body.parts[i];
+                  part.isStatic = isStatic;
+                  if (isStatic) {
+                    part._original = {
+                      restitution: part.restitution,
+                      friction: part.friction,
+                      mass: part.mass,
+                      inertia: part.inertia,
+                      density: part.density,
+                      inverseMass: part.inverseMass,
+                      inverseInertia: part.inverseInertia
+                    };
+                    part.restitution = 0;
+                    part.friction = 1;
+                    part.mass = part.inertia = part.density = Infinity;
+                    part.inverseMass = part.inverseInertia = 0;
+                    part.positionPrev.x = part.position.x;
+                    part.positionPrev.y = part.position.y;
+                    part.anglePrev = part.angle;
+                    part.angularVelocity = 0;
+                    part.speed = 0;
+                    part.angularSpeed = 0;
+                    part.motion = 0;
+                  } else if (part._original) {
+                    part.restitution = part._original.restitution;
+                    part.friction = part._original.friction;
+                    part.mass = part._original.mass;
+                    part.inertia = part._original.inertia;
+                    part.density = part._original.density;
+                    part.inverseMass = part._original.inverseMass;
+                    part.inverseInertia = part._original.inverseInertia;
+                    part._original = null;
+                  }
+                }
+              };
+              Body.setMass = function(body, mass) {
+                var moment = body.inertia / (body.mass / 6);
+                body.inertia = moment * (mass / 6);
+                body.inverseInertia = 1 / body.inertia;
+                body.mass = mass;
+                body.inverseMass = 1 / body.mass;
+                body.density = body.mass / body.area;
+              };
+              Body.setDensity = function(body, density) {
+                Body.setMass(body, density * body.area);
+                body.density = density;
+              };
+              Body.setInertia = function(body, inertia) {
+                body.inertia = inertia;
+                body.inverseInertia = 1 / body.inertia;
+              };
+              Body.setVertices = function(body, vertices) {
+                if (vertices[0].body === body) {
+                  body.vertices = vertices;
+                } else {
+                  body.vertices = Vertices.create(vertices, body);
+                }
+                body.axes = Axes.fromVertices(body.vertices);
+                body.area = Vertices.area(body.vertices);
+                Body.setMass(body, body.density * body.area);
+                var centre = Vertices.centre(body.vertices);
+                Vertices.translate(body.vertices, centre, -1);
+                Body.setInertia(body, Body._inertiaScale * Vertices.inertia(body.vertices, body.mass));
+                Vertices.translate(body.vertices, body.position);
+                Bounds.update(body.bounds, body.vertices, body.velocity);
+              };
+              Body.setParts = function(body, parts, autoHull) {
+                var i;
+                parts = parts.slice(0);
+                body.parts.length = 0;
+                body.parts.push(body);
+                body.parent = body;
+                for (i = 0; i < parts.length; i++) {
+                  var part = parts[i];
+                  if (part !== body) {
+                    part.parent = body;
+                    body.parts.push(part);
+                  }
+                }
+                if (body.parts.length === 1)
+                  return;
+                autoHull = typeof autoHull !== "undefined" ? autoHull : true;
+                if (autoHull) {
+                  var vertices = [];
+                  for (i = 0; i < parts.length; i++) {
+                    vertices = vertices.concat(parts[i].vertices);
+                  }
+                  Vertices.clockwiseSort(vertices);
+                  var hull = Vertices.hull(vertices), hullCentre = Vertices.centre(hull);
+                  Body.setVertices(body, hull);
+                  Vertices.translate(body.vertices, hullCentre);
+                }
+                var total = Body._totalProperties(body);
+                body.area = total.area;
+                body.parent = body;
+                body.position.x = total.centre.x;
+                body.position.y = total.centre.y;
+                body.positionPrev.x = total.centre.x;
+                body.positionPrev.y = total.centre.y;
+                Body.setMass(body, total.mass);
+                Body.setInertia(body, total.inertia);
+                Body.setPosition(body, total.centre);
+              };
+              Body.setCentre = function(body, centre, relative) {
+                if (!relative) {
+                  body.positionPrev.x = centre.x - (body.position.x - body.positionPrev.x);
+                  body.positionPrev.y = centre.y - (body.position.y - body.positionPrev.y);
+                  body.position.x = centre.x;
+                  body.position.y = centre.y;
+                } else {
+                  body.positionPrev.x += centre.x;
+                  body.positionPrev.y += centre.y;
+                  body.position.x += centre.x;
+                  body.position.y += centre.y;
+                }
+              };
+              Body.setPosition = function(body, position) {
+                var delta = Vector.sub(position, body.position);
+                body.positionPrev.x += delta.x;
+                body.positionPrev.y += delta.y;
+                for (var i = 0; i < body.parts.length; i++) {
+                  var part = body.parts[i];
+                  part.position.x += delta.x;
+                  part.position.y += delta.y;
+                  Vertices.translate(part.vertices, delta);
+                  Bounds.update(part.bounds, part.vertices, body.velocity);
+                }
+              };
+              Body.setAngle = function(body, angle) {
+                var delta = angle - body.angle;
+                body.anglePrev += delta;
+                for (var i = 0; i < body.parts.length; i++) {
+                  var part = body.parts[i];
+                  part.angle += delta;
+                  Vertices.rotate(part.vertices, delta, body.position);
+                  Axes.rotate(part.axes, delta);
+                  Bounds.update(part.bounds, part.vertices, body.velocity);
+                  if (i > 0) {
+                    Vector.rotateAbout(part.position, delta, body.position, part.position);
+                  }
+                }
+              };
+              Body.setVelocity = function(body, velocity) {
+                body.positionPrev.x = body.position.x - velocity.x;
+                body.positionPrev.y = body.position.y - velocity.y;
+                body.velocity.x = velocity.x;
+                body.velocity.y = velocity.y;
+                body.speed = Vector.magnitude(body.velocity);
+              };
+              Body.setAngularVelocity = function(body, velocity) {
+                body.anglePrev = body.angle - velocity;
+                body.angularVelocity = velocity;
+                body.angularSpeed = Math.abs(body.angularVelocity);
+              };
+              Body.translate = function(body, translation) {
+                Body.setPosition(body, Vector.add(body.position, translation));
+              };
+              Body.rotate = function(body, rotation, point) {
+                if (!point) {
+                  Body.setAngle(body, body.angle + rotation);
+                } else {
+                  var cos = Math.cos(rotation), sin = Math.sin(rotation), dx = body.position.x - point.x, dy = body.position.y - point.y;
+                  Body.setPosition(body, {
+                    x: point.x + (dx * cos - dy * sin),
+                    y: point.y + (dx * sin + dy * cos)
+                  });
+                  Body.setAngle(body, body.angle + rotation);
+                }
+              };
+              Body.scale = function(body, scaleX, scaleY, point) {
+                var totalArea = 0, totalInertia = 0;
+                point = point || body.position;
+                for (var i = 0; i < body.parts.length; i++) {
+                  var part = body.parts[i];
+                  Vertices.scale(part.vertices, scaleX, scaleY, point);
+                  part.axes = Axes.fromVertices(part.vertices);
+                  part.area = Vertices.area(part.vertices);
+                  Body.setMass(part, body.density * part.area);
+                  Vertices.translate(part.vertices, { x: -part.position.x, y: -part.position.y });
+                  Body.setInertia(part, Body._inertiaScale * Vertices.inertia(part.vertices, part.mass));
+                  Vertices.translate(part.vertices, { x: part.position.x, y: part.position.y });
+                  if (i > 0) {
+                    totalArea += part.area;
+                    totalInertia += part.inertia;
+                  }
+                  part.position.x = point.x + (part.position.x - point.x) * scaleX;
+                  part.position.y = point.y + (part.position.y - point.y) * scaleY;
+                  Bounds.update(part.bounds, part.vertices, body.velocity);
+                }
+                if (body.parts.length > 1) {
+                  body.area = totalArea;
+                  if (!body.isStatic) {
+                    Body.setMass(body, body.density * totalArea);
+                    Body.setInertia(body, totalInertia);
+                  }
+                }
+                if (body.circleRadius) {
+                  if (scaleX === scaleY) {
+                    body.circleRadius *= scaleX;
+                  } else {
+                    body.circleRadius = null;
+                  }
+                }
+              };
+              Body.update = function(body, deltaTime, timeScale, correction) {
+                var deltaTimeSquared = Math.pow(deltaTime * timeScale * body.timeScale, 2);
+                var frictionAir = 1 - body.frictionAir * timeScale * body.timeScale, velocityPrevX = body.position.x - body.positionPrev.x, velocityPrevY = body.position.y - body.positionPrev.y;
+                body.velocity.x = velocityPrevX * frictionAir * correction + body.force.x / body.mass * deltaTimeSquared;
+                body.velocity.y = velocityPrevY * frictionAir * correction + body.force.y / body.mass * deltaTimeSquared;
+                body.positionPrev.x = body.position.x;
+                body.positionPrev.y = body.position.y;
+                body.position.x += body.velocity.x;
+                body.position.y += body.velocity.y;
+                body.angularVelocity = (body.angle - body.anglePrev) * frictionAir * correction + body.torque / body.inertia * deltaTimeSquared;
+                body.anglePrev = body.angle;
+                body.angle += body.angularVelocity;
+                body.speed = Vector.magnitude(body.velocity);
+                body.angularSpeed = Math.abs(body.angularVelocity);
+                for (var i = 0; i < body.parts.length; i++) {
+                  var part = body.parts[i];
+                  Vertices.translate(part.vertices, body.velocity);
+                  if (i > 0) {
+                    part.position.x += body.velocity.x;
+                    part.position.y += body.velocity.y;
+                  }
+                  if (body.angularVelocity !== 0) {
+                    Vertices.rotate(part.vertices, body.angularVelocity, body.position);
+                    Axes.rotate(part.axes, body.angularVelocity);
+                    if (i > 0) {
+                      Vector.rotateAbout(part.position, body.angularVelocity, body.position, part.position);
+                    }
+                  }
+                  Bounds.update(part.bounds, part.vertices, body.velocity);
+                }
+              };
+              Body.applyForce = function(body, position, force) {
+                body.force.x += force.x;
+                body.force.y += force.y;
+                var offset = { x: position.x - body.position.x, y: position.y - body.position.y };
+                body.torque += offset.x * force.y - offset.y * force.x;
+              };
+              Body._totalProperties = function(body) {
+                var properties = {
+                  mass: 0,
+                  area: 0,
+                  inertia: 0,
+                  centre: { x: 0, y: 0 }
+                };
+                for (var i = body.parts.length === 1 ? 0 : 1; i < body.parts.length; i++) {
+                  var part = body.parts[i], mass = part.mass !== Infinity ? part.mass : 1;
+                  properties.mass += mass;
+                  properties.area += part.area;
+                  properties.inertia += part.inertia;
+                  properties.centre = Vector.add(properties.centre, Vector.mult(part.position, mass));
+                }
+                properties.centre = Vector.div(properties.centre, properties.mass);
+                return properties;
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Sleeping = {};
+            module2.exports = Sleeping;
+            var Events = __webpack_require__(4);
+            (function() {
+              Sleeping._motionWakeThreshold = 0.18;
+              Sleeping._motionSleepThreshold = 0.08;
+              Sleeping._minBias = 0.9;
+              Sleeping.update = function(bodies, timeScale) {
+                var timeFactor = timeScale * timeScale * timeScale;
+                for (var i = 0; i < bodies.length; i++) {
+                  var body = bodies[i], motion = body.speed * body.speed + body.angularSpeed * body.angularSpeed;
+                  if (body.force.x !== 0 || body.force.y !== 0) {
+                    Sleeping.set(body, false);
+                    continue;
+                  }
+                  var minMotion = Math.min(body.motion, motion), maxMotion = Math.max(body.motion, motion);
+                  body.motion = Sleeping._minBias * minMotion + (1 - Sleeping._minBias) * maxMotion;
+                  if (body.sleepThreshold > 0 && body.motion < Sleeping._motionSleepThreshold * timeFactor) {
+                    body.sleepCounter += 1;
+                    if (body.sleepCounter >= body.sleepThreshold)
+                      Sleeping.set(body, true);
+                  } else if (body.sleepCounter > 0) {
+                    body.sleepCounter -= 1;
+                  }
+                }
+              };
+              Sleeping.afterCollisions = function(pairs, timeScale) {
+                var timeFactor = timeScale * timeScale * timeScale;
+                for (var i = 0; i < pairs.length; i++) {
+                  var pair = pairs[i];
+                  if (!pair.isActive)
+                    continue;
+                  var collision = pair.collision, bodyA = collision.bodyA.parent, bodyB = collision.bodyB.parent;
+                  if (bodyA.isSleeping && bodyB.isSleeping || bodyA.isStatic || bodyB.isStatic)
+                    continue;
+                  if (bodyA.isSleeping || bodyB.isSleeping) {
+                    var sleepingBody = bodyA.isSleeping && !bodyA.isStatic ? bodyA : bodyB, movingBody = sleepingBody === bodyA ? bodyB : bodyA;
+                    if (!sleepingBody.isStatic && movingBody.motion > Sleeping._motionWakeThreshold * timeFactor) {
+                      Sleeping.set(sleepingBody, false);
+                    }
+                  }
+                }
+              };
+              Sleeping.set = function(body, isSleeping) {
+                var wasSleeping = body.isSleeping;
+                if (isSleeping) {
+                  body.isSleeping = true;
+                  body.sleepCounter = body.sleepThreshold;
+                  body.positionImpulse.x = 0;
+                  body.positionImpulse.y = 0;
+                  body.positionPrev.x = body.position.x;
+                  body.positionPrev.y = body.position.y;
+                  body.anglePrev = body.angle;
+                  body.speed = 0;
+                  body.angularSpeed = 0;
+                  body.motion = 0;
+                  if (!wasSleeping) {
+                    Events.trigger(body, "sleepStart");
+                  }
+                } else {
+                  body.isSleeping = false;
+                  body.sleepCounter = 0;
+                  if (wasSleeping) {
+                    Events.trigger(body, "sleepEnd");
+                  }
+                }
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Collision = {};
+            module2.exports = Collision;
+            var Vertices = __webpack_require__(3);
+            var Pair = __webpack_require__(9);
+            (function() {
+              var _supports = [];
+              var _overlapAB = {
+                overlap: 0,
+                axis: null
+              };
+              var _overlapBA = {
+                overlap: 0,
+                axis: null
+              };
+              Collision.create = function(bodyA, bodyB) {
+                return {
+                  pair: null,
+                  collided: false,
+                  bodyA,
+                  bodyB,
+                  parentA: bodyA.parent,
+                  parentB: bodyB.parent,
+                  depth: 0,
+                  normal: { x: 0, y: 0 },
+                  tangent: { x: 0, y: 0 },
+                  penetration: { x: 0, y: 0 },
+                  supports: []
+                };
+              };
+              Collision.collides = function(bodyA, bodyB, pairs) {
+                Collision._overlapAxes(_overlapAB, bodyA.vertices, bodyB.vertices, bodyA.axes);
+                if (_overlapAB.overlap <= 0) {
+                  return null;
+                }
+                Collision._overlapAxes(_overlapBA, bodyB.vertices, bodyA.vertices, bodyB.axes);
+                if (_overlapBA.overlap <= 0) {
+                  return null;
+                }
+                var pair = pairs && pairs.table[Pair.id(bodyA, bodyB)], collision;
+                if (!pair) {
+                  collision = Collision.create(bodyA, bodyB);
+                  collision.collided = true;
+                  collision.bodyA = bodyA.id < bodyB.id ? bodyA : bodyB;
+                  collision.bodyB = bodyA.id < bodyB.id ? bodyB : bodyA;
+                  collision.parentA = collision.bodyA.parent;
+                  collision.parentB = collision.bodyB.parent;
+                } else {
+                  collision = pair.collision;
+                }
+                bodyA = collision.bodyA;
+                bodyB = collision.bodyB;
+                var minOverlap;
+                if (_overlapAB.overlap < _overlapBA.overlap) {
+                  minOverlap = _overlapAB;
+                } else {
+                  minOverlap = _overlapBA;
+                }
+                var normal = collision.normal, supports = collision.supports, minAxis = minOverlap.axis, minAxisX = minAxis.x, minAxisY = minAxis.y;
+                if (minAxisX * (bodyB.position.x - bodyA.position.x) + minAxisY * (bodyB.position.y - bodyA.position.y) < 0) {
+                  normal.x = minAxisX;
+                  normal.y = minAxisY;
+                } else {
+                  normal.x = -minAxisX;
+                  normal.y = -minAxisY;
+                }
+                collision.tangent.x = -normal.y;
+                collision.tangent.y = normal.x;
+                collision.depth = minOverlap.overlap;
+                collision.penetration.x = normal.x * collision.depth;
+                collision.penetration.y = normal.y * collision.depth;
+                var supportsB = Collision._findSupports(bodyA, bodyB, normal, 1), supportCount = 0;
+                if (Vertices.contains(bodyA.vertices, supportsB[0])) {
+                  supports[supportCount++] = supportsB[0];
+                }
+                if (Vertices.contains(bodyA.vertices, supportsB[1])) {
+                  supports[supportCount++] = supportsB[1];
+                }
+                if (supportCount < 2) {
+                  var supportsA = Collision._findSupports(bodyB, bodyA, normal, -1);
+                  if (Vertices.contains(bodyB.vertices, supportsA[0])) {
+                    supports[supportCount++] = supportsA[0];
+                  }
+                  if (supportCount < 2 && Vertices.contains(bodyB.vertices, supportsA[1])) {
+                    supports[supportCount++] = supportsA[1];
+                  }
+                }
+                if (supportCount === 0) {
+                  supports[supportCount++] = supportsB[0];
+                }
+                supports.length = supportCount;
+                return collision;
+              };
+              Collision._overlapAxes = function(result, verticesA, verticesB, axes) {
+                var verticesALength = verticesA.length, verticesBLength = verticesB.length, verticesAX = verticesA[0].x, verticesAY = verticesA[0].y, verticesBX = verticesB[0].x, verticesBY = verticesB[0].y, axesLength = axes.length, overlapMin = Number.MAX_VALUE, overlapAxisNumber = 0, overlap, overlapAB, overlapBA, dot, i, j;
+                for (i = 0; i < axesLength; i++) {
+                  var axis = axes[i], axisX = axis.x, axisY = axis.y, minA = verticesAX * axisX + verticesAY * axisY, minB = verticesBX * axisX + verticesBY * axisY, maxA = minA, maxB = minB;
+                  for (j = 1; j < verticesALength; j += 1) {
+                    dot = verticesA[j].x * axisX + verticesA[j].y * axisY;
+                    if (dot > maxA) {
+                      maxA = dot;
+                    } else if (dot < minA) {
+                      minA = dot;
+                    }
+                  }
+                  for (j = 1; j < verticesBLength; j += 1) {
+                    dot = verticesB[j].x * axisX + verticesB[j].y * axisY;
+                    if (dot > maxB) {
+                      maxB = dot;
+                    } else if (dot < minB) {
+                      minB = dot;
+                    }
+                  }
+                  overlapAB = maxA - minB;
+                  overlapBA = maxB - minA;
+                  overlap = overlapAB < overlapBA ? overlapAB : overlapBA;
+                  if (overlap < overlapMin) {
+                    overlapMin = overlap;
+                    overlapAxisNumber = i;
+                    if (overlap <= 0) {
+                      break;
+                    }
+                  }
+                }
+                result.axis = axes[overlapAxisNumber];
+                result.overlap = overlapMin;
+              };
+              Collision._projectToAxis = function(projection, vertices, axis) {
+                var min = vertices[0].x * axis.x + vertices[0].y * axis.y, max = min;
+                for (var i = 1; i < vertices.length; i += 1) {
+                  var dot = vertices[i].x * axis.x + vertices[i].y * axis.y;
+                  if (dot > max) {
+                    max = dot;
+                  } else if (dot < min) {
+                    min = dot;
+                  }
+                }
+                projection.min = min;
+                projection.max = max;
+              };
+              Collision._findSupports = function(bodyA, bodyB, normal, direction) {
+                var vertices = bodyB.vertices, verticesLength = vertices.length, bodyAPositionX = bodyA.position.x, bodyAPositionY = bodyA.position.y, normalX = normal.x * direction, normalY = normal.y * direction, nearestDistance = Number.MAX_VALUE, vertexA, vertexB, vertexC, distance, j;
+                for (j = 0; j < verticesLength; j += 1) {
+                  vertexB = vertices[j];
+                  distance = normalX * (bodyAPositionX - vertexB.x) + normalY * (bodyAPositionY - vertexB.y);
+                  if (distance < nearestDistance) {
+                    nearestDistance = distance;
+                    vertexA = vertexB;
+                  }
+                }
+                vertexC = vertices[(verticesLength + vertexA.index - 1) % verticesLength];
+                nearestDistance = normalX * (bodyAPositionX - vertexC.x) + normalY * (bodyAPositionY - vertexC.y);
+                vertexB = vertices[(vertexA.index + 1) % verticesLength];
+                if (normalX * (bodyAPositionX - vertexB.x) + normalY * (bodyAPositionY - vertexB.y) < nearestDistance) {
+                  _supports[0] = vertexA;
+                  _supports[1] = vertexB;
+                  return _supports;
+                }
+                _supports[0] = vertexA;
+                _supports[1] = vertexC;
+                return _supports;
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Pair = {};
+            module2.exports = Pair;
+            var Contact = __webpack_require__(17);
+            (function() {
+              Pair.create = function(collision, timestamp) {
+                var bodyA = collision.bodyA, bodyB = collision.bodyB;
+                var pair = {
+                  id: Pair.id(bodyA, bodyB),
+                  bodyA,
+                  bodyB,
+                  collision,
+                  contacts: [],
+                  activeContacts: [],
+                  separation: 0,
+                  isActive: true,
+                  confirmedActive: true,
+                  isSensor: bodyA.isSensor || bodyB.isSensor,
+                  timeCreated: timestamp,
+                  timeUpdated: timestamp,
+                  inverseMass: 0,
+                  friction: 0,
+                  frictionStatic: 0,
+                  restitution: 0,
+                  slop: 0
+                };
+                Pair.update(pair, collision, timestamp);
+                return pair;
+              };
+              Pair.update = function(pair, collision, timestamp) {
+                var contacts = pair.contacts, supports = collision.supports, activeContacts = pair.activeContacts, parentA = collision.parentA, parentB = collision.parentB, parentAVerticesLength = parentA.vertices.length;
+                pair.isActive = true;
+                pair.timeUpdated = timestamp;
+                pair.collision = collision;
+                pair.separation = collision.depth;
+                pair.inverseMass = parentA.inverseMass + parentB.inverseMass;
+                pair.friction = parentA.friction < parentB.friction ? parentA.friction : parentB.friction;
+                pair.frictionStatic = parentA.frictionStatic > parentB.frictionStatic ? parentA.frictionStatic : parentB.frictionStatic;
+                pair.restitution = parentA.restitution > parentB.restitution ? parentA.restitution : parentB.restitution;
+                pair.slop = parentA.slop > parentB.slop ? parentA.slop : parentB.slop;
+                collision.pair = pair;
+                activeContacts.length = 0;
+                for (var i = 0; i < supports.length; i++) {
+                  var support = supports[i], contactId = support.body === parentA ? support.index : parentAVerticesLength + support.index, contact = contacts[contactId];
+                  if (contact) {
+                    activeContacts.push(contact);
+                  } else {
+                    activeContacts.push(contacts[contactId] = Contact.create(support));
+                  }
+                }
+              };
+              Pair.setActive = function(pair, isActive, timestamp) {
+                if (isActive) {
+                  pair.isActive = true;
+                  pair.timeUpdated = timestamp;
+                } else {
+                  pair.isActive = false;
+                  pair.activeContacts.length = 0;
+                }
+              };
+              Pair.id = function(bodyA, bodyB) {
+                if (bodyA.id < bodyB.id) {
+                  return "A" + bodyA.id + "B" + bodyB.id;
+                } else {
+                  return "A" + bodyB.id + "B" + bodyA.id;
+                }
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Constraint = {};
+            module2.exports = Constraint;
+            var Vertices = __webpack_require__(3);
+            var Vector = __webpack_require__(2);
+            var Sleeping = __webpack_require__(7);
+            var Bounds = __webpack_require__(1);
+            var Axes = __webpack_require__(11);
+            var Common = __webpack_require__(0);
+            (function() {
+              Constraint._warming = 0.4;
+              Constraint._torqueDampen = 1;
+              Constraint._minLength = 1e-6;
+              Constraint.create = function(options) {
+                var constraint = options;
+                if (constraint.bodyA && !constraint.pointA)
+                  constraint.pointA = { x: 0, y: 0 };
+                if (constraint.bodyB && !constraint.pointB)
+                  constraint.pointB = { x: 0, y: 0 };
+                var initialPointA = constraint.bodyA ? Vector.add(constraint.bodyA.position, constraint.pointA) : constraint.pointA, initialPointB = constraint.bodyB ? Vector.add(constraint.bodyB.position, constraint.pointB) : constraint.pointB, length = Vector.magnitude(Vector.sub(initialPointA, initialPointB));
+                constraint.length = typeof constraint.length !== "undefined" ? constraint.length : length;
+                constraint.id = constraint.id || Common.nextId();
+                constraint.label = constraint.label || "Constraint";
+                constraint.type = "constraint";
+                constraint.stiffness = constraint.stiffness || (constraint.length > 0 ? 1 : 0.7);
+                constraint.damping = constraint.damping || 0;
+                constraint.angularStiffness = constraint.angularStiffness || 0;
+                constraint.angleA = constraint.bodyA ? constraint.bodyA.angle : constraint.angleA;
+                constraint.angleB = constraint.bodyB ? constraint.bodyB.angle : constraint.angleB;
+                constraint.plugin = {};
+                var render = {
+                  visible: true,
+                  lineWidth: 2,
+                  strokeStyle: "#ffffff",
+                  type: "line",
+                  anchors: true
+                };
+                if (constraint.length === 0 && constraint.stiffness > 0.1) {
+                  render.type = "pin";
+                  render.anchors = false;
+                } else if (constraint.stiffness < 0.9) {
+                  render.type = "spring";
+                }
+                constraint.render = Common.extend(render, constraint.render);
+                return constraint;
+              };
+              Constraint.preSolveAll = function(bodies) {
+                for (var i = 0; i < bodies.length; i += 1) {
+                  var body = bodies[i], impulse = body.constraintImpulse;
+                  if (body.isStatic || impulse.x === 0 && impulse.y === 0 && impulse.angle === 0) {
+                    continue;
+                  }
+                  body.position.x += impulse.x;
+                  body.position.y += impulse.y;
+                  body.angle += impulse.angle;
+                }
+              };
+              Constraint.solveAll = function(constraints, timeScale) {
+                for (var i = 0; i < constraints.length; i += 1) {
+                  var constraint = constraints[i], fixedA = !constraint.bodyA || constraint.bodyA && constraint.bodyA.isStatic, fixedB = !constraint.bodyB || constraint.bodyB && constraint.bodyB.isStatic;
+                  if (fixedA || fixedB) {
+                    Constraint.solve(constraints[i], timeScale);
+                  }
+                }
+                for (i = 0; i < constraints.length; i += 1) {
+                  constraint = constraints[i];
+                  fixedA = !constraint.bodyA || constraint.bodyA && constraint.bodyA.isStatic;
+                  fixedB = !constraint.bodyB || constraint.bodyB && constraint.bodyB.isStatic;
+                  if (!fixedA && !fixedB) {
+                    Constraint.solve(constraints[i], timeScale);
+                  }
+                }
+              };
+              Constraint.solve = function(constraint, timeScale) {
+                var bodyA = constraint.bodyA, bodyB = constraint.bodyB, pointA = constraint.pointA, pointB = constraint.pointB;
+                if (!bodyA && !bodyB)
+                  return;
+                if (bodyA && !bodyA.isStatic) {
+                  Vector.rotate(pointA, bodyA.angle - constraint.angleA, pointA);
+                  constraint.angleA = bodyA.angle;
+                }
+                if (bodyB && !bodyB.isStatic) {
+                  Vector.rotate(pointB, bodyB.angle - constraint.angleB, pointB);
+                  constraint.angleB = bodyB.angle;
+                }
+                var pointAWorld = pointA, pointBWorld = pointB;
+                if (bodyA)
+                  pointAWorld = Vector.add(bodyA.position, pointA);
+                if (bodyB)
+                  pointBWorld = Vector.add(bodyB.position, pointB);
+                if (!pointAWorld || !pointBWorld)
+                  return;
+                var delta = Vector.sub(pointAWorld, pointBWorld), currentLength = Vector.magnitude(delta);
+                if (currentLength < Constraint._minLength) {
+                  currentLength = Constraint._minLength;
+                }
+                var difference = (currentLength - constraint.length) / currentLength, stiffness = constraint.stiffness < 1 ? constraint.stiffness * timeScale : constraint.stiffness, force = Vector.mult(delta, difference * stiffness), massTotal = (bodyA ? bodyA.inverseMass : 0) + (bodyB ? bodyB.inverseMass : 0), inertiaTotal = (bodyA ? bodyA.inverseInertia : 0) + (bodyB ? bodyB.inverseInertia : 0), resistanceTotal = massTotal + inertiaTotal, torque, share, normal, normalVelocity, relativeVelocity;
+                if (constraint.damping) {
+                  var zero = Vector.create();
+                  normal = Vector.div(delta, currentLength);
+                  relativeVelocity = Vector.sub(bodyB && Vector.sub(bodyB.position, bodyB.positionPrev) || zero, bodyA && Vector.sub(bodyA.position, bodyA.positionPrev) || zero);
+                  normalVelocity = Vector.dot(normal, relativeVelocity);
+                }
+                if (bodyA && !bodyA.isStatic) {
+                  share = bodyA.inverseMass / massTotal;
+                  bodyA.constraintImpulse.x -= force.x * share;
+                  bodyA.constraintImpulse.y -= force.y * share;
+                  bodyA.position.x -= force.x * share;
+                  bodyA.position.y -= force.y * share;
+                  if (constraint.damping) {
+                    bodyA.positionPrev.x -= constraint.damping * normal.x * normalVelocity * share;
+                    bodyA.positionPrev.y -= constraint.damping * normal.y * normalVelocity * share;
+                  }
+                  torque = Vector.cross(pointA, force) / resistanceTotal * Constraint._torqueDampen * bodyA.inverseInertia * (1 - constraint.angularStiffness);
+                  bodyA.constraintImpulse.angle -= torque;
+                  bodyA.angle -= torque;
+                }
+                if (bodyB && !bodyB.isStatic) {
+                  share = bodyB.inverseMass / massTotal;
+                  bodyB.constraintImpulse.x += force.x * share;
+                  bodyB.constraintImpulse.y += force.y * share;
+                  bodyB.position.x += force.x * share;
+                  bodyB.position.y += force.y * share;
+                  if (constraint.damping) {
+                    bodyB.positionPrev.x += constraint.damping * normal.x * normalVelocity * share;
+                    bodyB.positionPrev.y += constraint.damping * normal.y * normalVelocity * share;
+                  }
+                  torque = Vector.cross(pointB, force) / resistanceTotal * Constraint._torqueDampen * bodyB.inverseInertia * (1 - constraint.angularStiffness);
+                  bodyB.constraintImpulse.angle += torque;
+                  bodyB.angle += torque;
+                }
+              };
+              Constraint.postSolveAll = function(bodies) {
+                for (var i = 0; i < bodies.length; i++) {
+                  var body = bodies[i], impulse = body.constraintImpulse;
+                  if (body.isStatic || impulse.x === 0 && impulse.y === 0 && impulse.angle === 0) {
+                    continue;
+                  }
+                  Sleeping.set(body, false);
+                  for (var j = 0; j < body.parts.length; j++) {
+                    var part = body.parts[j];
+                    Vertices.translate(part.vertices, impulse);
+                    if (j > 0) {
+                      part.position.x += impulse.x;
+                      part.position.y += impulse.y;
+                    }
+                    if (impulse.angle !== 0) {
+                      Vertices.rotate(part.vertices, impulse.angle, body.position);
+                      Axes.rotate(part.axes, impulse.angle);
+                      if (j > 0) {
+                        Vector.rotateAbout(part.position, impulse.angle, body.position, part.position);
+                      }
+                    }
+                    Bounds.update(part.bounds, part.vertices, body.velocity);
+                  }
+                  impulse.angle *= Constraint._warming;
+                  impulse.x *= Constraint._warming;
+                  impulse.y *= Constraint._warming;
+                }
+              };
+              Constraint.pointAWorld = function(constraint) {
+                return {
+                  x: (constraint.bodyA ? constraint.bodyA.position.x : 0) + constraint.pointA.x,
+                  y: (constraint.bodyA ? constraint.bodyA.position.y : 0) + constraint.pointA.y
+                };
+              };
+              Constraint.pointBWorld = function(constraint) {
+                return {
+                  x: (constraint.bodyB ? constraint.bodyB.position.x : 0) + constraint.pointB.x,
+                  y: (constraint.bodyB ? constraint.bodyB.position.y : 0) + constraint.pointB.y
+                };
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Axes = {};
+            module2.exports = Axes;
+            var Vector = __webpack_require__(2);
+            var Common = __webpack_require__(0);
+            (function() {
+              Axes.fromVertices = function(vertices) {
+                var axes = {};
+                for (var i = 0; i < vertices.length; i++) {
+                  var j = (i + 1) % vertices.length, normal = Vector.normalise({
+                    x: vertices[j].y - vertices[i].y,
+                    y: vertices[i].x - vertices[j].x
+                  }), gradient = normal.y === 0 ? Infinity : normal.x / normal.y;
+                  gradient = gradient.toFixed(3).toString();
+                  axes[gradient] = normal;
+                }
+                return Common.values(axes);
+              };
+              Axes.rotate = function(axes, angle) {
+                if (angle === 0)
+                  return;
+                var cos = Math.cos(angle), sin = Math.sin(angle);
+                for (var i = 0; i < axes.length; i++) {
+                  var axis = axes[i], xx;
+                  xx = axis.x * cos - axis.y * sin;
+                  axis.y = axis.x * sin + axis.y * cos;
+                  axis.x = xx;
+                }
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Bodies2 = {};
+            module2.exports = Bodies2;
+            var Vertices = __webpack_require__(3);
+            var Common = __webpack_require__(0);
+            var Body = __webpack_require__(6);
+            var Bounds = __webpack_require__(1);
+            var Vector = __webpack_require__(2);
+            (function() {
+              Bodies2.rectangle = function(x, y, width, height, options) {
+                options = options || {};
+                var rectangle = {
+                  label: "Rectangle Body",
+                  position: { x, y },
+                  vertices: Vertices.fromPath("L 0 0 L " + width + " 0 L " + width + " " + height + " L 0 " + height)
+                };
+                if (options.chamfer) {
+                  var chamfer = options.chamfer;
+                  rectangle.vertices = Vertices.chamfer(rectangle.vertices, chamfer.radius, chamfer.quality, chamfer.qualityMin, chamfer.qualityMax);
+                  delete options.chamfer;
+                }
+                return Body.create(Common.extend({}, rectangle, options));
+              };
+              Bodies2.trapezoid = function(x, y, width, height, slope, options) {
+                options = options || {};
+                slope *= 0.5;
+                var roof = (1 - slope * 2) * width;
+                var x1 = width * slope, x2 = x1 + roof, x3 = x2 + x1, verticesPath;
+                if (slope < 0.5) {
+                  verticesPath = "L 0 0 L " + x1 + " " + -height + " L " + x2 + " " + -height + " L " + x3 + " 0";
+                } else {
+                  verticesPath = "L 0 0 L " + x2 + " " + -height + " L " + x3 + " 0";
+                }
+                var trapezoid = {
+                  label: "Trapezoid Body",
+                  position: { x, y },
+                  vertices: Vertices.fromPath(verticesPath)
+                };
+                if (options.chamfer) {
+                  var chamfer = options.chamfer;
+                  trapezoid.vertices = Vertices.chamfer(trapezoid.vertices, chamfer.radius, chamfer.quality, chamfer.qualityMin, chamfer.qualityMax);
+                  delete options.chamfer;
+                }
+                return Body.create(Common.extend({}, trapezoid, options));
+              };
+              Bodies2.circle = function(x, y, radius, options, maxSides) {
+                options = options || {};
+                var circle = {
+                  label: "Circle Body",
+                  circleRadius: radius
+                };
+                maxSides = maxSides || 25;
+                var sides = Math.ceil(Math.max(10, Math.min(maxSides, radius)));
+                if (sides % 2 === 1)
+                  sides += 1;
+                return Bodies2.polygon(x, y, sides, radius, Common.extend({}, circle, options));
+              };
+              Bodies2.polygon = function(x, y, sides, radius, options) {
+                options = options || {};
+                if (sides < 3)
+                  return Bodies2.circle(x, y, radius, options);
+                var theta = 2 * Math.PI / sides, path = "", offset = theta * 0.5;
+                for (var i = 0; i < sides; i += 1) {
+                  var angle = offset + i * theta, xx = Math.cos(angle) * radius, yy = Math.sin(angle) * radius;
+                  path += "L " + xx.toFixed(3) + " " + yy.toFixed(3) + " ";
+                }
+                var polygon = {
+                  label: "Polygon Body",
+                  position: { x, y },
+                  vertices: Vertices.fromPath(path)
+                };
+                if (options.chamfer) {
+                  var chamfer = options.chamfer;
+                  polygon.vertices = Vertices.chamfer(polygon.vertices, chamfer.radius, chamfer.quality, chamfer.qualityMin, chamfer.qualityMax);
+                  delete options.chamfer;
+                }
+                return Body.create(Common.extend({}, polygon, options));
+              };
+              Bodies2.fromVertices = function(x, y, vertexSets, options, flagInternal, removeCollinear, minimumArea, removeDuplicatePoints) {
+                var decomp = Common.getDecomp(), canDecomp, body, parts, isConvex, isConcave, vertices, i, j, k, v, z;
+                canDecomp = Boolean(decomp && decomp.quickDecomp);
+                options = options || {};
+                parts = [];
+                flagInternal = typeof flagInternal !== "undefined" ? flagInternal : false;
+                removeCollinear = typeof removeCollinear !== "undefined" ? removeCollinear : 0.01;
+                minimumArea = typeof minimumArea !== "undefined" ? minimumArea : 10;
+                removeDuplicatePoints = typeof removeDuplicatePoints !== "undefined" ? removeDuplicatePoints : 0.01;
+                if (!Common.isArray(vertexSets[0])) {
+                  vertexSets = [vertexSets];
+                }
+                for (v = 0; v < vertexSets.length; v += 1) {
+                  vertices = vertexSets[v];
+                  isConvex = Vertices.isConvex(vertices);
+                  isConcave = !isConvex;
+                  if (isConcave && !canDecomp) {
+                    Common.warnOnce("Bodies.fromVertices: Install the 'poly-decomp' library and use Common.setDecomp or provide 'decomp' as a global to decompose concave vertices.");
+                  }
+                  if (isConvex || !canDecomp) {
+                    if (isConvex) {
+                      vertices = Vertices.clockwiseSort(vertices);
+                    } else {
+                      vertices = Vertices.hull(vertices);
+                    }
+                    parts.push({
+                      position: { x, y },
+                      vertices
+                    });
+                  } else {
+                    var concave = vertices.map(function(vertex) {
+                      return [vertex.x, vertex.y];
+                    });
+                    decomp.makeCCW(concave);
+                    if (removeCollinear !== false)
+                      decomp.removeCollinearPoints(concave, removeCollinear);
+                    if (removeDuplicatePoints !== false && decomp.removeDuplicatePoints)
+                      decomp.removeDuplicatePoints(concave, removeDuplicatePoints);
+                    var decomposed = decomp.quickDecomp(concave);
+                    for (i = 0; i < decomposed.length; i++) {
+                      var chunk = decomposed[i];
+                      var chunkVertices = chunk.map(function(vertices2) {
+                        return {
+                          x: vertices2[0],
+                          y: vertices2[1]
+                        };
+                      });
+                      if (minimumArea > 0 && Vertices.area(chunkVertices) < minimumArea)
+                        continue;
+                      parts.push({
+                        position: Vertices.centre(chunkVertices),
+                        vertices: chunkVertices
+                      });
+                    }
+                  }
+                }
+                for (i = 0; i < parts.length; i++) {
+                  parts[i] = Body.create(Common.extend(parts[i], options));
+                }
+                if (flagInternal) {
+                  var coincident_max_dist = 5;
+                  for (i = 0; i < parts.length; i++) {
+                    var partA = parts[i];
+                    for (j = i + 1; j < parts.length; j++) {
+                      var partB = parts[j];
+                      if (Bounds.overlaps(partA.bounds, partB.bounds)) {
+                        var pav = partA.vertices, pbv = partB.vertices;
+                        for (k = 0; k < partA.vertices.length; k++) {
+                          for (z = 0; z < partB.vertices.length; z++) {
+                            var da = Vector.magnitudeSquared(Vector.sub(pav[(k + 1) % pav.length], pbv[z])), db = Vector.magnitudeSquared(Vector.sub(pav[k], pbv[(z + 1) % pbv.length]));
+                            if (da < coincident_max_dist && db < coincident_max_dist) {
+                              pav[k].isInternal = true;
+                              pbv[z].isInternal = true;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                if (parts.length > 1) {
+                  body = Body.create(Common.extend({ parts: parts.slice(0) }, options));
+                  Body.setPosition(body, { x, y });
+                  return body;
+                } else {
+                  return parts[0];
+                }
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Mouse = {};
+            module2.exports = Mouse;
+            var Common = __webpack_require__(0);
+            (function() {
+              Mouse.create = function(element) {
+                var mouse = {};
+                if (!element) {
+                  Common.log("Mouse.create: element was undefined, defaulting to document.body", "warn");
+                }
+                mouse.element = element || document.body;
+                mouse.absolute = { x: 0, y: 0 };
+                mouse.position = { x: 0, y: 0 };
+                mouse.mousedownPosition = { x: 0, y: 0 };
+                mouse.mouseupPosition = { x: 0, y: 0 };
+                mouse.offset = { x: 0, y: 0 };
+                mouse.scale = { x: 1, y: 1 };
+                mouse.wheelDelta = 0;
+                mouse.button = -1;
+                mouse.pixelRatio = parseInt(mouse.element.getAttribute("data-pixel-ratio"), 10) || 1;
+                mouse.sourceEvents = {
+                  mousemove: null,
+                  mousedown: null,
+                  mouseup: null,
+                  mousewheel: null
+                };
+                mouse.mousemove = function(event) {
+                  var position = Mouse._getRelativeMousePosition(event, mouse.element, mouse.pixelRatio), touches = event.changedTouches;
+                  if (touches) {
+                    mouse.button = 0;
+                    event.preventDefault();
+                  }
+                  mouse.absolute.x = position.x;
+                  mouse.absolute.y = position.y;
+                  mouse.position.x = mouse.absolute.x * mouse.scale.x + mouse.offset.x;
+                  mouse.position.y = mouse.absolute.y * mouse.scale.y + mouse.offset.y;
+                  mouse.sourceEvents.mousemove = event;
+                };
+                mouse.mousedown = function(event) {
+                  var position = Mouse._getRelativeMousePosition(event, mouse.element, mouse.pixelRatio), touches = event.changedTouches;
+                  if (touches) {
+                    mouse.button = 0;
+                    event.preventDefault();
+                  } else {
+                    mouse.button = event.button;
+                  }
+                  mouse.absolute.x = position.x;
+                  mouse.absolute.y = position.y;
+                  mouse.position.x = mouse.absolute.x * mouse.scale.x + mouse.offset.x;
+                  mouse.position.y = mouse.absolute.y * mouse.scale.y + mouse.offset.y;
+                  mouse.mousedownPosition.x = mouse.position.x;
+                  mouse.mousedownPosition.y = mouse.position.y;
+                  mouse.sourceEvents.mousedown = event;
+                };
+                mouse.mouseup = function(event) {
+                  var position = Mouse._getRelativeMousePosition(event, mouse.element, mouse.pixelRatio), touches = event.changedTouches;
+                  if (touches) {
+                    event.preventDefault();
+                  }
+                  mouse.button = -1;
+                  mouse.absolute.x = position.x;
+                  mouse.absolute.y = position.y;
+                  mouse.position.x = mouse.absolute.x * mouse.scale.x + mouse.offset.x;
+                  mouse.position.y = mouse.absolute.y * mouse.scale.y + mouse.offset.y;
+                  mouse.mouseupPosition.x = mouse.position.x;
+                  mouse.mouseupPosition.y = mouse.position.y;
+                  mouse.sourceEvents.mouseup = event;
+                };
+                mouse.mousewheel = function(event) {
+                  mouse.wheelDelta = Math.max(-1, Math.min(1, event.wheelDelta || -event.detail));
+                  event.preventDefault();
+                };
+                Mouse.setElement(mouse, mouse.element);
+                return mouse;
+              };
+              Mouse.setElement = function(mouse, element) {
+                mouse.element = element;
+                element.addEventListener("mousemove", mouse.mousemove);
+                element.addEventListener("mousedown", mouse.mousedown);
+                element.addEventListener("mouseup", mouse.mouseup);
+                element.addEventListener("mousewheel", mouse.mousewheel);
+                element.addEventListener("DOMMouseScroll", mouse.mousewheel);
+                element.addEventListener("touchmove", mouse.mousemove);
+                element.addEventListener("touchstart", mouse.mousedown);
+                element.addEventListener("touchend", mouse.mouseup);
+              };
+              Mouse.clearSourceEvents = function(mouse) {
+                mouse.sourceEvents.mousemove = null;
+                mouse.sourceEvents.mousedown = null;
+                mouse.sourceEvents.mouseup = null;
+                mouse.sourceEvents.mousewheel = null;
+                mouse.wheelDelta = 0;
+              };
+              Mouse.setOffset = function(mouse, offset) {
+                mouse.offset.x = offset.x;
+                mouse.offset.y = offset.y;
+                mouse.position.x = mouse.absolute.x * mouse.scale.x + mouse.offset.x;
+                mouse.position.y = mouse.absolute.y * mouse.scale.y + mouse.offset.y;
+              };
+              Mouse.setScale = function(mouse, scale) {
+                mouse.scale.x = scale.x;
+                mouse.scale.y = scale.y;
+                mouse.position.x = mouse.absolute.x * mouse.scale.x + mouse.offset.x;
+                mouse.position.y = mouse.absolute.y * mouse.scale.y + mouse.offset.y;
+              };
+              Mouse._getRelativeMousePosition = function(event, element, pixelRatio) {
+                var elementBounds = element.getBoundingClientRect(), rootNode = document.documentElement || document.body.parentNode || document.body, scrollX = window.pageXOffset !== void 0 ? window.pageXOffset : rootNode.scrollLeft, scrollY = window.pageYOffset !== void 0 ? window.pageYOffset : rootNode.scrollTop, touches = event.changedTouches, x, y;
+                if (touches) {
+                  x = touches[0].pageX - elementBounds.left - scrollX;
+                  y = touches[0].pageY - elementBounds.top - scrollY;
+                } else {
+                  x = event.pageX - elementBounds.left - scrollX;
+                  y = event.pageY - elementBounds.top - scrollY;
+                }
+                return {
+                  x: x / (element.clientWidth / (element.width || element.clientWidth) * pixelRatio),
+                  y: y / (element.clientHeight / (element.height || element.clientHeight) * pixelRatio)
+                };
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Detector = {};
+            module2.exports = Detector;
+            var Common = __webpack_require__(0);
+            var Collision = __webpack_require__(8);
+            (function() {
+              Detector.create = function(options) {
+                var defaults = {
+                  bodies: [],
+                  pairs: null
+                };
+                return Common.extend(defaults, options);
+              };
+              Detector.setBodies = function(detector, bodies) {
+                detector.bodies = bodies.slice(0);
+              };
+              Detector.clear = function(detector) {
+                detector.bodies = [];
+              };
+              Detector.collisions = function(detector) {
+                var collisions = [], pairs = detector.pairs, bodies = detector.bodies, bodiesLength = bodies.length, canCollide = Detector.canCollide, collides = Collision.collides, i, j;
+                bodies.sort(Detector._compareBoundsX);
+                for (i = 0; i < bodiesLength; i++) {
+                  var bodyA = bodies[i], boundsA = bodyA.bounds, boundXMax = bodyA.bounds.max.x, boundYMax = bodyA.bounds.max.y, boundYMin = bodyA.bounds.min.y, bodyAStatic = bodyA.isStatic || bodyA.isSleeping, partsALength = bodyA.parts.length, partsASingle = partsALength === 1;
+                  for (j = i + 1; j < bodiesLength; j++) {
+                    var bodyB = bodies[j], boundsB = bodyB.bounds;
+                    if (boundsB.min.x > boundXMax) {
+                      break;
+                    }
+                    if (boundYMax < boundsB.min.y || boundYMin > boundsB.max.y) {
+                      continue;
+                    }
+                    if (bodyAStatic && (bodyB.isStatic || bodyB.isSleeping)) {
+                      continue;
+                    }
+                    if (!canCollide(bodyA.collisionFilter, bodyB.collisionFilter)) {
+                      continue;
+                    }
+                    var partsBLength = bodyB.parts.length;
+                    if (partsASingle && partsBLength === 1) {
+                      var collision = collides(bodyA, bodyB, pairs);
+                      if (collision) {
+                        collisions.push(collision);
+                      }
+                    } else {
+                      var partsAStart = partsALength > 1 ? 1 : 0, partsBStart = partsBLength > 1 ? 1 : 0;
+                      for (var k = partsAStart; k < partsALength; k++) {
+                        var partA = bodyA.parts[k], boundsA = partA.bounds;
+                        for (var z = partsBStart; z < partsBLength; z++) {
+                          var partB = bodyB.parts[z], boundsB = partB.bounds;
+                          if (boundsA.min.x > boundsB.max.x || boundsA.max.x < boundsB.min.x || boundsA.max.y < boundsB.min.y || boundsA.min.y > boundsB.max.y) {
+                            continue;
+                          }
+                          var collision = collides(partA, partB, pairs);
+                          if (collision) {
+                            collisions.push(collision);
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                return collisions;
+              };
+              Detector.canCollide = function(filterA, filterB) {
+                if (filterA.group === filterB.group && filterA.group !== 0)
+                  return filterA.group > 0;
+                return (filterA.mask & filterB.category) !== 0 && (filterB.mask & filterA.category) !== 0;
+              };
+              Detector._compareBoundsX = function(bodyA, bodyB) {
+                return bodyA.bounds.min.x - bodyB.bounds.min.x;
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Plugin = {};
+            module2.exports = Plugin;
+            var Common = __webpack_require__(0);
+            (function() {
+              Plugin._registry = {};
+              Plugin.register = function(plugin) {
+                if (!Plugin.isPlugin(plugin)) {
+                  Common.warn("Plugin.register:", Plugin.toString(plugin), "does not implement all required fields.");
+                }
+                if (plugin.name in Plugin._registry) {
+                  var registered = Plugin._registry[plugin.name], pluginVersion = Plugin.versionParse(plugin.version).number, registeredVersion = Plugin.versionParse(registered.version).number;
+                  if (pluginVersion > registeredVersion) {
+                    Common.warn("Plugin.register:", Plugin.toString(registered), "was upgraded to", Plugin.toString(plugin));
+                    Plugin._registry[plugin.name] = plugin;
+                  } else if (pluginVersion < registeredVersion) {
+                    Common.warn("Plugin.register:", Plugin.toString(registered), "can not be downgraded to", Plugin.toString(plugin));
+                  } else if (plugin !== registered) {
+                    Common.warn("Plugin.register:", Plugin.toString(plugin), "is already registered to different plugin object");
+                  }
+                } else {
+                  Plugin._registry[plugin.name] = plugin;
+                }
+                return plugin;
+              };
+              Plugin.resolve = function(dependency) {
+                return Plugin._registry[Plugin.dependencyParse(dependency).name];
+              };
+              Plugin.toString = function(plugin) {
+                return typeof plugin === "string" ? plugin : (plugin.name || "anonymous") + "@" + (plugin.version || plugin.range || "0.0.0");
+              };
+              Plugin.isPlugin = function(obj) {
+                return obj && obj.name && obj.version && obj.install;
+              };
+              Plugin.isUsed = function(module3, name) {
+                return module3.used.indexOf(name) > -1;
+              };
+              Plugin.isFor = function(plugin, module3) {
+                var parsed = plugin.for && Plugin.dependencyParse(plugin.for);
+                return !plugin.for || module3.name === parsed.name && Plugin.versionSatisfies(module3.version, parsed.range);
+              };
+              Plugin.use = function(module3, plugins) {
+                module3.uses = (module3.uses || []).concat(plugins || []);
+                if (module3.uses.length === 0) {
+                  Common.warn("Plugin.use:", Plugin.toString(module3), "does not specify any dependencies to install.");
+                  return;
+                }
+                var dependencies = Plugin.dependencies(module3), sortedDependencies = Common.topologicalSort(dependencies), status = [];
+                for (var i = 0; i < sortedDependencies.length; i += 1) {
+                  if (sortedDependencies[i] === module3.name) {
+                    continue;
+                  }
+                  var plugin = Plugin.resolve(sortedDependencies[i]);
+                  if (!plugin) {
+                    status.push("\u274C " + sortedDependencies[i]);
+                    continue;
+                  }
+                  if (Plugin.isUsed(module3, plugin.name)) {
+                    continue;
+                  }
+                  if (!Plugin.isFor(plugin, module3)) {
+                    Common.warn("Plugin.use:", Plugin.toString(plugin), "is for", plugin.for, "but installed on", Plugin.toString(module3) + ".");
+                    plugin._warned = true;
+                  }
+                  if (plugin.install) {
+                    plugin.install(module3);
+                  } else {
+                    Common.warn("Plugin.use:", Plugin.toString(plugin), "does not specify an install function.");
+                    plugin._warned = true;
+                  }
+                  if (plugin._warned) {
+                    status.push("\u{1F536} " + Plugin.toString(plugin));
+                    delete plugin._warned;
+                  } else {
+                    status.push("\u2705 " + Plugin.toString(plugin));
+                  }
+                  module3.used.push(plugin.name);
+                }
+                if (status.length > 0) {
+                  Common.info(status.join("  "));
+                }
+              };
+              Plugin.dependencies = function(module3, tracked) {
+                var parsedBase = Plugin.dependencyParse(module3), name = parsedBase.name;
+                tracked = tracked || {};
+                if (name in tracked) {
+                  return;
+                }
+                module3 = Plugin.resolve(module3) || module3;
+                tracked[name] = Common.map(module3.uses || [], function(dependency) {
+                  if (Plugin.isPlugin(dependency)) {
+                    Plugin.register(dependency);
+                  }
+                  var parsed = Plugin.dependencyParse(dependency), resolved = Plugin.resolve(dependency);
+                  if (resolved && !Plugin.versionSatisfies(resolved.version, parsed.range)) {
+                    Common.warn("Plugin.dependencies:", Plugin.toString(resolved), "does not satisfy", Plugin.toString(parsed), "used by", Plugin.toString(parsedBase) + ".");
+                    resolved._warned = true;
+                    module3._warned = true;
+                  } else if (!resolved) {
+                    Common.warn("Plugin.dependencies:", Plugin.toString(dependency), "used by", Plugin.toString(parsedBase), "could not be resolved.");
+                    module3._warned = true;
+                  }
+                  return parsed.name;
+                });
+                for (var i = 0; i < tracked[name].length; i += 1) {
+                  Plugin.dependencies(tracked[name][i], tracked);
+                }
+                return tracked;
+              };
+              Plugin.dependencyParse = function(dependency) {
+                if (Common.isString(dependency)) {
+                  var pattern = /^[\w-]+(@(\*|[\^~]?\d+\.\d+\.\d+(-[0-9A-Za-z-+]+)?))?$/;
+                  if (!pattern.test(dependency)) {
+                    Common.warn("Plugin.dependencyParse:", dependency, "is not a valid dependency string.");
+                  }
+                  return {
+                    name: dependency.split("@")[0],
+                    range: dependency.split("@")[1] || "*"
+                  };
+                }
+                return {
+                  name: dependency.name,
+                  range: dependency.range || dependency.version
+                };
+              };
+              Plugin.versionParse = function(range) {
+                var pattern = /^(\*)|(\^|~|>=|>)?\s*((\d+)\.(\d+)\.(\d+))(-[0-9A-Za-z-+]+)?$/;
+                if (!pattern.test(range)) {
+                  Common.warn("Plugin.versionParse:", range, "is not a valid version or range.");
+                }
+                var parts = pattern.exec(range);
+                var major = Number(parts[4]);
+                var minor = Number(parts[5]);
+                var patch = Number(parts[6]);
+                return {
+                  isRange: Boolean(parts[1] || parts[2]),
+                  version: parts[3],
+                  range,
+                  operator: parts[1] || parts[2] || "",
+                  major,
+                  minor,
+                  patch,
+                  parts: [major, minor, patch],
+                  prerelease: parts[7],
+                  number: major * 1e8 + minor * 1e4 + patch
+                };
+              };
+              Plugin.versionSatisfies = function(version, range) {
+                range = range || "*";
+                var r = Plugin.versionParse(range), v = Plugin.versionParse(version);
+                if (r.isRange) {
+                  if (r.operator === "*" || version === "*") {
+                    return true;
+                  }
+                  if (r.operator === ">") {
+                    return v.number > r.number;
+                  }
+                  if (r.operator === ">=") {
+                    return v.number >= r.number;
+                  }
+                  if (r.operator === "~") {
+                    return v.major === r.major && v.minor === r.minor && v.patch >= r.patch;
+                  }
+                  if (r.operator === "^") {
+                    if (r.major > 0) {
+                      return v.major === r.major && v.number >= r.number;
+                    }
+                    if (r.minor > 0) {
+                      return v.minor === r.minor && v.patch >= r.patch;
+                    }
+                    return v.patch === r.patch;
+                  }
+                }
+                return version === range || version === "*";
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Render2 = {};
+            module2.exports = Render2;
+            var Common = __webpack_require__(0);
+            var Composite2 = __webpack_require__(5);
+            var Bounds = __webpack_require__(1);
+            var Events = __webpack_require__(4);
+            var Vector = __webpack_require__(2);
+            var Mouse = __webpack_require__(13);
+            (function() {
+              var _requestAnimationFrame, _cancelAnimationFrame;
+              if (typeof window !== "undefined") {
+                _requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || function(callback) {
+                  window.setTimeout(function() {
+                    callback(Common.now());
+                  }, 1e3 / 60);
+                };
+                _cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame;
+              }
+              Render2._goodFps = 30;
+              Render2._goodDelta = 1e3 / 60;
+              Render2.create = function(options) {
+                var defaults = {
+                  controller: Render2,
+                  engine: null,
+                  element: null,
+                  canvas: null,
+                  mouse: null,
+                  frameRequestId: null,
+                  timing: {
+                    historySize: 60,
+                    delta: 0,
+                    deltaHistory: [],
+                    lastTime: 0,
+                    lastTimestamp: 0,
+                    lastElapsed: 0,
+                    timestampElapsed: 0,
+                    timestampElapsedHistory: [],
+                    engineDeltaHistory: [],
+                    engineElapsedHistory: [],
+                    elapsedHistory: []
+                  },
+                  options: {
+                    width: 800,
+                    height: 600,
+                    pixelRatio: 1,
+                    background: "#14151f",
+                    wireframeBackground: "#14151f",
+                    hasBounds: !!options.bounds,
+                    enabled: true,
+                    wireframes: true,
+                    showSleeping: true,
+                    showDebug: false,
+                    showStats: false,
+                    showPerformance: false,
+                    showBounds: false,
+                    showVelocity: false,
+                    showCollisions: false,
+                    showSeparations: false,
+                    showAxes: false,
+                    showPositions: false,
+                    showAngleIndicator: false,
+                    showIds: false,
+                    showVertexNumbers: false,
+                    showConvexHulls: false,
+                    showInternalEdges: false,
+                    showMousePosition: false
+                  }
+                };
+                var render = Common.extend(defaults, options);
+                if (render.canvas) {
+                  render.canvas.width = render.options.width || render.canvas.width;
+                  render.canvas.height = render.options.height || render.canvas.height;
+                }
+                render.mouse = options.mouse;
+                render.engine = options.engine;
+                render.canvas = render.canvas || _createCanvas(render.options.width, render.options.height);
+                render.context = render.canvas.getContext("2d");
+                render.textures = {};
+                render.bounds = render.bounds || {
+                  min: {
+                    x: 0,
+                    y: 0
+                  },
+                  max: {
+                    x: render.canvas.width,
+                    y: render.canvas.height
+                  }
+                };
+                render.options.showBroadphase = false;
+                if (render.options.pixelRatio !== 1) {
+                  Render2.setPixelRatio(render, render.options.pixelRatio);
+                }
+                if (Common.isElement(render.element)) {
+                  render.element.appendChild(render.canvas);
+                } else if (!render.canvas.parentNode) {
+                  Common.log("Render.create: options.element was undefined, render.canvas was created but not appended", "warn");
+                }
+                return render;
+              };
+              Render2.run = function(render) {
+                (function loop(time) {
+                  render.frameRequestId = _requestAnimationFrame(loop);
+                  _updateTiming(render, time);
+                  Render2.world(render, time);
+                  if (render.options.showStats || render.options.showDebug) {
+                    Render2.stats(render, render.context, time);
+                  }
+                  if (render.options.showPerformance || render.options.showDebug) {
+                    Render2.performance(render, render.context, time);
+                  }
+                })();
+              };
+              Render2.stop = function(render) {
+                _cancelAnimationFrame(render.frameRequestId);
+              };
+              Render2.setPixelRatio = function(render, pixelRatio) {
+                var options = render.options, canvas = render.canvas;
+                if (pixelRatio === "auto") {
+                  pixelRatio = _getPixelRatio(canvas);
+                }
+                options.pixelRatio = pixelRatio;
+                canvas.setAttribute("data-pixel-ratio", pixelRatio);
+                canvas.width = options.width * pixelRatio;
+                canvas.height = options.height * pixelRatio;
+                canvas.style.width = options.width + "px";
+                canvas.style.height = options.height + "px";
+              };
+              Render2.lookAt = function(render, objects, padding, center) {
+                center = typeof center !== "undefined" ? center : true;
+                objects = Common.isArray(objects) ? objects : [objects];
+                padding = padding || {
+                  x: 0,
+                  y: 0
+                };
+                var bounds = {
+                  min: { x: Infinity, y: Infinity },
+                  max: { x: -Infinity, y: -Infinity }
+                };
+                for (var i = 0; i < objects.length; i += 1) {
+                  var object = objects[i], min = object.bounds ? object.bounds.min : object.min || object.position || object, max = object.bounds ? object.bounds.max : object.max || object.position || object;
+                  if (min && max) {
+                    if (min.x < bounds.min.x)
+                      bounds.min.x = min.x;
+                    if (max.x > bounds.max.x)
+                      bounds.max.x = max.x;
+                    if (min.y < bounds.min.y)
+                      bounds.min.y = min.y;
+                    if (max.y > bounds.max.y)
+                      bounds.max.y = max.y;
+                  }
+                }
+                var width = bounds.max.x - bounds.min.x + 2 * padding.x, height = bounds.max.y - bounds.min.y + 2 * padding.y, viewHeight = render.canvas.height, viewWidth = render.canvas.width, outerRatio = viewWidth / viewHeight, innerRatio = width / height, scaleX = 1, scaleY = 1;
+                if (innerRatio > outerRatio) {
+                  scaleY = innerRatio / outerRatio;
+                } else {
+                  scaleX = outerRatio / innerRatio;
+                }
+                render.options.hasBounds = true;
+                render.bounds.min.x = bounds.min.x;
+                render.bounds.max.x = bounds.min.x + width * scaleX;
+                render.bounds.min.y = bounds.min.y;
+                render.bounds.max.y = bounds.min.y + height * scaleY;
+                if (center) {
+                  render.bounds.min.x += width * 0.5 - width * scaleX * 0.5;
+                  render.bounds.max.x += width * 0.5 - width * scaleX * 0.5;
+                  render.bounds.min.y += height * 0.5 - height * scaleY * 0.5;
+                  render.bounds.max.y += height * 0.5 - height * scaleY * 0.5;
+                }
+                render.bounds.min.x -= padding.x;
+                render.bounds.max.x -= padding.x;
+                render.bounds.min.y -= padding.y;
+                render.bounds.max.y -= padding.y;
+                if (render.mouse) {
+                  Mouse.setScale(render.mouse, {
+                    x: (render.bounds.max.x - render.bounds.min.x) / render.canvas.width,
+                    y: (render.bounds.max.y - render.bounds.min.y) / render.canvas.height
+                  });
+                  Mouse.setOffset(render.mouse, render.bounds.min);
+                }
+              };
+              Render2.startViewTransform = function(render) {
+                var boundsWidth = render.bounds.max.x - render.bounds.min.x, boundsHeight = render.bounds.max.y - render.bounds.min.y, boundsScaleX = boundsWidth / render.options.width, boundsScaleY = boundsHeight / render.options.height;
+                render.context.setTransform(render.options.pixelRatio / boundsScaleX, 0, 0, render.options.pixelRatio / boundsScaleY, 0, 0);
+                render.context.translate(-render.bounds.min.x, -render.bounds.min.y);
+              };
+              Render2.endViewTransform = function(render) {
+                render.context.setTransform(render.options.pixelRatio, 0, 0, render.options.pixelRatio, 0, 0);
+              };
+              Render2.world = function(render, time) {
+                var startTime = Common.now(), engine = render.engine, world = engine.world, canvas = render.canvas, context = render.context, options = render.options, timing = render.timing;
+                var allBodies = Composite2.allBodies(world), allConstraints = Composite2.allConstraints(world), background = options.wireframes ? options.wireframeBackground : options.background, bodies = [], constraints = [], i;
+                var event = {
+                  timestamp: engine.timing.timestamp
+                };
+                Events.trigger(render, "beforeRender", event);
+                if (render.currentBackground !== background)
+                  _applyBackground(render, background);
+                context.globalCompositeOperation = "source-in";
+                context.fillStyle = "transparent";
+                context.fillRect(0, 0, canvas.width, canvas.height);
+                context.globalCompositeOperation = "source-over";
+                if (options.hasBounds) {
+                  for (i = 0; i < allBodies.length; i++) {
+                    var body = allBodies[i];
+                    if (Bounds.overlaps(body.bounds, render.bounds))
+                      bodies.push(body);
+                  }
+                  for (i = 0; i < allConstraints.length; i++) {
+                    var constraint = allConstraints[i], bodyA = constraint.bodyA, bodyB = constraint.bodyB, pointAWorld = constraint.pointA, pointBWorld = constraint.pointB;
+                    if (bodyA)
+                      pointAWorld = Vector.add(bodyA.position, constraint.pointA);
+                    if (bodyB)
+                      pointBWorld = Vector.add(bodyB.position, constraint.pointB);
+                    if (!pointAWorld || !pointBWorld)
+                      continue;
+                    if (Bounds.contains(render.bounds, pointAWorld) || Bounds.contains(render.bounds, pointBWorld))
+                      constraints.push(constraint);
+                  }
+                  Render2.startViewTransform(render);
+                  if (render.mouse) {
+                    Mouse.setScale(render.mouse, {
+                      x: (render.bounds.max.x - render.bounds.min.x) / render.options.width,
+                      y: (render.bounds.max.y - render.bounds.min.y) / render.options.height
+                    });
+                    Mouse.setOffset(render.mouse, render.bounds.min);
+                  }
+                } else {
+                  constraints = allConstraints;
+                  bodies = allBodies;
+                  if (render.options.pixelRatio !== 1) {
+                    render.context.setTransform(render.options.pixelRatio, 0, 0, render.options.pixelRatio, 0, 0);
+                  }
+                }
+                if (!options.wireframes || engine.enableSleeping && options.showSleeping) {
+                  Render2.bodies(render, bodies, context);
+                } else {
+                  if (options.showConvexHulls)
+                    Render2.bodyConvexHulls(render, bodies, context);
+                  Render2.bodyWireframes(render, bodies, context);
+                }
+                if (options.showBounds)
+                  Render2.bodyBounds(render, bodies, context);
+                if (options.showAxes || options.showAngleIndicator)
+                  Render2.bodyAxes(render, bodies, context);
+                if (options.showPositions)
+                  Render2.bodyPositions(render, bodies, context);
+                if (options.showVelocity)
+                  Render2.bodyVelocity(render, bodies, context);
+                if (options.showIds)
+                  Render2.bodyIds(render, bodies, context);
+                if (options.showSeparations)
+                  Render2.separations(render, engine.pairs.list, context);
+                if (options.showCollisions)
+                  Render2.collisions(render, engine.pairs.list, context);
+                if (options.showVertexNumbers)
+                  Render2.vertexNumbers(render, bodies, context);
+                if (options.showMousePosition)
+                  Render2.mousePosition(render, render.mouse, context);
+                Render2.constraints(constraints, context);
+                if (options.hasBounds) {
+                  Render2.endViewTransform(render);
+                }
+                Events.trigger(render, "afterRender", event);
+                timing.lastElapsed = Common.now() - startTime;
+              };
+              Render2.stats = function(render, context, time) {
+                var engine = render.engine, world = engine.world, bodies = Composite2.allBodies(world), parts = 0, width = 55, height = 44, x = 0, y = 0;
+                for (var i = 0; i < bodies.length; i += 1) {
+                  parts += bodies[i].parts.length;
+                }
+                var sections = {
+                  "Part": parts,
+                  "Body": bodies.length,
+                  "Cons": Composite2.allConstraints(world).length,
+                  "Comp": Composite2.allComposites(world).length,
+                  "Pair": engine.pairs.list.length
+                };
+                context.fillStyle = "#0e0f19";
+                context.fillRect(x, y, width * 5.5, height);
+                context.font = "12px Arial";
+                context.textBaseline = "top";
+                context.textAlign = "right";
+                for (var key in sections) {
+                  var section = sections[key];
+                  context.fillStyle = "#aaa";
+                  context.fillText(key, x + width, y + 8);
+                  context.fillStyle = "#eee";
+                  context.fillText(section, x + width, y + 26);
+                  x += width;
+                }
+              };
+              Render2.performance = function(render, context) {
+                var engine = render.engine, timing = render.timing, deltaHistory = timing.deltaHistory, elapsedHistory = timing.elapsedHistory, timestampElapsedHistory = timing.timestampElapsedHistory, engineDeltaHistory = timing.engineDeltaHistory, engineElapsedHistory = timing.engineElapsedHistory, lastEngineDelta = engine.timing.lastDelta;
+                var deltaMean = _mean(deltaHistory), elapsedMean = _mean(elapsedHistory), engineDeltaMean = _mean(engineDeltaHistory), engineElapsedMean = _mean(engineElapsedHistory), timestampElapsedMean = _mean(timestampElapsedHistory), rateMean = timestampElapsedMean / deltaMean || 0, fps = 1e3 / deltaMean || 0;
+                var graphHeight = 4, gap = 12, width = 60, height = 34, x = 10, y = 69;
+                context.fillStyle = "#0e0f19";
+                context.fillRect(0, 50, gap * 4 + width * 5 + 22, height);
+                Render2.status(context, x, y, width, graphHeight, deltaHistory.length, Math.round(fps) + " fps", fps / Render2._goodFps, function(i) {
+                  return deltaHistory[i] / deltaMean - 1;
+                });
+                Render2.status(context, x + gap + width, y, width, graphHeight, engineDeltaHistory.length, lastEngineDelta.toFixed(2) + " dt", Render2._goodDelta / lastEngineDelta, function(i) {
+                  return engineDeltaHistory[i] / engineDeltaMean - 1;
+                });
+                Render2.status(context, x + (gap + width) * 2, y, width, graphHeight, engineElapsedHistory.length, engineElapsedMean.toFixed(2) + " ut", 1 - engineElapsedMean / Render2._goodFps, function(i) {
+                  return engineElapsedHistory[i] / engineElapsedMean - 1;
+                });
+                Render2.status(context, x + (gap + width) * 3, y, width, graphHeight, elapsedHistory.length, elapsedMean.toFixed(2) + " rt", 1 - elapsedMean / Render2._goodFps, function(i) {
+                  return elapsedHistory[i] / elapsedMean - 1;
+                });
+                Render2.status(context, x + (gap + width) * 4, y, width, graphHeight, timestampElapsedHistory.length, rateMean.toFixed(2) + " x", rateMean * rateMean * rateMean, function(i) {
+                  return (timestampElapsedHistory[i] / deltaHistory[i] / rateMean || 0) - 1;
+                });
+              };
+              Render2.status = function(context, x, y, width, height, count, label, indicator, plotY) {
+                context.strokeStyle = "#888";
+                context.fillStyle = "#444";
+                context.lineWidth = 1;
+                context.fillRect(x, y + 7, width, 1);
+                context.beginPath();
+                context.moveTo(x, y + 7 - height * Common.clamp(0.4 * plotY(0), -2, 2));
+                for (var i = 0; i < width; i += 1) {
+                  context.lineTo(x + i, y + 7 - (i < count ? height * Common.clamp(0.4 * plotY(i), -2, 2) : 0));
+                }
+                context.stroke();
+                context.fillStyle = "hsl(" + Common.clamp(25 + 95 * indicator, 0, 120) + ",100%,60%)";
+                context.fillRect(x, y - 7, 4, 4);
+                context.font = "12px Arial";
+                context.textBaseline = "middle";
+                context.textAlign = "right";
+                context.fillStyle = "#eee";
+                context.fillText(label, x + width, y - 5);
+              };
+              Render2.constraints = function(constraints, context) {
+                var c = context;
+                for (var i = 0; i < constraints.length; i++) {
+                  var constraint = constraints[i];
+                  if (!constraint.render.visible || !constraint.pointA || !constraint.pointB)
+                    continue;
+                  var bodyA = constraint.bodyA, bodyB = constraint.bodyB, start, end;
+                  if (bodyA) {
+                    start = Vector.add(bodyA.position, constraint.pointA);
+                  } else {
+                    start = constraint.pointA;
+                  }
+                  if (constraint.render.type === "pin") {
+                    c.beginPath();
+                    c.arc(start.x, start.y, 3, 0, 2 * Math.PI);
+                    c.closePath();
+                  } else {
+                    if (bodyB) {
+                      end = Vector.add(bodyB.position, constraint.pointB);
+                    } else {
+                      end = constraint.pointB;
+                    }
+                    c.beginPath();
+                    c.moveTo(start.x, start.y);
+                    if (constraint.render.type === "spring") {
+                      var delta = Vector.sub(end, start), normal = Vector.perp(Vector.normalise(delta)), coils = Math.ceil(Common.clamp(constraint.length / 5, 12, 20)), offset;
+                      for (var j = 1; j < coils; j += 1) {
+                        offset = j % 2 === 0 ? 1 : -1;
+                        c.lineTo(start.x + delta.x * (j / coils) + normal.x * offset * 4, start.y + delta.y * (j / coils) + normal.y * offset * 4);
+                      }
+                    }
+                    c.lineTo(end.x, end.y);
+                  }
+                  if (constraint.render.lineWidth) {
+                    c.lineWidth = constraint.render.lineWidth;
+                    c.strokeStyle = constraint.render.strokeStyle;
+                    c.stroke();
+                  }
+                  if (constraint.render.anchors) {
+                    c.fillStyle = constraint.render.strokeStyle;
+                    c.beginPath();
+                    c.arc(start.x, start.y, 3, 0, 2 * Math.PI);
+                    c.arc(end.x, end.y, 3, 0, 2 * Math.PI);
+                    c.closePath();
+                    c.fill();
+                  }
+                }
+              };
+              Render2.bodies = function(render, bodies, context) {
+                var c = context, engine = render.engine, options = render.options, showInternalEdges = options.showInternalEdges || !options.wireframes, body, part, i, k;
+                for (i = 0; i < bodies.length; i++) {
+                  body = bodies[i];
+                  if (!body.render.visible)
+                    continue;
+                  for (k = body.parts.length > 1 ? 1 : 0; k < body.parts.length; k++) {
+                    part = body.parts[k];
+                    if (!part.render.visible)
+                      continue;
+                    if (options.showSleeping && body.isSleeping) {
+                      c.globalAlpha = 0.5 * part.render.opacity;
+                    } else if (part.render.opacity !== 1) {
+                      c.globalAlpha = part.render.opacity;
+                    }
+                    if (part.render.sprite && part.render.sprite.texture && !options.wireframes) {
+                      var sprite = part.render.sprite, texture = _getTexture(render, sprite.texture);
+                      c.translate(part.position.x, part.position.y);
+                      c.rotate(part.angle);
+                      c.drawImage(texture, texture.width * -sprite.xOffset * sprite.xScale, texture.height * -sprite.yOffset * sprite.yScale, texture.width * sprite.xScale, texture.height * sprite.yScale);
+                      c.rotate(-part.angle);
+                      c.translate(-part.position.x, -part.position.y);
+                    } else {
+                      if (part.circleRadius) {
+                        c.beginPath();
+                        c.arc(part.position.x, part.position.y, part.circleRadius, 0, 2 * Math.PI);
+                      } else {
+                        c.beginPath();
+                        c.moveTo(part.vertices[0].x, part.vertices[0].y);
+                        for (var j = 1; j < part.vertices.length; j++) {
+                          if (!part.vertices[j - 1].isInternal || showInternalEdges) {
+                            c.lineTo(part.vertices[j].x, part.vertices[j].y);
+                          } else {
+                            c.moveTo(part.vertices[j].x, part.vertices[j].y);
+                          }
+                          if (part.vertices[j].isInternal && !showInternalEdges) {
+                            c.moveTo(part.vertices[(j + 1) % part.vertices.length].x, part.vertices[(j + 1) % part.vertices.length].y);
+                          }
+                        }
+                        c.lineTo(part.vertices[0].x, part.vertices[0].y);
+                        c.closePath();
+                      }
+                      if (!options.wireframes) {
+                        c.fillStyle = part.render.fillStyle;
+                        if (part.render.lineWidth) {
+                          c.lineWidth = part.render.lineWidth;
+                          c.strokeStyle = part.render.strokeStyle;
+                          c.stroke();
+                        }
+                        c.fill();
+                      } else {
+                        c.lineWidth = 1;
+                        c.strokeStyle = "#bbb";
+                        c.stroke();
+                      }
+                    }
+                    c.globalAlpha = 1;
+                  }
+                }
+              };
+              Render2.bodyWireframes = function(render, bodies, context) {
+                var c = context, showInternalEdges = render.options.showInternalEdges, body, part, i, j, k;
+                c.beginPath();
+                for (i = 0; i < bodies.length; i++) {
+                  body = bodies[i];
+                  if (!body.render.visible)
+                    continue;
+                  for (k = body.parts.length > 1 ? 1 : 0; k < body.parts.length; k++) {
+                    part = body.parts[k];
+                    c.moveTo(part.vertices[0].x, part.vertices[0].y);
+                    for (j = 1; j < part.vertices.length; j++) {
+                      if (!part.vertices[j - 1].isInternal || showInternalEdges) {
+                        c.lineTo(part.vertices[j].x, part.vertices[j].y);
+                      } else {
+                        c.moveTo(part.vertices[j].x, part.vertices[j].y);
+                      }
+                      if (part.vertices[j].isInternal && !showInternalEdges) {
+                        c.moveTo(part.vertices[(j + 1) % part.vertices.length].x, part.vertices[(j + 1) % part.vertices.length].y);
+                      }
+                    }
+                    c.lineTo(part.vertices[0].x, part.vertices[0].y);
+                  }
+                }
+                c.lineWidth = 1;
+                c.strokeStyle = "#bbb";
+                c.stroke();
+              };
+              Render2.bodyConvexHulls = function(render, bodies, context) {
+                var c = context, body, part, i, j, k;
+                c.beginPath();
+                for (i = 0; i < bodies.length; i++) {
+                  body = bodies[i];
+                  if (!body.render.visible || body.parts.length === 1)
+                    continue;
+                  c.moveTo(body.vertices[0].x, body.vertices[0].y);
+                  for (j = 1; j < body.vertices.length; j++) {
+                    c.lineTo(body.vertices[j].x, body.vertices[j].y);
+                  }
+                  c.lineTo(body.vertices[0].x, body.vertices[0].y);
+                }
+                c.lineWidth = 1;
+                c.strokeStyle = "rgba(255,255,255,0.2)";
+                c.stroke();
+              };
+              Render2.vertexNumbers = function(render, bodies, context) {
+                var c = context, i, j, k;
+                for (i = 0; i < bodies.length; i++) {
+                  var parts = bodies[i].parts;
+                  for (k = parts.length > 1 ? 1 : 0; k < parts.length; k++) {
+                    var part = parts[k];
+                    for (j = 0; j < part.vertices.length; j++) {
+                      c.fillStyle = "rgba(255,255,255,0.2)";
+                      c.fillText(i + "_" + j, part.position.x + (part.vertices[j].x - part.position.x) * 0.8, part.position.y + (part.vertices[j].y - part.position.y) * 0.8);
+                    }
+                  }
+                }
+              };
+              Render2.mousePosition = function(render, mouse, context) {
+                var c = context;
+                c.fillStyle = "rgba(255,255,255,0.8)";
+                c.fillText(mouse.position.x + "  " + mouse.position.y, mouse.position.x + 5, mouse.position.y - 5);
+              };
+              Render2.bodyBounds = function(render, bodies, context) {
+                var c = context, engine = render.engine, options = render.options;
+                c.beginPath();
+                for (var i = 0; i < bodies.length; i++) {
+                  var body = bodies[i];
+                  if (body.render.visible) {
+                    var parts = bodies[i].parts;
+                    for (var j = parts.length > 1 ? 1 : 0; j < parts.length; j++) {
+                      var part = parts[j];
+                      c.rect(part.bounds.min.x, part.bounds.min.y, part.bounds.max.x - part.bounds.min.x, part.bounds.max.y - part.bounds.min.y);
+                    }
+                  }
+                }
+                if (options.wireframes) {
+                  c.strokeStyle = "rgba(255,255,255,0.08)";
+                } else {
+                  c.strokeStyle = "rgba(0,0,0,0.1)";
+                }
+                c.lineWidth = 1;
+                c.stroke();
+              };
+              Render2.bodyAxes = function(render, bodies, context) {
+                var c = context, engine = render.engine, options = render.options, part, i, j, k;
+                c.beginPath();
+                for (i = 0; i < bodies.length; i++) {
+                  var body = bodies[i], parts = body.parts;
+                  if (!body.render.visible)
+                    continue;
+                  if (options.showAxes) {
+                    for (j = parts.length > 1 ? 1 : 0; j < parts.length; j++) {
+                      part = parts[j];
+                      for (k = 0; k < part.axes.length; k++) {
+                        var axis = part.axes[k];
+                        c.moveTo(part.position.x, part.position.y);
+                        c.lineTo(part.position.x + axis.x * 20, part.position.y + axis.y * 20);
+                      }
+                    }
+                  } else {
+                    for (j = parts.length > 1 ? 1 : 0; j < parts.length; j++) {
+                      part = parts[j];
+                      for (k = 0; k < part.axes.length; k++) {
+                        c.moveTo(part.position.x, part.position.y);
+                        c.lineTo((part.vertices[0].x + part.vertices[part.vertices.length - 1].x) / 2, (part.vertices[0].y + part.vertices[part.vertices.length - 1].y) / 2);
+                      }
+                    }
+                  }
+                }
+                if (options.wireframes) {
+                  c.strokeStyle = "indianred";
+                  c.lineWidth = 1;
+                } else {
+                  c.strokeStyle = "rgba(255, 255, 255, 0.4)";
+                  c.globalCompositeOperation = "overlay";
+                  c.lineWidth = 2;
+                }
+                c.stroke();
+                c.globalCompositeOperation = "source-over";
+              };
+              Render2.bodyPositions = function(render, bodies, context) {
+                var c = context, engine = render.engine, options = render.options, body, part, i, k;
+                c.beginPath();
+                for (i = 0; i < bodies.length; i++) {
+                  body = bodies[i];
+                  if (!body.render.visible)
+                    continue;
+                  for (k = 0; k < body.parts.length; k++) {
+                    part = body.parts[k];
+                    c.arc(part.position.x, part.position.y, 3, 0, 2 * Math.PI, false);
+                    c.closePath();
+                  }
+                }
+                if (options.wireframes) {
+                  c.fillStyle = "indianred";
+                } else {
+                  c.fillStyle = "rgba(0,0,0,0.5)";
+                }
+                c.fill();
+                c.beginPath();
+                for (i = 0; i < bodies.length; i++) {
+                  body = bodies[i];
+                  if (body.render.visible) {
+                    c.arc(body.positionPrev.x, body.positionPrev.y, 2, 0, 2 * Math.PI, false);
+                    c.closePath();
+                  }
+                }
+                c.fillStyle = "rgba(255,165,0,0.8)";
+                c.fill();
+              };
+              Render2.bodyVelocity = function(render, bodies, context) {
+                var c = context;
+                c.beginPath();
+                for (var i = 0; i < bodies.length; i++) {
+                  var body = bodies[i];
+                  if (!body.render.visible)
+                    continue;
+                  c.moveTo(body.position.x, body.position.y);
+                  c.lineTo(body.position.x + (body.position.x - body.positionPrev.x) * 2, body.position.y + (body.position.y - body.positionPrev.y) * 2);
+                }
+                c.lineWidth = 3;
+                c.strokeStyle = "cornflowerblue";
+                c.stroke();
+              };
+              Render2.bodyIds = function(render, bodies, context) {
+                var c = context, i, j;
+                for (i = 0; i < bodies.length; i++) {
+                  if (!bodies[i].render.visible)
+                    continue;
+                  var parts = bodies[i].parts;
+                  for (j = parts.length > 1 ? 1 : 0; j < parts.length; j++) {
+                    var part = parts[j];
+                    c.font = "12px Arial";
+                    c.fillStyle = "rgba(255,255,255,0.5)";
+                    c.fillText(part.id, part.position.x + 10, part.position.y - 10);
+                  }
+                }
+              };
+              Render2.collisions = function(render, pairs, context) {
+                var c = context, options = render.options, pair, collision, corrected, bodyA, bodyB, i, j;
+                c.beginPath();
+                for (i = 0; i < pairs.length; i++) {
+                  pair = pairs[i];
+                  if (!pair.isActive)
+                    continue;
+                  collision = pair.collision;
+                  for (j = 0; j < pair.activeContacts.length; j++) {
+                    var contact = pair.activeContacts[j], vertex = contact.vertex;
+                    c.rect(vertex.x - 1.5, vertex.y - 1.5, 3.5, 3.5);
+                  }
+                }
+                if (options.wireframes) {
+                  c.fillStyle = "rgba(255,255,255,0.7)";
+                } else {
+                  c.fillStyle = "orange";
+                }
+                c.fill();
+                c.beginPath();
+                for (i = 0; i < pairs.length; i++) {
+                  pair = pairs[i];
+                  if (!pair.isActive)
+                    continue;
+                  collision = pair.collision;
+                  if (pair.activeContacts.length > 0) {
+                    var normalPosX = pair.activeContacts[0].vertex.x, normalPosY = pair.activeContacts[0].vertex.y;
+                    if (pair.activeContacts.length === 2) {
+                      normalPosX = (pair.activeContacts[0].vertex.x + pair.activeContacts[1].vertex.x) / 2;
+                      normalPosY = (pair.activeContacts[0].vertex.y + pair.activeContacts[1].vertex.y) / 2;
+                    }
+                    if (collision.bodyB === collision.supports[0].body || collision.bodyA.isStatic === true) {
+                      c.moveTo(normalPosX - collision.normal.x * 8, normalPosY - collision.normal.y * 8);
+                    } else {
+                      c.moveTo(normalPosX + collision.normal.x * 8, normalPosY + collision.normal.y * 8);
+                    }
+                    c.lineTo(normalPosX, normalPosY);
+                  }
+                }
+                if (options.wireframes) {
+                  c.strokeStyle = "rgba(255,165,0,0.7)";
+                } else {
+                  c.strokeStyle = "orange";
+                }
+                c.lineWidth = 1;
+                c.stroke();
+              };
+              Render2.separations = function(render, pairs, context) {
+                var c = context, options = render.options, pair, collision, corrected, bodyA, bodyB, i, j;
+                c.beginPath();
+                for (i = 0; i < pairs.length; i++) {
+                  pair = pairs[i];
+                  if (!pair.isActive)
+                    continue;
+                  collision = pair.collision;
+                  bodyA = collision.bodyA;
+                  bodyB = collision.bodyB;
+                  var k = 1;
+                  if (!bodyB.isStatic && !bodyA.isStatic)
+                    k = 0.5;
+                  if (bodyB.isStatic)
+                    k = 0;
+                  c.moveTo(bodyB.position.x, bodyB.position.y);
+                  c.lineTo(bodyB.position.x - collision.penetration.x * k, bodyB.position.y - collision.penetration.y * k);
+                  k = 1;
+                  if (!bodyB.isStatic && !bodyA.isStatic)
+                    k = 0.5;
+                  if (bodyA.isStatic)
+                    k = 0;
+                  c.moveTo(bodyA.position.x, bodyA.position.y);
+                  c.lineTo(bodyA.position.x + collision.penetration.x * k, bodyA.position.y + collision.penetration.y * k);
+                }
+                if (options.wireframes) {
+                  c.strokeStyle = "rgba(255,165,0,0.5)";
+                } else {
+                  c.strokeStyle = "orange";
+                }
+                c.stroke();
+              };
+              Render2.inspector = function(inspector, context) {
+                var engine = inspector.engine, selected = inspector.selected, render = inspector.render, options = render.options, bounds;
+                if (options.hasBounds) {
+                  var boundsWidth = render.bounds.max.x - render.bounds.min.x, boundsHeight = render.bounds.max.y - render.bounds.min.y, boundsScaleX = boundsWidth / render.options.width, boundsScaleY = boundsHeight / render.options.height;
+                  context.scale(1 / boundsScaleX, 1 / boundsScaleY);
+                  context.translate(-render.bounds.min.x, -render.bounds.min.y);
+                }
+                for (var i = 0; i < selected.length; i++) {
+                  var item = selected[i].data;
+                  context.translate(0.5, 0.5);
+                  context.lineWidth = 1;
+                  context.strokeStyle = "rgba(255,165,0,0.9)";
+                  context.setLineDash([1, 2]);
+                  switch (item.type) {
+                    case "body":
+                      bounds = item.bounds;
+                      context.beginPath();
+                      context.rect(Math.floor(bounds.min.x - 3), Math.floor(bounds.min.y - 3), Math.floor(bounds.max.x - bounds.min.x + 6), Math.floor(bounds.max.y - bounds.min.y + 6));
+                      context.closePath();
+                      context.stroke();
+                      break;
+                    case "constraint":
+                      var point = item.pointA;
+                      if (item.bodyA)
+                        point = item.pointB;
+                      context.beginPath();
+                      context.arc(point.x, point.y, 10, 0, 2 * Math.PI);
+                      context.closePath();
+                      context.stroke();
+                      break;
+                  }
+                  context.setLineDash([]);
+                  context.translate(-0.5, -0.5);
+                }
+                if (inspector.selectStart !== null) {
+                  context.translate(0.5, 0.5);
+                  context.lineWidth = 1;
+                  context.strokeStyle = "rgba(255,165,0,0.6)";
+                  context.fillStyle = "rgba(255,165,0,0.1)";
+                  bounds = inspector.selectBounds;
+                  context.beginPath();
+                  context.rect(Math.floor(bounds.min.x), Math.floor(bounds.min.y), Math.floor(bounds.max.x - bounds.min.x), Math.floor(bounds.max.y - bounds.min.y));
+                  context.closePath();
+                  context.stroke();
+                  context.fill();
+                  context.translate(-0.5, -0.5);
+                }
+                if (options.hasBounds)
+                  context.setTransform(1, 0, 0, 1, 0, 0);
+              };
+              var _updateTiming = function(render, time) {
+                var engine = render.engine, timing = render.timing, historySize = timing.historySize, timestamp = engine.timing.timestamp;
+                timing.delta = time - timing.lastTime || Render2._goodDelta;
+                timing.lastTime = time;
+                timing.timestampElapsed = timestamp - timing.lastTimestamp || 0;
+                timing.lastTimestamp = timestamp;
+                timing.deltaHistory.unshift(timing.delta);
+                timing.deltaHistory.length = Math.min(timing.deltaHistory.length, historySize);
+                timing.engineDeltaHistory.unshift(engine.timing.lastDelta);
+                timing.engineDeltaHistory.length = Math.min(timing.engineDeltaHistory.length, historySize);
+                timing.timestampElapsedHistory.unshift(timing.timestampElapsed);
+                timing.timestampElapsedHistory.length = Math.min(timing.timestampElapsedHistory.length, historySize);
+                timing.engineElapsedHistory.unshift(engine.timing.lastElapsed);
+                timing.engineElapsedHistory.length = Math.min(timing.engineElapsedHistory.length, historySize);
+                timing.elapsedHistory.unshift(timing.lastElapsed);
+                timing.elapsedHistory.length = Math.min(timing.elapsedHistory.length, historySize);
+              };
+              var _mean = function(values) {
+                var result = 0;
+                for (var i = 0; i < values.length; i += 1) {
+                  result += values[i];
+                }
+                return result / values.length || 0;
+              };
+              var _createCanvas = function(width, height) {
+                var canvas = document.createElement("canvas");
+                canvas.width = width;
+                canvas.height = height;
+                canvas.oncontextmenu = function() {
+                  return false;
+                };
+                canvas.onselectstart = function() {
+                  return false;
+                };
+                return canvas;
+              };
+              var _getPixelRatio = function(canvas) {
+                var context = canvas.getContext("2d"), devicePixelRatio = window.devicePixelRatio || 1, backingStorePixelRatio = context.webkitBackingStorePixelRatio || context.mozBackingStorePixelRatio || context.msBackingStorePixelRatio || context.oBackingStorePixelRatio || context.backingStorePixelRatio || 1;
+                return devicePixelRatio / backingStorePixelRatio;
+              };
+              var _getTexture = function(render, imagePath) {
+                var image = render.textures[imagePath];
+                if (image)
+                  return image;
+                image = render.textures[imagePath] = new Image();
+                image.src = imagePath;
+                return image;
+              };
+              var _applyBackground = function(render, background) {
+                var cssBackground = background;
+                if (/(jpg|gif|png)$/.test(background))
+                  cssBackground = "url(" + background + ")";
+                render.canvas.style.background = cssBackground;
+                render.canvas.style.backgroundSize = "contain";
+                render.currentBackground = background;
+              };
+            })();
+          },
+          function(module2, exports2) {
+            var Contact = {};
+            module2.exports = Contact;
+            (function() {
+              Contact.create = function(vertex) {
+                return {
+                  vertex,
+                  normalImpulse: 0,
+                  tangentImpulse: 0
+                };
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Engine2 = {};
+            module2.exports = Engine2;
+            var Sleeping = __webpack_require__(7);
+            var Resolver = __webpack_require__(19);
+            var Detector = __webpack_require__(14);
+            var Pairs = __webpack_require__(20);
+            var Events = __webpack_require__(4);
+            var Composite2 = __webpack_require__(5);
+            var Constraint = __webpack_require__(10);
+            var Common = __webpack_require__(0);
+            var Body = __webpack_require__(6);
+            (function() {
+              Engine2.create = function(options) {
+                options = options || {};
+                var defaults = {
+                  positionIterations: 6,
+                  velocityIterations: 4,
+                  constraintIterations: 2,
+                  enableSleeping: false,
+                  events: [],
+                  plugin: {},
+                  gravity: {
+                    x: 0,
+                    y: 1,
+                    scale: 1e-3
+                  },
+                  timing: {
+                    timestamp: 0,
+                    timeScale: 1,
+                    lastDelta: 0,
+                    lastElapsed: 0
+                  }
+                };
+                var engine = Common.extend(defaults, options);
+                engine.world = options.world || Composite2.create({ label: "World" });
+                engine.pairs = options.pairs || Pairs.create();
+                engine.detector = options.detector || Detector.create();
+                engine.grid = { buckets: [] };
+                engine.world.gravity = engine.gravity;
+                engine.broadphase = engine.grid;
+                engine.metrics = {};
+                return engine;
+              };
+              Engine2.update = function(engine, delta, correction) {
+                var startTime = Common.now();
+                delta = delta || 1e3 / 60;
+                correction = correction || 1;
+                var world = engine.world, detector = engine.detector, pairs = engine.pairs, timing = engine.timing, timestamp = timing.timestamp, i;
+                timing.timestamp += delta * timing.timeScale;
+                timing.lastDelta = delta * timing.timeScale;
+                var event = {
+                  timestamp: timing.timestamp
+                };
+                Events.trigger(engine, "beforeUpdate", event);
+                var allBodies = Composite2.allBodies(world), allConstraints = Composite2.allConstraints(world);
+                if (world.isModified) {
+                  Detector.setBodies(detector, allBodies);
+                }
+                if (world.isModified) {
+                  Composite2.setModified(world, false, false, true);
+                }
+                if (engine.enableSleeping)
+                  Sleeping.update(allBodies, timing.timeScale);
+                Engine2._bodiesApplyGravity(allBodies, engine.gravity);
+                Engine2._bodiesUpdate(allBodies, delta, timing.timeScale, correction, world.bounds);
+                Constraint.preSolveAll(allBodies);
+                for (i = 0; i < engine.constraintIterations; i++) {
+                  Constraint.solveAll(allConstraints, timing.timeScale);
+                }
+                Constraint.postSolveAll(allBodies);
+                detector.pairs = engine.pairs;
+                var collisions = Detector.collisions(detector);
+                Pairs.update(pairs, collisions, timestamp);
+                if (engine.enableSleeping)
+                  Sleeping.afterCollisions(pairs.list, timing.timeScale);
+                if (pairs.collisionStart.length > 0)
+                  Events.trigger(engine, "collisionStart", { pairs: pairs.collisionStart });
+                Resolver.preSolvePosition(pairs.list);
+                for (i = 0; i < engine.positionIterations; i++) {
+                  Resolver.solvePosition(pairs.list, timing.timeScale);
+                }
+                Resolver.postSolvePosition(allBodies);
+                Constraint.preSolveAll(allBodies);
+                for (i = 0; i < engine.constraintIterations; i++) {
+                  Constraint.solveAll(allConstraints, timing.timeScale);
+                }
+                Constraint.postSolveAll(allBodies);
+                Resolver.preSolveVelocity(pairs.list);
+                for (i = 0; i < engine.velocityIterations; i++) {
+                  Resolver.solveVelocity(pairs.list, timing.timeScale);
+                }
+                if (pairs.collisionActive.length > 0)
+                  Events.trigger(engine, "collisionActive", { pairs: pairs.collisionActive });
+                if (pairs.collisionEnd.length > 0)
+                  Events.trigger(engine, "collisionEnd", { pairs: pairs.collisionEnd });
+                Engine2._bodiesClearForces(allBodies);
+                Events.trigger(engine, "afterUpdate", event);
+                engine.timing.lastElapsed = Common.now() - startTime;
+                return engine;
+              };
+              Engine2.merge = function(engineA, engineB) {
+                Common.extend(engineA, engineB);
+                if (engineB.world) {
+                  engineA.world = engineB.world;
+                  Engine2.clear(engineA);
+                  var bodies = Composite2.allBodies(engineA.world);
+                  for (var i = 0; i < bodies.length; i++) {
+                    var body = bodies[i];
+                    Sleeping.set(body, false);
+                    body.id = Common.nextId();
+                  }
+                }
+              };
+              Engine2.clear = function(engine) {
+                Pairs.clear(engine.pairs);
+                Detector.clear(engine.detector);
+              };
+              Engine2._bodiesClearForces = function(bodies) {
+                for (var i = 0; i < bodies.length; i++) {
+                  var body = bodies[i];
+                  body.force.x = 0;
+                  body.force.y = 0;
+                  body.torque = 0;
+                }
+              };
+              Engine2._bodiesApplyGravity = function(bodies, gravity) {
+                var gravityScale = typeof gravity.scale !== "undefined" ? gravity.scale : 1e-3;
+                if (gravity.x === 0 && gravity.y === 0 || gravityScale === 0) {
+                  return;
+                }
+                for (var i = 0; i < bodies.length; i++) {
+                  var body = bodies[i];
+                  if (body.isStatic || body.isSleeping)
+                    continue;
+                  body.force.y += body.mass * gravity.y * gravityScale;
+                  body.force.x += body.mass * gravity.x * gravityScale;
+                }
+              };
+              Engine2._bodiesUpdate = function(bodies, deltaTime, timeScale, correction, worldBounds) {
+                for (var i = 0; i < bodies.length; i++) {
+                  var body = bodies[i];
+                  if (body.isStatic || body.isSleeping)
+                    continue;
+                  Body.update(body, deltaTime, timeScale, correction);
+                }
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Resolver = {};
+            module2.exports = Resolver;
+            var Vertices = __webpack_require__(3);
+            var Bounds = __webpack_require__(1);
+            (function() {
+              Resolver._restingThresh = 4;
+              Resolver._restingThreshTangent = 6;
+              Resolver._positionDampen = 0.9;
+              Resolver._positionWarming = 0.8;
+              Resolver._frictionNormalMultiplier = 5;
+              Resolver.preSolvePosition = function(pairs) {
+                var i, pair, activeCount, pairsLength = pairs.length;
+                for (i = 0; i < pairsLength; i++) {
+                  pair = pairs[i];
+                  if (!pair.isActive)
+                    continue;
+                  activeCount = pair.activeContacts.length;
+                  pair.collision.parentA.totalContacts += activeCount;
+                  pair.collision.parentB.totalContacts += activeCount;
+                }
+              };
+              Resolver.solvePosition = function(pairs, timeScale) {
+                var i, pair, collision, bodyA, bodyB, normal, contactShare, positionImpulse, positionDampen = Resolver._positionDampen, pairsLength = pairs.length;
+                for (i = 0; i < pairsLength; i++) {
+                  pair = pairs[i];
+                  if (!pair.isActive || pair.isSensor)
+                    continue;
+                  collision = pair.collision;
+                  bodyA = collision.parentA;
+                  bodyB = collision.parentB;
+                  normal = collision.normal;
+                  pair.separation = normal.x * (bodyB.positionImpulse.x + collision.penetration.x - bodyA.positionImpulse.x) + normal.y * (bodyB.positionImpulse.y + collision.penetration.y - bodyA.positionImpulse.y);
+                }
+                for (i = 0; i < pairsLength; i++) {
+                  pair = pairs[i];
+                  if (!pair.isActive || pair.isSensor)
+                    continue;
+                  collision = pair.collision;
+                  bodyA = collision.parentA;
+                  bodyB = collision.parentB;
+                  normal = collision.normal;
+                  positionImpulse = (pair.separation - pair.slop) * timeScale;
+                  if (bodyA.isStatic || bodyB.isStatic)
+                    positionImpulse *= 2;
+                  if (!(bodyA.isStatic || bodyA.isSleeping)) {
+                    contactShare = positionDampen / bodyA.totalContacts;
+                    bodyA.positionImpulse.x += normal.x * positionImpulse * contactShare;
+                    bodyA.positionImpulse.y += normal.y * positionImpulse * contactShare;
+                  }
+                  if (!(bodyB.isStatic || bodyB.isSleeping)) {
+                    contactShare = positionDampen / bodyB.totalContacts;
+                    bodyB.positionImpulse.x -= normal.x * positionImpulse * contactShare;
+                    bodyB.positionImpulse.y -= normal.y * positionImpulse * contactShare;
+                  }
+                }
+              };
+              Resolver.postSolvePosition = function(bodies) {
+                var positionWarming = Resolver._positionWarming, bodiesLength = bodies.length, verticesTranslate = Vertices.translate, boundsUpdate = Bounds.update;
+                for (var i = 0; i < bodiesLength; i++) {
+                  var body = bodies[i], positionImpulse = body.positionImpulse, positionImpulseX = positionImpulse.x, positionImpulseY = positionImpulse.y, velocity = body.velocity;
+                  body.totalContacts = 0;
+                  if (positionImpulseX !== 0 || positionImpulseY !== 0) {
+                    for (var j = 0; j < body.parts.length; j++) {
+                      var part = body.parts[j];
+                      verticesTranslate(part.vertices, positionImpulse);
+                      boundsUpdate(part.bounds, part.vertices, velocity);
+                      part.position.x += positionImpulseX;
+                      part.position.y += positionImpulseY;
+                    }
+                    body.positionPrev.x += positionImpulseX;
+                    body.positionPrev.y += positionImpulseY;
+                    if (positionImpulseX * velocity.x + positionImpulseY * velocity.y < 0) {
+                      positionImpulse.x = 0;
+                      positionImpulse.y = 0;
+                    } else {
+                      positionImpulse.x *= positionWarming;
+                      positionImpulse.y *= positionWarming;
+                    }
+                  }
+                }
+              };
+              Resolver.preSolveVelocity = function(pairs) {
+                var pairsLength = pairs.length, i, j;
+                for (i = 0; i < pairsLength; i++) {
+                  var pair = pairs[i];
+                  if (!pair.isActive || pair.isSensor)
+                    continue;
+                  var contacts = pair.activeContacts, contactsLength = contacts.length, collision = pair.collision, bodyA = collision.parentA, bodyB = collision.parentB, normal = collision.normal, tangent = collision.tangent;
+                  for (j = 0; j < contactsLength; j++) {
+                    var contact = contacts[j], contactVertex = contact.vertex, normalImpulse = contact.normalImpulse, tangentImpulse = contact.tangentImpulse;
+                    if (normalImpulse !== 0 || tangentImpulse !== 0) {
+                      var impulseX = normal.x * normalImpulse + tangent.x * tangentImpulse, impulseY = normal.y * normalImpulse + tangent.y * tangentImpulse;
+                      if (!(bodyA.isStatic || bodyA.isSleeping)) {
+                        bodyA.positionPrev.x += impulseX * bodyA.inverseMass;
+                        bodyA.positionPrev.y += impulseY * bodyA.inverseMass;
+                        bodyA.anglePrev += bodyA.inverseInertia * ((contactVertex.x - bodyA.position.x) * impulseY - (contactVertex.y - bodyA.position.y) * impulseX);
+                      }
+                      if (!(bodyB.isStatic || bodyB.isSleeping)) {
+                        bodyB.positionPrev.x -= impulseX * bodyB.inverseMass;
+                        bodyB.positionPrev.y -= impulseY * bodyB.inverseMass;
+                        bodyB.anglePrev -= bodyB.inverseInertia * ((contactVertex.x - bodyB.position.x) * impulseY - (contactVertex.y - bodyB.position.y) * impulseX);
+                      }
+                    }
+                  }
+                }
+              };
+              Resolver.solveVelocity = function(pairs, timeScale) {
+                var timeScaleSquared = timeScale * timeScale, restingThresh = Resolver._restingThresh * timeScaleSquared, frictionNormalMultiplier = Resolver._frictionNormalMultiplier, restingThreshTangent = Resolver._restingThreshTangent * timeScaleSquared, NumberMaxValue = Number.MAX_VALUE, pairsLength = pairs.length, tangentImpulse, maxFriction, i, j;
+                for (i = 0; i < pairsLength; i++) {
+                  var pair = pairs[i];
+                  if (!pair.isActive || pair.isSensor)
+                    continue;
+                  var collision = pair.collision, bodyA = collision.parentA, bodyB = collision.parentB, bodyAVelocity = bodyA.velocity, bodyBVelocity = bodyB.velocity, normalX = collision.normal.x, normalY = collision.normal.y, tangentX = collision.tangent.x, tangentY = collision.tangent.y, contacts = pair.activeContacts, contactsLength = contacts.length, contactShare = 1 / contactsLength, inverseMassTotal = bodyA.inverseMass + bodyB.inverseMass, friction = pair.friction * pair.frictionStatic * frictionNormalMultiplier * timeScaleSquared;
+                  bodyAVelocity.x = bodyA.position.x - bodyA.positionPrev.x;
+                  bodyAVelocity.y = bodyA.position.y - bodyA.positionPrev.y;
+                  bodyBVelocity.x = bodyB.position.x - bodyB.positionPrev.x;
+                  bodyBVelocity.y = bodyB.position.y - bodyB.positionPrev.y;
+                  bodyA.angularVelocity = bodyA.angle - bodyA.anglePrev;
+                  bodyB.angularVelocity = bodyB.angle - bodyB.anglePrev;
+                  for (j = 0; j < contactsLength; j++) {
+                    var contact = contacts[j], contactVertex = contact.vertex;
+                    var offsetAX = contactVertex.x - bodyA.position.x, offsetAY = contactVertex.y - bodyA.position.y, offsetBX = contactVertex.x - bodyB.position.x, offsetBY = contactVertex.y - bodyB.position.y;
+                    var velocityPointAX = bodyAVelocity.x - offsetAY * bodyA.angularVelocity, velocityPointAY = bodyAVelocity.y + offsetAX * bodyA.angularVelocity, velocityPointBX = bodyBVelocity.x - offsetBY * bodyB.angularVelocity, velocityPointBY = bodyBVelocity.y + offsetBX * bodyB.angularVelocity;
+                    var relativeVelocityX = velocityPointAX - velocityPointBX, relativeVelocityY = velocityPointAY - velocityPointBY;
+                    var normalVelocity = normalX * relativeVelocityX + normalY * relativeVelocityY, tangentVelocity = tangentX * relativeVelocityX + tangentY * relativeVelocityY;
+                    var normalOverlap = pair.separation + normalVelocity;
+                    var normalForce = Math.min(normalOverlap, 1);
+                    normalForce = normalOverlap < 0 ? 0 : normalForce;
+                    var frictionLimit = normalForce * friction;
+                    if (tangentVelocity > frictionLimit || -tangentVelocity > frictionLimit) {
+                      maxFriction = tangentVelocity > 0 ? tangentVelocity : -tangentVelocity;
+                      tangentImpulse = pair.friction * (tangentVelocity > 0 ? 1 : -1) * timeScaleSquared;
+                      if (tangentImpulse < -maxFriction) {
+                        tangentImpulse = -maxFriction;
+                      } else if (tangentImpulse > maxFriction) {
+                        tangentImpulse = maxFriction;
+                      }
+                    } else {
+                      tangentImpulse = tangentVelocity;
+                      maxFriction = NumberMaxValue;
+                    }
+                    var oAcN = offsetAX * normalY - offsetAY * normalX, oBcN = offsetBX * normalY - offsetBY * normalX, share = contactShare / (inverseMassTotal + bodyA.inverseInertia * oAcN * oAcN + bodyB.inverseInertia * oBcN * oBcN);
+                    var normalImpulse = (1 + pair.restitution) * normalVelocity * share;
+                    tangentImpulse *= share;
+                    if (normalVelocity * normalVelocity > restingThresh && normalVelocity < 0) {
+                      contact.normalImpulse = 0;
+                    } else {
+                      var contactNormalImpulse = contact.normalImpulse;
+                      contact.normalImpulse += normalImpulse;
+                      contact.normalImpulse = Math.min(contact.normalImpulse, 0);
+                      normalImpulse = contact.normalImpulse - contactNormalImpulse;
+                    }
+                    if (tangentVelocity * tangentVelocity > restingThreshTangent) {
+                      contact.tangentImpulse = 0;
+                    } else {
+                      var contactTangentImpulse = contact.tangentImpulse;
+                      contact.tangentImpulse += tangentImpulse;
+                      if (contact.tangentImpulse < -maxFriction)
+                        contact.tangentImpulse = -maxFriction;
+                      if (contact.tangentImpulse > maxFriction)
+                        contact.tangentImpulse = maxFriction;
+                      tangentImpulse = contact.tangentImpulse - contactTangentImpulse;
+                    }
+                    var impulseX = normalX * normalImpulse + tangentX * tangentImpulse, impulseY = normalY * normalImpulse + tangentY * tangentImpulse;
+                    if (!(bodyA.isStatic || bodyA.isSleeping)) {
+                      bodyA.positionPrev.x += impulseX * bodyA.inverseMass;
+                      bodyA.positionPrev.y += impulseY * bodyA.inverseMass;
+                      bodyA.anglePrev += (offsetAX * impulseY - offsetAY * impulseX) * bodyA.inverseInertia;
+                    }
+                    if (!(bodyB.isStatic || bodyB.isSleeping)) {
+                      bodyB.positionPrev.x -= impulseX * bodyB.inverseMass;
+                      bodyB.positionPrev.y -= impulseY * bodyB.inverseMass;
+                      bodyB.anglePrev -= (offsetBX * impulseY - offsetBY * impulseX) * bodyB.inverseInertia;
+                    }
+                  }
+                }
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Pairs = {};
+            module2.exports = Pairs;
+            var Pair = __webpack_require__(9);
+            var Common = __webpack_require__(0);
+            (function() {
+              Pairs.create = function(options) {
+                return Common.extend({
+                  table: {},
+                  list: [],
+                  collisionStart: [],
+                  collisionActive: [],
+                  collisionEnd: []
+                }, options);
+              };
+              Pairs.update = function(pairs, collisions, timestamp) {
+                var pairsList = pairs.list, pairsListLength = pairsList.length, pairsTable = pairs.table, collisionsLength = collisions.length, collisionStart = pairs.collisionStart, collisionEnd = pairs.collisionEnd, collisionActive = pairs.collisionActive, collision, pairIndex, pair, i;
+                collisionStart.length = 0;
+                collisionEnd.length = 0;
+                collisionActive.length = 0;
+                for (i = 0; i < pairsListLength; i++) {
+                  pairsList[i].confirmedActive = false;
+                }
+                for (i = 0; i < collisionsLength; i++) {
+                  collision = collisions[i];
+                  pair = collision.pair;
+                  if (pair) {
+                    if (pair.isActive) {
+                      collisionActive.push(pair);
+                    } else {
+                      collisionStart.push(pair);
+                    }
+                    Pair.update(pair, collision, timestamp);
+                    pair.confirmedActive = true;
+                  } else {
+                    pair = Pair.create(collision, timestamp);
+                    pairsTable[pair.id] = pair;
+                    collisionStart.push(pair);
+                    pairsList.push(pair);
+                  }
+                }
+                var removePairIndex = [];
+                pairsListLength = pairsList.length;
+                for (i = 0; i < pairsListLength; i++) {
+                  pair = pairsList[i];
+                  if (!pair.confirmedActive) {
+                    Pair.setActive(pair, false, timestamp);
+                    collisionEnd.push(pair);
+                    if (!pair.collision.bodyA.isSleeping && !pair.collision.bodyB.isSleeping) {
+                      removePairIndex.push(i);
+                    }
+                  }
+                }
+                for (i = 0; i < removePairIndex.length; i++) {
+                  pairIndex = removePairIndex[i] - i;
+                  pair = pairsList[pairIndex];
+                  pairsList.splice(pairIndex, 1);
+                  delete pairsTable[pair.id];
+                }
+              };
+              Pairs.clear = function(pairs) {
+                pairs.table = {};
+                pairs.list.length = 0;
+                pairs.collisionStart.length = 0;
+                pairs.collisionActive.length = 0;
+                pairs.collisionEnd.length = 0;
+                return pairs;
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Matter = module2.exports = __webpack_require__(22);
+            Matter.Axes = __webpack_require__(11);
+            Matter.Bodies = __webpack_require__(12);
+            Matter.Body = __webpack_require__(6);
+            Matter.Bounds = __webpack_require__(1);
+            Matter.Collision = __webpack_require__(8);
+            Matter.Common = __webpack_require__(0);
+            Matter.Composite = __webpack_require__(5);
+            Matter.Composites = __webpack_require__(23);
+            Matter.Constraint = __webpack_require__(10);
+            Matter.Contact = __webpack_require__(17);
+            Matter.Detector = __webpack_require__(14);
+            Matter.Engine = __webpack_require__(18);
+            Matter.Events = __webpack_require__(4);
+            Matter.Grid = __webpack_require__(24);
+            Matter.Mouse = __webpack_require__(13);
+            Matter.MouseConstraint = __webpack_require__(25);
+            Matter.Pair = __webpack_require__(9);
+            Matter.Pairs = __webpack_require__(20);
+            Matter.Plugin = __webpack_require__(15);
+            Matter.Query = __webpack_require__(26);
+            Matter.Render = __webpack_require__(16);
+            Matter.Resolver = __webpack_require__(19);
+            Matter.Runner = __webpack_require__(27);
+            Matter.SAT = __webpack_require__(28);
+            Matter.Sleeping = __webpack_require__(7);
+            Matter.Svg = __webpack_require__(29);
+            Matter.Vector = __webpack_require__(2);
+            Matter.Vertices = __webpack_require__(3);
+            Matter.World = __webpack_require__(30);
+            Matter.Engine.run = Matter.Runner.run;
+            Matter.Common.deprecated(Matter.Engine, "run", "Engine.run \u27A4 use Matter.Runner.run(engine) instead");
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Matter = {};
+            module2.exports = Matter;
+            var Plugin = __webpack_require__(15);
+            var Common = __webpack_require__(0);
+            (function() {
+              Matter.name = "matter-js";
+              Matter.version = true ? "0.18.0" : void 0;
+              Matter.uses = [];
+              Matter.used = [];
+              Matter.use = function() {
+                Plugin.use(Matter, Array.prototype.slice.call(arguments));
+              };
+              Matter.before = function(path, func) {
+                path = path.replace(/^Matter./, "");
+                return Common.chainPathBefore(Matter, path, func);
+              };
+              Matter.after = function(path, func) {
+                path = path.replace(/^Matter./, "");
+                return Common.chainPathAfter(Matter, path, func);
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Composites = {};
+            module2.exports = Composites;
+            var Composite2 = __webpack_require__(5);
+            var Constraint = __webpack_require__(10);
+            var Common = __webpack_require__(0);
+            var Body = __webpack_require__(6);
+            var Bodies2 = __webpack_require__(12);
+            var deprecated = Common.deprecated;
+            (function() {
+              Composites.stack = function(xx, yy, columns, rows, columnGap, rowGap, callback) {
+                var stack = Composite2.create({ label: "Stack" }), x = xx, y = yy, lastBody, i = 0;
+                for (var row = 0; row < rows; row++) {
+                  var maxHeight = 0;
+                  for (var column = 0; column < columns; column++) {
+                    var body = callback(x, y, column, row, lastBody, i);
+                    if (body) {
+                      var bodyHeight = body.bounds.max.y - body.bounds.min.y, bodyWidth = body.bounds.max.x - body.bounds.min.x;
+                      if (bodyHeight > maxHeight)
+                        maxHeight = bodyHeight;
+                      Body.translate(body, { x: bodyWidth * 0.5, y: bodyHeight * 0.5 });
+                      x = body.bounds.max.x + columnGap;
+                      Composite2.addBody(stack, body);
+                      lastBody = body;
+                      i += 1;
+                    } else {
+                      x += columnGap;
+                    }
+                  }
+                  y += maxHeight + rowGap;
+                  x = xx;
+                }
+                return stack;
+              };
+              Composites.chain = function(composite, xOffsetA, yOffsetA, xOffsetB, yOffsetB, options) {
+                var bodies = composite.bodies;
+                for (var i = 1; i < bodies.length; i++) {
+                  var bodyA = bodies[i - 1], bodyB = bodies[i], bodyAHeight = bodyA.bounds.max.y - bodyA.bounds.min.y, bodyAWidth = bodyA.bounds.max.x - bodyA.bounds.min.x, bodyBHeight = bodyB.bounds.max.y - bodyB.bounds.min.y, bodyBWidth = bodyB.bounds.max.x - bodyB.bounds.min.x;
+                  var defaults = {
+                    bodyA,
+                    pointA: { x: bodyAWidth * xOffsetA, y: bodyAHeight * yOffsetA },
+                    bodyB,
+                    pointB: { x: bodyBWidth * xOffsetB, y: bodyBHeight * yOffsetB }
+                  };
+                  var constraint = Common.extend(defaults, options);
+                  Composite2.addConstraint(composite, Constraint.create(constraint));
+                }
+                composite.label += " Chain";
+                return composite;
+              };
+              Composites.mesh = function(composite, columns, rows, crossBrace, options) {
+                var bodies = composite.bodies, row, col, bodyA, bodyB, bodyC;
+                for (row = 0; row < rows; row++) {
+                  for (col = 1; col < columns; col++) {
+                    bodyA = bodies[col - 1 + row * columns];
+                    bodyB = bodies[col + row * columns];
+                    Composite2.addConstraint(composite, Constraint.create(Common.extend({ bodyA, bodyB }, options)));
+                  }
+                  if (row > 0) {
+                    for (col = 0; col < columns; col++) {
+                      bodyA = bodies[col + (row - 1) * columns];
+                      bodyB = bodies[col + row * columns];
+                      Composite2.addConstraint(composite, Constraint.create(Common.extend({ bodyA, bodyB }, options)));
+                      if (crossBrace && col > 0) {
+                        bodyC = bodies[col - 1 + (row - 1) * columns];
+                        Composite2.addConstraint(composite, Constraint.create(Common.extend({ bodyA: bodyC, bodyB }, options)));
+                      }
+                      if (crossBrace && col < columns - 1) {
+                        bodyC = bodies[col + 1 + (row - 1) * columns];
+                        Composite2.addConstraint(composite, Constraint.create(Common.extend({ bodyA: bodyC, bodyB }, options)));
+                      }
+                    }
+                  }
+                }
+                composite.label += " Mesh";
+                return composite;
+              };
+              Composites.pyramid = function(xx, yy, columns, rows, columnGap, rowGap, callback) {
+                return Composites.stack(xx, yy, columns, rows, columnGap, rowGap, function(x, y, column, row, lastBody, i) {
+                  var actualRows = Math.min(rows, Math.ceil(columns / 2)), lastBodyWidth = lastBody ? lastBody.bounds.max.x - lastBody.bounds.min.x : 0;
+                  if (row > actualRows)
+                    return;
+                  row = actualRows - row;
+                  var start = row, end = columns - 1 - row;
+                  if (column < start || column > end)
+                    return;
+                  if (i === 1) {
+                    Body.translate(lastBody, { x: (column + (columns % 2 === 1 ? 1 : -1)) * lastBodyWidth, y: 0 });
+                  }
+                  var xOffset = lastBody ? column * lastBodyWidth : 0;
+                  return callback(xx + xOffset + column * columnGap, y, column, row, lastBody, i);
+                });
+              };
+              Composites.newtonsCradle = function(xx, yy, number, size, length) {
+                var newtonsCradle = Composite2.create({ label: "Newtons Cradle" });
+                for (var i = 0; i < number; i++) {
+                  var separation = 1.9, circle = Bodies2.circle(xx + i * (size * separation), yy + length, size, { inertia: Infinity, restitution: 1, friction: 0, frictionAir: 1e-4, slop: 1 }), constraint = Constraint.create({ pointA: { x: xx + i * (size * separation), y: yy }, bodyB: circle });
+                  Composite2.addBody(newtonsCradle, circle);
+                  Composite2.addConstraint(newtonsCradle, constraint);
+                }
+                return newtonsCradle;
+              };
+              deprecated(Composites, "newtonsCradle", "Composites.newtonsCradle \u27A4 moved to newtonsCradle example");
+              Composites.car = function(xx, yy, width, height, wheelSize) {
+                var group = Body.nextGroup(true), wheelBase = 20, wheelAOffset = -width * 0.5 + wheelBase, wheelBOffset = width * 0.5 - wheelBase, wheelYOffset = 0;
+                var car = Composite2.create({ label: "Car" }), body = Bodies2.rectangle(xx, yy, width, height, {
+                  collisionFilter: {
+                    group
+                  },
+                  chamfer: {
+                    radius: height * 0.5
+                  },
+                  density: 2e-4
+                });
+                var wheelA = Bodies2.circle(xx + wheelAOffset, yy + wheelYOffset, wheelSize, {
+                  collisionFilter: {
+                    group
+                  },
+                  friction: 0.8
+                });
+                var wheelB = Bodies2.circle(xx + wheelBOffset, yy + wheelYOffset, wheelSize, {
+                  collisionFilter: {
+                    group
+                  },
+                  friction: 0.8
+                });
+                var axelA = Constraint.create({
+                  bodyB: body,
+                  pointB: { x: wheelAOffset, y: wheelYOffset },
+                  bodyA: wheelA,
+                  stiffness: 1,
+                  length: 0
+                });
+                var axelB = Constraint.create({
+                  bodyB: body,
+                  pointB: { x: wheelBOffset, y: wheelYOffset },
+                  bodyA: wheelB,
+                  stiffness: 1,
+                  length: 0
+                });
+                Composite2.addBody(car, body);
+                Composite2.addBody(car, wheelA);
+                Composite2.addBody(car, wheelB);
+                Composite2.addConstraint(car, axelA);
+                Composite2.addConstraint(car, axelB);
+                return car;
+              };
+              deprecated(Composites, "car", "Composites.car \u27A4 moved to car example");
+              Composites.softBody = function(xx, yy, columns, rows, columnGap, rowGap, crossBrace, particleRadius, particleOptions, constraintOptions) {
+                particleOptions = Common.extend({ inertia: Infinity }, particleOptions);
+                constraintOptions = Common.extend({ stiffness: 0.2, render: { type: "line", anchors: false } }, constraintOptions);
+                var softBody = Composites.stack(xx, yy, columns, rows, columnGap, rowGap, function(x, y) {
+                  return Bodies2.circle(x, y, particleRadius, particleOptions);
+                });
+                Composites.mesh(softBody, columns, rows, crossBrace, constraintOptions);
+                softBody.label = "Soft Body";
+                return softBody;
+              };
+              deprecated(Composites, "softBody", "Composites.softBody \u27A4 moved to softBody and cloth examples");
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Grid = {};
+            module2.exports = Grid;
+            var Pair = __webpack_require__(9);
+            var Common = __webpack_require__(0);
+            var deprecated = Common.deprecated;
+            (function() {
+              Grid.create = function(options) {
+                var defaults = {
+                  buckets: {},
+                  pairs: {},
+                  pairsList: [],
+                  bucketWidth: 48,
+                  bucketHeight: 48
+                };
+                return Common.extend(defaults, options);
+              };
+              Grid.update = function(grid, bodies, engine, forceUpdate) {
+                var i, col, row, world = engine.world, buckets = grid.buckets, bucket, bucketId, gridChanged = false;
+                for (i = 0; i < bodies.length; i++) {
+                  var body = bodies[i];
+                  if (body.isSleeping && !forceUpdate)
+                    continue;
+                  if (world.bounds && (body.bounds.max.x < world.bounds.min.x || body.bounds.min.x > world.bounds.max.x || body.bounds.max.y < world.bounds.min.y || body.bounds.min.y > world.bounds.max.y))
+                    continue;
+                  var newRegion = Grid._getRegion(grid, body);
+                  if (!body.region || newRegion.id !== body.region.id || forceUpdate) {
+                    if (!body.region || forceUpdate)
+                      body.region = newRegion;
+                    var union = Grid._regionUnion(newRegion, body.region);
+                    for (col = union.startCol; col <= union.endCol; col++) {
+                      for (row = union.startRow; row <= union.endRow; row++) {
+                        bucketId = Grid._getBucketId(col, row);
+                        bucket = buckets[bucketId];
+                        var isInsideNewRegion = col >= newRegion.startCol && col <= newRegion.endCol && row >= newRegion.startRow && row <= newRegion.endRow;
+                        var isInsideOldRegion = col >= body.region.startCol && col <= body.region.endCol && row >= body.region.startRow && row <= body.region.endRow;
+                        if (!isInsideNewRegion && isInsideOldRegion) {
+                          if (isInsideOldRegion) {
+                            if (bucket)
+                              Grid._bucketRemoveBody(grid, bucket, body);
+                          }
+                        }
+                        if (body.region === newRegion || isInsideNewRegion && !isInsideOldRegion || forceUpdate) {
+                          if (!bucket)
+                            bucket = Grid._createBucket(buckets, bucketId);
+                          Grid._bucketAddBody(grid, bucket, body);
+                        }
+                      }
+                    }
+                    body.region = newRegion;
+                    gridChanged = true;
+                  }
+                }
+                if (gridChanged)
+                  grid.pairsList = Grid._createActivePairsList(grid);
+              };
+              deprecated(Grid, "update", "Grid.update \u27A4 replaced by Matter.Detector");
+              Grid.clear = function(grid) {
+                grid.buckets = {};
+                grid.pairs = {};
+                grid.pairsList = [];
+              };
+              deprecated(Grid, "clear", "Grid.clear \u27A4 replaced by Matter.Detector");
+              Grid._regionUnion = function(regionA, regionB) {
+                var startCol = Math.min(regionA.startCol, regionB.startCol), endCol = Math.max(regionA.endCol, regionB.endCol), startRow = Math.min(regionA.startRow, regionB.startRow), endRow = Math.max(regionA.endRow, regionB.endRow);
+                return Grid._createRegion(startCol, endCol, startRow, endRow);
+              };
+              Grid._getRegion = function(grid, body) {
+                var bounds = body.bounds, startCol = Math.floor(bounds.min.x / grid.bucketWidth), endCol = Math.floor(bounds.max.x / grid.bucketWidth), startRow = Math.floor(bounds.min.y / grid.bucketHeight), endRow = Math.floor(bounds.max.y / grid.bucketHeight);
+                return Grid._createRegion(startCol, endCol, startRow, endRow);
+              };
+              Grid._createRegion = function(startCol, endCol, startRow, endRow) {
+                return {
+                  id: startCol + "," + endCol + "," + startRow + "," + endRow,
+                  startCol,
+                  endCol,
+                  startRow,
+                  endRow
+                };
+              };
+              Grid._getBucketId = function(column, row) {
+                return "C" + column + "R" + row;
+              };
+              Grid._createBucket = function(buckets, bucketId) {
+                var bucket = buckets[bucketId] = [];
+                return bucket;
+              };
+              Grid._bucketAddBody = function(grid, bucket, body) {
+                var gridPairs = grid.pairs, pairId = Pair.id, bucketLength = bucket.length, i;
+                for (i = 0; i < bucketLength; i++) {
+                  var bodyB = bucket[i];
+                  if (body.id === bodyB.id || body.isStatic && bodyB.isStatic)
+                    continue;
+                  var id = pairId(body, bodyB), pair = gridPairs[id];
+                  if (pair) {
+                    pair[2] += 1;
+                  } else {
+                    gridPairs[id] = [body, bodyB, 1];
+                  }
+                }
+                bucket.push(body);
+              };
+              Grid._bucketRemoveBody = function(grid, bucket, body) {
+                var gridPairs = grid.pairs, pairId = Pair.id, i;
+                bucket.splice(Common.indexOf(bucket, body), 1);
+                var bucketLength = bucket.length;
+                for (i = 0; i < bucketLength; i++) {
+                  var pair = gridPairs[pairId(body, bucket[i])];
+                  if (pair)
+                    pair[2] -= 1;
+                }
+              };
+              Grid._createActivePairsList = function(grid) {
+                var pair, gridPairs = grid.pairs, pairKeys = Common.keys(gridPairs), pairKeysLength = pairKeys.length, pairs = [], k;
+                for (k = 0; k < pairKeysLength; k++) {
+                  pair = gridPairs[pairKeys[k]];
+                  if (pair[2] > 0) {
+                    pairs.push(pair);
+                  } else {
+                    delete gridPairs[pairKeys[k]];
+                  }
+                }
+                return pairs;
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var MouseConstraint = {};
+            module2.exports = MouseConstraint;
+            var Vertices = __webpack_require__(3);
+            var Sleeping = __webpack_require__(7);
+            var Mouse = __webpack_require__(13);
+            var Events = __webpack_require__(4);
+            var Detector = __webpack_require__(14);
+            var Constraint = __webpack_require__(10);
+            var Composite2 = __webpack_require__(5);
+            var Common = __webpack_require__(0);
+            var Bounds = __webpack_require__(1);
+            (function() {
+              MouseConstraint.create = function(engine, options) {
+                var mouse = (engine ? engine.mouse : null) || (options ? options.mouse : null);
+                if (!mouse) {
+                  if (engine && engine.render && engine.render.canvas) {
+                    mouse = Mouse.create(engine.render.canvas);
+                  } else if (options && options.element) {
+                    mouse = Mouse.create(options.element);
+                  } else {
+                    mouse = Mouse.create();
+                    Common.warn("MouseConstraint.create: options.mouse was undefined, options.element was undefined, may not function as expected");
+                  }
+                }
+                var constraint = Constraint.create({
+                  label: "Mouse Constraint",
+                  pointA: mouse.position,
+                  pointB: { x: 0, y: 0 },
+                  length: 0.01,
+                  stiffness: 0.1,
+                  angularStiffness: 1,
+                  render: {
+                    strokeStyle: "#90EE90",
+                    lineWidth: 3
+                  }
+                });
+                var defaults = {
+                  type: "mouseConstraint",
+                  mouse,
+                  element: null,
+                  body: null,
+                  constraint,
+                  collisionFilter: {
+                    category: 1,
+                    mask: 4294967295,
+                    group: 0
+                  }
+                };
+                var mouseConstraint = Common.extend(defaults, options);
+                Events.on(engine, "beforeUpdate", function() {
+                  var allBodies = Composite2.allBodies(engine.world);
+                  MouseConstraint.update(mouseConstraint, allBodies);
+                  MouseConstraint._triggerEvents(mouseConstraint);
+                });
+                return mouseConstraint;
+              };
+              MouseConstraint.update = function(mouseConstraint, bodies) {
+                var mouse = mouseConstraint.mouse, constraint = mouseConstraint.constraint, body = mouseConstraint.body;
+                if (mouse.button === 0) {
+                  if (!constraint.bodyB) {
+                    for (var i = 0; i < bodies.length; i++) {
+                      body = bodies[i];
+                      if (Bounds.contains(body.bounds, mouse.position) && Detector.canCollide(body.collisionFilter, mouseConstraint.collisionFilter)) {
+                        for (var j = body.parts.length > 1 ? 1 : 0; j < body.parts.length; j++) {
+                          var part = body.parts[j];
+                          if (Vertices.contains(part.vertices, mouse.position)) {
+                            constraint.pointA = mouse.position;
+                            constraint.bodyB = mouseConstraint.body = body;
+                            constraint.pointB = { x: mouse.position.x - body.position.x, y: mouse.position.y - body.position.y };
+                            constraint.angleB = body.angle;
+                            Sleeping.set(body, false);
+                            Events.trigger(mouseConstraint, "startdrag", { mouse, body });
+                            break;
+                          }
+                        }
+                      }
+                    }
+                  } else {
+                    Sleeping.set(constraint.bodyB, false);
+                    constraint.pointA = mouse.position;
+                  }
+                } else {
+                  constraint.bodyB = mouseConstraint.body = null;
+                  constraint.pointB = null;
+                  if (body)
+                    Events.trigger(mouseConstraint, "enddrag", { mouse, body });
+                }
+              };
+              MouseConstraint._triggerEvents = function(mouseConstraint) {
+                var mouse = mouseConstraint.mouse, mouseEvents = mouse.sourceEvents;
+                if (mouseEvents.mousemove)
+                  Events.trigger(mouseConstraint, "mousemove", { mouse });
+                if (mouseEvents.mousedown)
+                  Events.trigger(mouseConstraint, "mousedown", { mouse });
+                if (mouseEvents.mouseup)
+                  Events.trigger(mouseConstraint, "mouseup", { mouse });
+                Mouse.clearSourceEvents(mouse);
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Query = {};
+            module2.exports = Query;
+            var Vector = __webpack_require__(2);
+            var Collision = __webpack_require__(8);
+            var Bounds = __webpack_require__(1);
+            var Bodies2 = __webpack_require__(12);
+            var Vertices = __webpack_require__(3);
+            (function() {
+              Query.collides = function(body, bodies) {
+                var collisions = [], bodiesLength = bodies.length, bounds = body.bounds, collides = Collision.collides, overlaps = Bounds.overlaps;
+                for (var i = 0; i < bodiesLength; i++) {
+                  var bodyA = bodies[i], partsALength = bodyA.parts.length, partsAStart = partsALength === 1 ? 0 : 1;
+                  if (overlaps(bodyA.bounds, bounds)) {
+                    for (var j = partsAStart; j < partsALength; j++) {
+                      var part = bodyA.parts[j];
+                      if (overlaps(part.bounds, bounds)) {
+                        var collision = collides(part, body);
+                        if (collision) {
+                          collisions.push(collision);
+                          break;
+                        }
+                      }
+                    }
+                  }
+                }
+                return collisions;
+              };
+              Query.ray = function(bodies, startPoint, endPoint, rayWidth) {
+                rayWidth = rayWidth || 1e-100;
+                var rayAngle = Vector.angle(startPoint, endPoint), rayLength = Vector.magnitude(Vector.sub(startPoint, endPoint)), rayX = (endPoint.x + startPoint.x) * 0.5, rayY = (endPoint.y + startPoint.y) * 0.5, ray = Bodies2.rectangle(rayX, rayY, rayLength, rayWidth, { angle: rayAngle }), collisions = Query.collides(ray, bodies);
+                for (var i = 0; i < collisions.length; i += 1) {
+                  var collision = collisions[i];
+                  collision.body = collision.bodyB = collision.bodyA;
+                }
+                return collisions;
+              };
+              Query.region = function(bodies, bounds, outside) {
+                var result = [];
+                for (var i = 0; i < bodies.length; i++) {
+                  var body = bodies[i], overlaps = Bounds.overlaps(body.bounds, bounds);
+                  if (overlaps && !outside || !overlaps && outside)
+                    result.push(body);
+                }
+                return result;
+              };
+              Query.point = function(bodies, point) {
+                var result = [];
+                for (var i = 0; i < bodies.length; i++) {
+                  var body = bodies[i];
+                  if (Bounds.contains(body.bounds, point)) {
+                    for (var j = body.parts.length === 1 ? 0 : 1; j < body.parts.length; j++) {
+                      var part = body.parts[j];
+                      if (Bounds.contains(part.bounds, point) && Vertices.contains(part.vertices, point)) {
+                        result.push(body);
+                        break;
+                      }
+                    }
+                  }
+                }
+                return result;
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Runner2 = {};
+            module2.exports = Runner2;
+            var Events = __webpack_require__(4);
+            var Engine2 = __webpack_require__(18);
+            var Common = __webpack_require__(0);
+            (function() {
+              var _requestAnimationFrame, _cancelAnimationFrame;
+              if (typeof window !== "undefined") {
+                _requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame;
+                _cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame;
+              }
+              if (!_requestAnimationFrame) {
+                var _frameTimeout;
+                _requestAnimationFrame = function(callback) {
+                  _frameTimeout = setTimeout(function() {
+                    callback(Common.now());
+                  }, 1e3 / 60);
+                };
+                _cancelAnimationFrame = function() {
+                  clearTimeout(_frameTimeout);
+                };
+              }
+              Runner2.create = function(options) {
+                var defaults = {
+                  fps: 60,
+                  correction: 1,
+                  deltaSampleSize: 60,
+                  counterTimestamp: 0,
+                  frameCounter: 0,
+                  deltaHistory: [],
+                  timePrev: null,
+                  timeScalePrev: 1,
+                  frameRequestId: null,
+                  isFixed: false,
+                  enabled: true
+                };
+                var runner = Common.extend(defaults, options);
+                runner.delta = runner.delta || 1e3 / runner.fps;
+                runner.deltaMin = runner.deltaMin || 1e3 / runner.fps;
+                runner.deltaMax = runner.deltaMax || 1e3 / (runner.fps * 0.5);
+                runner.fps = 1e3 / runner.delta;
+                return runner;
+              };
+              Runner2.run = function(runner, engine) {
+                if (typeof runner.positionIterations !== "undefined") {
+                  engine = runner;
+                  runner = Runner2.create();
+                }
+                (function render(time) {
+                  runner.frameRequestId = _requestAnimationFrame(render);
+                  if (time && runner.enabled) {
+                    Runner2.tick(runner, engine, time);
+                  }
+                })();
+                return runner;
+              };
+              Runner2.tick = function(runner, engine, time) {
+                var timing = engine.timing, correction = 1, delta;
+                var event = {
+                  timestamp: timing.timestamp
+                };
+                Events.trigger(runner, "beforeTick", event);
+                if (runner.isFixed) {
+                  delta = runner.delta;
+                } else {
+                  delta = time - runner.timePrev || runner.delta;
+                  runner.timePrev = time;
+                  runner.deltaHistory.push(delta);
+                  runner.deltaHistory = runner.deltaHistory.slice(-runner.deltaSampleSize);
+                  delta = Math.min.apply(null, runner.deltaHistory);
+                  delta = delta < runner.deltaMin ? runner.deltaMin : delta;
+                  delta = delta > runner.deltaMax ? runner.deltaMax : delta;
+                  correction = delta / runner.delta;
+                  runner.delta = delta;
+                }
+                if (runner.timeScalePrev !== 0)
+                  correction *= timing.timeScale / runner.timeScalePrev;
+                if (timing.timeScale === 0)
+                  correction = 0;
+                runner.timeScalePrev = timing.timeScale;
+                runner.correction = correction;
+                runner.frameCounter += 1;
+                if (time - runner.counterTimestamp >= 1e3) {
+                  runner.fps = runner.frameCounter * ((time - runner.counterTimestamp) / 1e3);
+                  runner.counterTimestamp = time;
+                  runner.frameCounter = 0;
+                }
+                Events.trigger(runner, "tick", event);
+                Events.trigger(runner, "beforeUpdate", event);
+                Engine2.update(engine, delta, correction);
+                Events.trigger(runner, "afterUpdate", event);
+                Events.trigger(runner, "afterTick", event);
+              };
+              Runner2.stop = function(runner) {
+                _cancelAnimationFrame(runner.frameRequestId);
+              };
+              Runner2.start = function(runner, engine) {
+                Runner2.run(runner, engine);
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var SAT = {};
+            module2.exports = SAT;
+            var Collision = __webpack_require__(8);
+            var Common = __webpack_require__(0);
+            var deprecated = Common.deprecated;
+            (function() {
+              SAT.collides = function(bodyA, bodyB) {
+                return Collision.collides(bodyA, bodyB);
+              };
+              deprecated(SAT, "collides", "SAT.collides \u27A4 replaced by Collision.collides");
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var Svg = {};
+            module2.exports = Svg;
+            var Bounds = __webpack_require__(1);
+            var Common = __webpack_require__(0);
+            (function() {
+              Svg.pathToVertices = function(path, sampleLength) {
+                if (typeof window !== "undefined" && !("SVGPathSeg" in window)) {
+                  Common.warn("Svg.pathToVertices: SVGPathSeg not defined, a polyfill is required.");
+                }
+                var i, il, total, point, segment, segments, segmentsQueue, lastSegment, lastPoint, segmentIndex, points = [], lx, ly, length = 0, x = 0, y = 0;
+                sampleLength = sampleLength || 15;
+                var addPoint = function(px, py, pathSegType) {
+                  var isRelative = pathSegType % 2 === 1 && pathSegType > 1;
+                  if (!lastPoint || px != lastPoint.x || py != lastPoint.y) {
+                    if (lastPoint && isRelative) {
+                      lx = lastPoint.x;
+                      ly = lastPoint.y;
+                    } else {
+                      lx = 0;
+                      ly = 0;
+                    }
+                    var point2 = {
+                      x: lx + px,
+                      y: ly + py
+                    };
+                    if (isRelative || !lastPoint) {
+                      lastPoint = point2;
+                    }
+                    points.push(point2);
+                    x = lx + px;
+                    y = ly + py;
+                  }
+                };
+                var addSegmentPoint = function(segment2) {
+                  var segType = segment2.pathSegTypeAsLetter.toUpperCase();
+                  if (segType === "Z")
+                    return;
+                  switch (segType) {
+                    case "M":
+                    case "L":
+                    case "T":
+                    case "C":
+                    case "S":
+                    case "Q":
+                      x = segment2.x;
+                      y = segment2.y;
+                      break;
+                    case "H":
+                      x = segment2.x;
+                      break;
+                    case "V":
+                      y = segment2.y;
+                      break;
+                  }
+                  addPoint(x, y, segment2.pathSegType);
+                };
+                Svg._svgPathToAbsolute(path);
+                total = path.getTotalLength();
+                segments = [];
+                for (i = 0; i < path.pathSegList.numberOfItems; i += 1)
+                  segments.push(path.pathSegList.getItem(i));
+                segmentsQueue = segments.concat();
+                while (length < total) {
+                  segmentIndex = path.getPathSegAtLength(length);
+                  segment = segments[segmentIndex];
+                  if (segment != lastSegment) {
+                    while (segmentsQueue.length && segmentsQueue[0] != segment)
+                      addSegmentPoint(segmentsQueue.shift());
+                    lastSegment = segment;
+                  }
+                  switch (segment.pathSegTypeAsLetter.toUpperCase()) {
+                    case "C":
+                    case "T":
+                    case "S":
+                    case "Q":
+                    case "A":
+                      point = path.getPointAtLength(length);
+                      addPoint(point.x, point.y, 0);
+                      break;
+                  }
+                  length += sampleLength;
+                }
+                for (i = 0, il = segmentsQueue.length; i < il; ++i)
+                  addSegmentPoint(segmentsQueue[i]);
+                return points;
+              };
+              Svg._svgPathToAbsolute = function(path) {
+                var x0, y0, x1, y1, x2, y2, segs = path.pathSegList, x = 0, y = 0, len = segs.numberOfItems;
+                for (var i = 0; i < len; ++i) {
+                  var seg = segs.getItem(i), segType = seg.pathSegTypeAsLetter;
+                  if (/[MLHVCSQTA]/.test(segType)) {
+                    if ("x" in seg)
+                      x = seg.x;
+                    if ("y" in seg)
+                      y = seg.y;
+                  } else {
+                    if ("x1" in seg)
+                      x1 = x + seg.x1;
+                    if ("x2" in seg)
+                      x2 = x + seg.x2;
+                    if ("y1" in seg)
+                      y1 = y + seg.y1;
+                    if ("y2" in seg)
+                      y2 = y + seg.y2;
+                    if ("x" in seg)
+                      x += seg.x;
+                    if ("y" in seg)
+                      y += seg.y;
+                    switch (segType) {
+                      case "m":
+                        segs.replaceItem(path.createSVGPathSegMovetoAbs(x, y), i);
+                        break;
+                      case "l":
+                        segs.replaceItem(path.createSVGPathSegLinetoAbs(x, y), i);
+                        break;
+                      case "h":
+                        segs.replaceItem(path.createSVGPathSegLinetoHorizontalAbs(x), i);
+                        break;
+                      case "v":
+                        segs.replaceItem(path.createSVGPathSegLinetoVerticalAbs(y), i);
+                        break;
+                      case "c":
+                        segs.replaceItem(path.createSVGPathSegCurvetoCubicAbs(x, y, x1, y1, x2, y2), i);
+                        break;
+                      case "s":
+                        segs.replaceItem(path.createSVGPathSegCurvetoCubicSmoothAbs(x, y, x2, y2), i);
+                        break;
+                      case "q":
+                        segs.replaceItem(path.createSVGPathSegCurvetoQuadraticAbs(x, y, x1, y1), i);
+                        break;
+                      case "t":
+                        segs.replaceItem(path.createSVGPathSegCurvetoQuadraticSmoothAbs(x, y), i);
+                        break;
+                      case "a":
+                        segs.replaceItem(path.createSVGPathSegArcAbs(x, y, seg.r1, seg.r2, seg.angle, seg.largeArcFlag, seg.sweepFlag), i);
+                        break;
+                      case "z":
+                      case "Z":
+                        x = x0;
+                        y = y0;
+                        break;
+                    }
+                  }
+                  if (segType == "M" || segType == "m") {
+                    x0 = x;
+                    y0 = y;
+                  }
+                }
+              };
+            })();
+          },
+          function(module2, exports2, __webpack_require__) {
+            var World = {};
+            module2.exports = World;
+            var Composite2 = __webpack_require__(5);
+            var Common = __webpack_require__(0);
+            (function() {
+              World.create = Composite2.create;
+              World.add = Composite2.add;
+              World.remove = Composite2.remove;
+              World.clear = Composite2.clear;
+              World.addComposite = Composite2.addComposite;
+              World.addBody = Composite2.addBody;
+              World.addConstraint = Composite2.addConstraint;
+            })();
+          }
+        ]);
+      });
+    }
+  });
+
+  // node_modules/axios/lib/helpers/bind.js
+  var require_bind = __commonJS({
+    "node_modules/axios/lib/helpers/bind.js"(exports, module) {
+      "use strict";
+      module.exports = function bind(fn, thisArg) {
+        return function wrap() {
+          var args = new Array(arguments.length);
+          for (var i = 0; i < args.length; i++) {
+            args[i] = arguments[i];
+          }
+          return fn.apply(thisArg, args);
+        };
+      };
+    }
+  });
+
+  // node_modules/axios/lib/utils.js
+  var require_utils = __commonJS({
+    "node_modules/axios/lib/utils.js"(exports, module) {
+      "use strict";
+      var bind = require_bind();
+      var toString2 = Object.prototype.toString;
+      function isArray(val) {
+        return Array.isArray(val);
+      }
+      function isUndefined(val) {
+        return typeof val === "undefined";
+      }
+      function isBuffer(val) {
+        return val !== null && !isUndefined(val) && val.constructor !== null && !isUndefined(val.constructor) && typeof val.constructor.isBuffer === "function" && val.constructor.isBuffer(val);
+      }
+      function isArrayBuffer(val) {
+        return toString2.call(val) === "[object ArrayBuffer]";
+      }
+      function isFormData(val) {
+        return toString2.call(val) === "[object FormData]";
+      }
+      function isArrayBufferView(val) {
+        var result;
+        if (typeof ArrayBuffer !== "undefined" && ArrayBuffer.isView) {
+          result = ArrayBuffer.isView(val);
+        } else {
+          result = val && val.buffer && isArrayBuffer(val.buffer);
+        }
+        return result;
+      }
+      function isString(val) {
+        return typeof val === "string";
+      }
+      function isNumber(val) {
+        return typeof val === "number";
+      }
+      function isObject(val) {
+        return val !== null && typeof val === "object";
+      }
+      function isPlainObject(val) {
+        if (toString2.call(val) !== "[object Object]") {
+          return false;
+        }
+        var prototype = Object.getPrototypeOf(val);
+        return prototype === null || prototype === Object.prototype;
+      }
+      function isDate(val) {
+        return toString2.call(val) === "[object Date]";
+      }
+      function isFile(val) {
+        return toString2.call(val) === "[object File]";
+      }
+      function isBlob(val) {
+        return toString2.call(val) === "[object Blob]";
+      }
+      function isFunction(val) {
+        return toString2.call(val) === "[object Function]";
+      }
+      function isStream(val) {
+        return isObject(val) && isFunction(val.pipe);
+      }
+      function isURLSearchParams(val) {
+        return toString2.call(val) === "[object URLSearchParams]";
+      }
+      function trim(str) {
+        return str.trim ? str.trim() : str.replace(/^\s+|\s+$/g, "");
+      }
+      function isStandardBrowserEnv() {
+        if (typeof navigator !== "undefined" && (navigator.product === "ReactNative" || navigator.product === "NativeScript" || navigator.product === "NS")) {
+          return false;
+        }
+        return typeof window !== "undefined" && typeof document !== "undefined";
+      }
+      function forEach(obj, fn) {
+        if (obj === null || typeof obj === "undefined") {
+          return;
+        }
+        if (typeof obj !== "object") {
+          obj = [obj];
+        }
+        if (isArray(obj)) {
+          for (var i = 0, l = obj.length; i < l; i++) {
+            fn.call(null, obj[i], i, obj);
+          }
+        } else {
+          for (var key in obj) {
+            if (Object.prototype.hasOwnProperty.call(obj, key)) {
+              fn.call(null, obj[key], key, obj);
+            }
+          }
+        }
+      }
+      function merge() {
+        var result = {};
+        function assignValue(val, key) {
+          if (isPlainObject(result[key]) && isPlainObject(val)) {
+            result[key] = merge(result[key], val);
+          } else if (isPlainObject(val)) {
+            result[key] = merge({}, val);
+          } else if (isArray(val)) {
+            result[key] = val.slice();
+          } else {
+            result[key] = val;
+          }
+        }
+        for (var i = 0, l = arguments.length; i < l; i++) {
+          forEach(arguments[i], assignValue);
+        }
+        return result;
+      }
+      function extend(a, b, thisArg) {
+        forEach(b, function assignValue(val, key) {
+          if (thisArg && typeof val === "function") {
+            a[key] = bind(val, thisArg);
+          } else {
+            a[key] = val;
+          }
+        });
+        return a;
+      }
+      function stripBOM(content) {
+        if (content.charCodeAt(0) === 65279) {
+          content = content.slice(1);
+        }
+        return content;
+      }
+      module.exports = {
+        isArray,
+        isArrayBuffer,
+        isBuffer,
+        isFormData,
+        isArrayBufferView,
+        isString,
+        isNumber,
+        isObject,
+        isPlainObject,
+        isUndefined,
+        isDate,
+        isFile,
+        isBlob,
+        isFunction,
+        isStream,
+        isURLSearchParams,
+        isStandardBrowserEnv,
+        forEach,
+        merge,
+        extend,
+        trim,
+        stripBOM
+      };
+    }
+  });
+
+  // node_modules/axios/lib/helpers/buildURL.js
+  var require_buildURL = __commonJS({
+    "node_modules/axios/lib/helpers/buildURL.js"(exports, module) {
+      "use strict";
+      var utils = require_utils();
+      function encode(val) {
+        return encodeURIComponent(val).replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+").replace(/%5B/gi, "[").replace(/%5D/gi, "]");
+      }
+      module.exports = function buildURL(url, params, paramsSerializer) {
+        if (!params) {
+          return url;
+        }
+        var serializedParams;
+        if (paramsSerializer) {
+          serializedParams = paramsSerializer(params);
+        } else if (utils.isURLSearchParams(params)) {
+          serializedParams = params.toString();
+        } else {
+          var parts = [];
+          utils.forEach(params, function serialize(val, key) {
+            if (val === null || typeof val === "undefined") {
+              return;
+            }
+            if (utils.isArray(val)) {
+              key = key + "[]";
+            } else {
+              val = [val];
+            }
+            utils.forEach(val, function parseValue(v) {
+              if (utils.isDate(v)) {
+                v = v.toISOString();
+              } else if (utils.isObject(v)) {
+                v = JSON.stringify(v);
+              }
+              parts.push(encode(key) + "=" + encode(v));
+            });
+          });
+          serializedParams = parts.join("&");
+        }
+        if (serializedParams) {
+          var hashmarkIndex = url.indexOf("#");
+          if (hashmarkIndex !== -1) {
+            url = url.slice(0, hashmarkIndex);
+          }
+          url += (url.indexOf("?") === -1 ? "?" : "&") + serializedParams;
+        }
+        return url;
+      };
+    }
+  });
+
+  // node_modules/axios/lib/core/InterceptorManager.js
+  var require_InterceptorManager = __commonJS({
+    "node_modules/axios/lib/core/InterceptorManager.js"(exports, module) {
+      "use strict";
+      var utils = require_utils();
+      function InterceptorManager() {
+        this.handlers = [];
+      }
+      InterceptorManager.prototype.use = function use(fulfilled, rejected, options) {
+        this.handlers.push({
+          fulfilled,
+          rejected,
+          synchronous: options ? options.synchronous : false,
+          runWhen: options ? options.runWhen : null
+        });
+        return this.handlers.length - 1;
+      };
+      InterceptorManager.prototype.eject = function eject(id) {
+        if (this.handlers[id]) {
+          this.handlers[id] = null;
+        }
+      };
+      InterceptorManager.prototype.forEach = function forEach(fn) {
+        utils.forEach(this.handlers, function forEachHandler(h) {
+          if (h !== null) {
+            fn(h);
+          }
+        });
+      };
+      module.exports = InterceptorManager;
+    }
+  });
+
+  // node_modules/axios/lib/helpers/normalizeHeaderName.js
+  var require_normalizeHeaderName = __commonJS({
+    "node_modules/axios/lib/helpers/normalizeHeaderName.js"(exports, module) {
+      "use strict";
+      var utils = require_utils();
+      module.exports = function normalizeHeaderName(headers, normalizedName) {
+        utils.forEach(headers, function processHeader(value, name) {
+          if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
+            headers[normalizedName] = value;
+            delete headers[name];
+          }
+        });
+      };
+    }
+  });
+
+  // node_modules/axios/lib/core/enhanceError.js
+  var require_enhanceError = __commonJS({
+    "node_modules/axios/lib/core/enhanceError.js"(exports, module) {
+      "use strict";
+      module.exports = function enhanceError(error, config, code, request, response) {
+        error.config = config;
+        if (code) {
+          error.code = code;
+        }
+        error.request = request;
+        error.response = response;
+        error.isAxiosError = true;
+        error.toJSON = function toJSON() {
+          return {
+            message: this.message,
+            name: this.name,
+            description: this.description,
+            number: this.number,
+            fileName: this.fileName,
+            lineNumber: this.lineNumber,
+            columnNumber: this.columnNumber,
+            stack: this.stack,
+            config: this.config,
+            code: this.code,
+            status: this.response && this.response.status ? this.response.status : null
+          };
+        };
+        return error;
+      };
+    }
+  });
+
+  // node_modules/axios/lib/core/createError.js
+  var require_createError = __commonJS({
+    "node_modules/axios/lib/core/createError.js"(exports, module) {
+      "use strict";
+      var enhanceError = require_enhanceError();
+      module.exports = function createError(message, config, code, request, response) {
+        var error = new Error(message);
+        return enhanceError(error, config, code, request, response);
+      };
+    }
+  });
+
+  // node_modules/axios/lib/core/settle.js
+  var require_settle = __commonJS({
+    "node_modules/axios/lib/core/settle.js"(exports, module) {
+      "use strict";
+      var createError = require_createError();
+      module.exports = function settle(resolve, reject, response) {
+        var validateStatus = response.config.validateStatus;
+        if (!response.status || !validateStatus || validateStatus(response.status)) {
+          resolve(response);
+        } else {
+          reject(createError("Request failed with status code " + response.status, response.config, null, response.request, response));
+        }
+      };
+    }
+  });
+
+  // node_modules/axios/lib/helpers/cookies.js
+  var require_cookies = __commonJS({
+    "node_modules/axios/lib/helpers/cookies.js"(exports, module) {
+      "use strict";
+      var utils = require_utils();
+      module.exports = utils.isStandardBrowserEnv() ? function standardBrowserEnv() {
+        return {
+          write: function write(name, value, expires, path, domain, secure) {
+            var cookie = [];
+            cookie.push(name + "=" + encodeURIComponent(value));
+            if (utils.isNumber(expires)) {
+              cookie.push("expires=" + new Date(expires).toGMTString());
+            }
+            if (utils.isString(path)) {
+              cookie.push("path=" + path);
+            }
+            if (utils.isString(domain)) {
+              cookie.push("domain=" + domain);
+            }
+            if (secure === true) {
+              cookie.push("secure");
+            }
+            document.cookie = cookie.join("; ");
+          },
+          read: function read(name) {
+            var match = document.cookie.match(new RegExp("(^|;\\s*)(" + name + ")=([^;]*)"));
+            return match ? decodeURIComponent(match[3]) : null;
+          },
+          remove: function remove(name) {
+            this.write(name, "", Date.now() - 864e5);
+          }
+        };
+      }() : function nonStandardBrowserEnv() {
+        return {
+          write: function write() {
+          },
+          read: function read() {
+            return null;
+          },
+          remove: function remove() {
+          }
+        };
+      }();
+    }
+  });
+
+  // node_modules/axios/lib/helpers/isAbsoluteURL.js
+  var require_isAbsoluteURL = __commonJS({
+    "node_modules/axios/lib/helpers/isAbsoluteURL.js"(exports, module) {
+      "use strict";
+      module.exports = function isAbsoluteURL(url) {
+        return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(url);
+      };
+    }
+  });
+
+  // node_modules/axios/lib/helpers/combineURLs.js
+  var require_combineURLs = __commonJS({
+    "node_modules/axios/lib/helpers/combineURLs.js"(exports, module) {
+      "use strict";
+      module.exports = function combineURLs(baseURL, relativeURL) {
+        return relativeURL ? baseURL.replace(/\/+$/, "") + "/" + relativeURL.replace(/^\/+/, "") : baseURL;
+      };
+    }
+  });
+
+  // node_modules/axios/lib/core/buildFullPath.js
+  var require_buildFullPath = __commonJS({
+    "node_modules/axios/lib/core/buildFullPath.js"(exports, module) {
+      "use strict";
+      var isAbsoluteURL = require_isAbsoluteURL();
+      var combineURLs = require_combineURLs();
+      module.exports = function buildFullPath(baseURL, requestedURL) {
+        if (baseURL && !isAbsoluteURL(requestedURL)) {
+          return combineURLs(baseURL, requestedURL);
+        }
+        return requestedURL;
+      };
+    }
+  });
+
+  // node_modules/axios/lib/helpers/parseHeaders.js
+  var require_parseHeaders = __commonJS({
+    "node_modules/axios/lib/helpers/parseHeaders.js"(exports, module) {
+      "use strict";
+      var utils = require_utils();
+      var ignoreDuplicateOf = [
+        "age",
+        "authorization",
+        "content-length",
+        "content-type",
+        "etag",
+        "expires",
+        "from",
+        "host",
+        "if-modified-since",
+        "if-unmodified-since",
+        "last-modified",
+        "location",
+        "max-forwards",
+        "proxy-authorization",
+        "referer",
+        "retry-after",
+        "user-agent"
+      ];
+      module.exports = function parseHeaders(headers) {
+        var parsed = {};
+        var key;
+        var val;
+        var i;
+        if (!headers) {
+          return parsed;
+        }
+        utils.forEach(headers.split("\n"), function parser(line) {
+          i = line.indexOf(":");
+          key = utils.trim(line.substr(0, i)).toLowerCase();
+          val = utils.trim(line.substr(i + 1));
+          if (key) {
+            if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
+              return;
+            }
+            if (key === "set-cookie") {
+              parsed[key] = (parsed[key] ? parsed[key] : []).concat([val]);
+            } else {
+              parsed[key] = parsed[key] ? parsed[key] + ", " + val : val;
+            }
+          }
+        });
+        return parsed;
+      };
+    }
+  });
+
+  // node_modules/axios/lib/helpers/isURLSameOrigin.js
+  var require_isURLSameOrigin = __commonJS({
+    "node_modules/axios/lib/helpers/isURLSameOrigin.js"(exports, module) {
+      "use strict";
+      var utils = require_utils();
+      module.exports = utils.isStandardBrowserEnv() ? function standardBrowserEnv() {
+        var msie = /(msie|trident)/i.test(navigator.userAgent);
+        var urlParsingNode = document.createElement("a");
+        var originURL;
+        function resolveURL(url) {
+          var href = url;
+          if (msie) {
+            urlParsingNode.setAttribute("href", href);
+            href = urlParsingNode.href;
+          }
+          urlParsingNode.setAttribute("href", href);
+          return {
+            href: urlParsingNode.href,
+            protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, "") : "",
+            host: urlParsingNode.host,
+            search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, "") : "",
+            hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, "") : "",
+            hostname: urlParsingNode.hostname,
+            port: urlParsingNode.port,
+            pathname: urlParsingNode.pathname.charAt(0) === "/" ? urlParsingNode.pathname : "/" + urlParsingNode.pathname
+          };
+        }
+        originURL = resolveURL(window.location.href);
+        return function isURLSameOrigin(requestURL) {
+          var parsed = utils.isString(requestURL) ? resolveURL(requestURL) : requestURL;
+          return parsed.protocol === originURL.protocol && parsed.host === originURL.host;
+        };
+      }() : function nonStandardBrowserEnv() {
+        return function isURLSameOrigin() {
+          return true;
+        };
+      }();
+    }
+  });
+
+  // node_modules/axios/lib/cancel/Cancel.js
+  var require_Cancel = __commonJS({
+    "node_modules/axios/lib/cancel/Cancel.js"(exports, module) {
+      "use strict";
+      function Cancel(message) {
+        this.message = message;
+      }
+      Cancel.prototype.toString = function toString2() {
+        return "Cancel" + (this.message ? ": " + this.message : "");
+      };
+      Cancel.prototype.__CANCEL__ = true;
+      module.exports = Cancel;
+    }
+  });
+
+  // node_modules/axios/lib/adapters/xhr.js
+  var require_xhr = __commonJS({
+    "node_modules/axios/lib/adapters/xhr.js"(exports, module) {
+      "use strict";
+      var utils = require_utils();
+      var settle = require_settle();
+      var cookies = require_cookies();
+      var buildURL = require_buildURL();
+      var buildFullPath = require_buildFullPath();
+      var parseHeaders = require_parseHeaders();
+      var isURLSameOrigin = require_isURLSameOrigin();
+      var createError = require_createError();
+      var defaults = require_defaults();
+      var Cancel = require_Cancel();
+      module.exports = function xhrAdapter(config) {
+        return new Promise(function dispatchXhrRequest(resolve, reject) {
+          var requestData = config.data;
+          var requestHeaders = config.headers;
+          var responseType = config.responseType;
+          var onCanceled;
+          function done() {
+            if (config.cancelToken) {
+              config.cancelToken.unsubscribe(onCanceled);
+            }
+            if (config.signal) {
+              config.signal.removeEventListener("abort", onCanceled);
+            }
+          }
+          if (utils.isFormData(requestData)) {
+            delete requestHeaders["Content-Type"];
+          }
+          var request = new XMLHttpRequest();
+          if (config.auth) {
+            var username = config.auth.username || "";
+            var password = config.auth.password ? unescape(encodeURIComponent(config.auth.password)) : "";
+            requestHeaders.Authorization = "Basic " + btoa(username + ":" + password);
+          }
+          var fullPath = buildFullPath(config.baseURL, config.url);
+          request.open(config.method.toUpperCase(), buildURL(fullPath, config.params, config.paramsSerializer), true);
+          request.timeout = config.timeout;
+          function onloadend() {
+            if (!request) {
+              return;
+            }
+            var responseHeaders = "getAllResponseHeaders" in request ? parseHeaders(request.getAllResponseHeaders()) : null;
+            var responseData = !responseType || responseType === "text" || responseType === "json" ? request.responseText : request.response;
+            var response = {
+              data: responseData,
+              status: request.status,
+              statusText: request.statusText,
+              headers: responseHeaders,
+              config,
+              request
+            };
+            settle(function _resolve(value) {
+              resolve(value);
+              done();
+            }, function _reject(err) {
+              reject(err);
+              done();
+            }, response);
+            request = null;
+          }
+          if ("onloadend" in request) {
+            request.onloadend = onloadend;
+          } else {
+            request.onreadystatechange = function handleLoad() {
+              if (!request || request.readyState !== 4) {
+                return;
+              }
+              if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf("file:") === 0)) {
+                return;
+              }
+              setTimeout(onloadend);
+            };
+          }
+          request.onabort = function handleAbort() {
+            if (!request) {
+              return;
+            }
+            reject(createError("Request aborted", config, "ECONNABORTED", request));
+            request = null;
+          };
+          request.onerror = function handleError() {
+            reject(createError("Network Error", config, null, request));
+            request = null;
+          };
+          request.ontimeout = function handleTimeout() {
+            var timeoutErrorMessage = config.timeout ? "timeout of " + config.timeout + "ms exceeded" : "timeout exceeded";
+            var transitional = config.transitional || defaults.transitional;
+            if (config.timeoutErrorMessage) {
+              timeoutErrorMessage = config.timeoutErrorMessage;
+            }
+            reject(createError(timeoutErrorMessage, config, transitional.clarifyTimeoutError ? "ETIMEDOUT" : "ECONNABORTED", request));
+            request = null;
+          };
+          if (utils.isStandardBrowserEnv()) {
+            var xsrfValue = (config.withCredentials || isURLSameOrigin(fullPath)) && config.xsrfCookieName ? cookies.read(config.xsrfCookieName) : void 0;
+            if (xsrfValue) {
+              requestHeaders[config.xsrfHeaderName] = xsrfValue;
+            }
+          }
+          if ("setRequestHeader" in request) {
+            utils.forEach(requestHeaders, function setRequestHeader(val, key) {
+              if (typeof requestData === "undefined" && key.toLowerCase() === "content-type") {
+                delete requestHeaders[key];
+              } else {
+                request.setRequestHeader(key, val);
+              }
+            });
+          }
+          if (!utils.isUndefined(config.withCredentials)) {
+            request.withCredentials = !!config.withCredentials;
+          }
+          if (responseType && responseType !== "json") {
+            request.responseType = config.responseType;
+          }
+          if (typeof config.onDownloadProgress === "function") {
+            request.addEventListener("progress", config.onDownloadProgress);
+          }
+          if (typeof config.onUploadProgress === "function" && request.upload) {
+            request.upload.addEventListener("progress", config.onUploadProgress);
+          }
+          if (config.cancelToken || config.signal) {
+            onCanceled = function(cancel) {
+              if (!request) {
+                return;
+              }
+              reject(!cancel || cancel && cancel.type ? new Cancel("canceled") : cancel);
+              request.abort();
+              request = null;
+            };
+            config.cancelToken && config.cancelToken.subscribe(onCanceled);
+            if (config.signal) {
+              config.signal.aborted ? onCanceled() : config.signal.addEventListener("abort", onCanceled);
+            }
+          }
+          if (!requestData) {
+            requestData = null;
+          }
+          request.send(requestData);
+        });
+      };
+    }
+  });
+
+  // node_modules/axios/lib/defaults.js
+  var require_defaults = __commonJS({
+    "node_modules/axios/lib/defaults.js"(exports, module) {
+      "use strict";
+      var utils = require_utils();
+      var normalizeHeaderName = require_normalizeHeaderName();
+      var enhanceError = require_enhanceError();
+      var DEFAULT_CONTENT_TYPE = {
+        "Content-Type": "application/x-www-form-urlencoded"
+      };
+      function setContentTypeIfUnset(headers, value) {
+        if (!utils.isUndefined(headers) && utils.isUndefined(headers["Content-Type"])) {
+          headers["Content-Type"] = value;
+        }
+      }
+      function getDefaultAdapter() {
+        var adapter;
+        if (typeof XMLHttpRequest !== "undefined") {
+          adapter = require_xhr();
+        } else if (typeof process !== "undefined" && Object.prototype.toString.call(process) === "[object process]") {
+          adapter = require_xhr();
+        }
+        return adapter;
+      }
+      function stringifySafely(rawValue, parser, encoder) {
+        if (utils.isString(rawValue)) {
+          try {
+            (parser || JSON.parse)(rawValue);
+            return utils.trim(rawValue);
+          } catch (e) {
+            if (e.name !== "SyntaxError") {
+              throw e;
+            }
+          }
+        }
+        return (encoder || JSON.stringify)(rawValue);
+      }
+      var defaults = {
+        transitional: {
+          silentJSONParsing: true,
+          forcedJSONParsing: true,
+          clarifyTimeoutError: false
+        },
+        adapter: getDefaultAdapter(),
+        transformRequest: [function transformRequest(data, headers) {
+          normalizeHeaderName(headers, "Accept");
+          normalizeHeaderName(headers, "Content-Type");
+          if (utils.isFormData(data) || utils.isArrayBuffer(data) || utils.isBuffer(data) || utils.isStream(data) || utils.isFile(data) || utils.isBlob(data)) {
+            return data;
+          }
+          if (utils.isArrayBufferView(data)) {
+            return data.buffer;
+          }
+          if (utils.isURLSearchParams(data)) {
+            setContentTypeIfUnset(headers, "application/x-www-form-urlencoded;charset=utf-8");
+            return data.toString();
+          }
+          if (utils.isObject(data) || headers && headers["Content-Type"] === "application/json") {
+            setContentTypeIfUnset(headers, "application/json");
+            return stringifySafely(data);
+          }
+          return data;
+        }],
+        transformResponse: [function transformResponse(data) {
+          var transitional = this.transitional || defaults.transitional;
+          var silentJSONParsing = transitional && transitional.silentJSONParsing;
+          var forcedJSONParsing = transitional && transitional.forcedJSONParsing;
+          var strictJSONParsing = !silentJSONParsing && this.responseType === "json";
+          if (strictJSONParsing || forcedJSONParsing && utils.isString(data) && data.length) {
+            try {
+              return JSON.parse(data);
+            } catch (e) {
+              if (strictJSONParsing) {
+                if (e.name === "SyntaxError") {
+                  throw enhanceError(e, this, "E_JSON_PARSE");
+                }
+                throw e;
+              }
+            }
+          }
+          return data;
+        }],
+        timeout: 0,
+        xsrfCookieName: "XSRF-TOKEN",
+        xsrfHeaderName: "X-XSRF-TOKEN",
+        maxContentLength: -1,
+        maxBodyLength: -1,
+        validateStatus: function validateStatus(status) {
+          return status >= 200 && status < 300;
+        },
+        headers: {
+          common: {
+            "Accept": "application/json, text/plain, */*"
+          }
+        }
+      };
+      utils.forEach(["delete", "get", "head"], function forEachMethodNoData(method) {
+        defaults.headers[method] = {};
+      });
+      utils.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
+        defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+      });
+      module.exports = defaults;
+    }
+  });
+
+  // node_modules/axios/lib/core/transformData.js
+  var require_transformData = __commonJS({
+    "node_modules/axios/lib/core/transformData.js"(exports, module) {
+      "use strict";
+      var utils = require_utils();
+      var defaults = require_defaults();
+      module.exports = function transformData(data, headers, fns) {
+        var context = this || defaults;
+        utils.forEach(fns, function transform(fn) {
+          data = fn.call(context, data, headers);
+        });
+        return data;
+      };
+    }
+  });
+
+  // node_modules/axios/lib/cancel/isCancel.js
+  var require_isCancel = __commonJS({
+    "node_modules/axios/lib/cancel/isCancel.js"(exports, module) {
+      "use strict";
+      module.exports = function isCancel(value) {
+        return !!(value && value.__CANCEL__);
+      };
+    }
+  });
+
+  // node_modules/axios/lib/core/dispatchRequest.js
+  var require_dispatchRequest = __commonJS({
+    "node_modules/axios/lib/core/dispatchRequest.js"(exports, module) {
+      "use strict";
+      var utils = require_utils();
+      var transformData = require_transformData();
+      var isCancel = require_isCancel();
+      var defaults = require_defaults();
+      var Cancel = require_Cancel();
+      function throwIfCancellationRequested(config) {
+        if (config.cancelToken) {
+          config.cancelToken.throwIfRequested();
+        }
+        if (config.signal && config.signal.aborted) {
+          throw new Cancel("canceled");
+        }
+      }
+      module.exports = function dispatchRequest(config) {
+        throwIfCancellationRequested(config);
+        config.headers = config.headers || {};
+        config.data = transformData.call(config, config.data, config.headers, config.transformRequest);
+        config.headers = utils.merge(config.headers.common || {}, config.headers[config.method] || {}, config.headers);
+        utils.forEach(["delete", "get", "head", "post", "put", "patch", "common"], function cleanHeaderConfig(method) {
+          delete config.headers[method];
+        });
+        var adapter = config.adapter || defaults.adapter;
+        return adapter(config).then(function onAdapterResolution(response) {
+          throwIfCancellationRequested(config);
+          response.data = transformData.call(config, response.data, response.headers, config.transformResponse);
+          return response;
+        }, function onAdapterRejection(reason) {
+          if (!isCancel(reason)) {
+            throwIfCancellationRequested(config);
+            if (reason && reason.response) {
+              reason.response.data = transformData.call(config, reason.response.data, reason.response.headers, config.transformResponse);
+            }
+          }
+          return Promise.reject(reason);
+        });
+      };
+    }
+  });
+
+  // node_modules/axios/lib/core/mergeConfig.js
+  var require_mergeConfig = __commonJS({
+    "node_modules/axios/lib/core/mergeConfig.js"(exports, module) {
+      "use strict";
+      var utils = require_utils();
+      module.exports = function mergeConfig(config1, config2) {
+        config2 = config2 || {};
+        var config = {};
+        function getMergedValue(target, source) {
+          if (utils.isPlainObject(target) && utils.isPlainObject(source)) {
+            return utils.merge(target, source);
+          } else if (utils.isPlainObject(source)) {
+            return utils.merge({}, source);
+          } else if (utils.isArray(source)) {
+            return source.slice();
+          }
+          return source;
+        }
+        function mergeDeepProperties(prop) {
+          if (!utils.isUndefined(config2[prop])) {
+            return getMergedValue(config1[prop], config2[prop]);
+          } else if (!utils.isUndefined(config1[prop])) {
+            return getMergedValue(void 0, config1[prop]);
+          }
+        }
+        function valueFromConfig2(prop) {
+          if (!utils.isUndefined(config2[prop])) {
+            return getMergedValue(void 0, config2[prop]);
+          }
+        }
+        function defaultToConfig2(prop) {
+          if (!utils.isUndefined(config2[prop])) {
+            return getMergedValue(void 0, config2[prop]);
+          } else if (!utils.isUndefined(config1[prop])) {
+            return getMergedValue(void 0, config1[prop]);
+          }
+        }
+        function mergeDirectKeys(prop) {
+          if (prop in config2) {
+            return getMergedValue(config1[prop], config2[prop]);
+          } else if (prop in config1) {
+            return getMergedValue(void 0, config1[prop]);
+          }
+        }
+        var mergeMap = {
+          "url": valueFromConfig2,
+          "method": valueFromConfig2,
+          "data": valueFromConfig2,
+          "baseURL": defaultToConfig2,
+          "transformRequest": defaultToConfig2,
+          "transformResponse": defaultToConfig2,
+          "paramsSerializer": defaultToConfig2,
+          "timeout": defaultToConfig2,
+          "timeoutMessage": defaultToConfig2,
+          "withCredentials": defaultToConfig2,
+          "adapter": defaultToConfig2,
+          "responseType": defaultToConfig2,
+          "xsrfCookieName": defaultToConfig2,
+          "xsrfHeaderName": defaultToConfig2,
+          "onUploadProgress": defaultToConfig2,
+          "onDownloadProgress": defaultToConfig2,
+          "decompress": defaultToConfig2,
+          "maxContentLength": defaultToConfig2,
+          "maxBodyLength": defaultToConfig2,
+          "transport": defaultToConfig2,
+          "httpAgent": defaultToConfig2,
+          "httpsAgent": defaultToConfig2,
+          "cancelToken": defaultToConfig2,
+          "socketPath": defaultToConfig2,
+          "responseEncoding": defaultToConfig2,
+          "validateStatus": mergeDirectKeys
+        };
+        utils.forEach(Object.keys(config1).concat(Object.keys(config2)), function computeConfigValue(prop) {
+          var merge = mergeMap[prop] || mergeDeepProperties;
+          var configValue = merge(prop);
+          utils.isUndefined(configValue) && merge !== mergeDirectKeys || (config[prop] = configValue);
+        });
+        return config;
+      };
+    }
+  });
+
+  // node_modules/axios/lib/env/data.js
+  var require_data = __commonJS({
+    "node_modules/axios/lib/env/data.js"(exports, module) {
+      module.exports = {
+        "version": "0.26.0"
+      };
+    }
+  });
+
+  // node_modules/axios/lib/helpers/validator.js
+  var require_validator = __commonJS({
+    "node_modules/axios/lib/helpers/validator.js"(exports, module) {
+      "use strict";
+      var VERSION = require_data().version;
+      var validators = {};
+      ["object", "boolean", "number", "function", "string", "symbol"].forEach(function(type, i) {
+        validators[type] = function validator(thing) {
+          return typeof thing === type || "a" + (i < 1 ? "n " : " ") + type;
+        };
+      });
+      var deprecatedWarnings = {};
+      validators.transitional = function transitional(validator, version, message) {
+        function formatMessage(opt, desc) {
+          return "[Axios v" + VERSION + "] Transitional option '" + opt + "'" + desc + (message ? ". " + message : "");
+        }
+        return function(value, opt, opts) {
+          if (validator === false) {
+            throw new Error(formatMessage(opt, " has been removed" + (version ? " in " + version : "")));
+          }
+          if (version && !deprecatedWarnings[opt]) {
+            deprecatedWarnings[opt] = true;
+            console.warn(formatMessage(opt, " has been deprecated since v" + version + " and will be removed in the near future"));
+          }
+          return validator ? validator(value, opt, opts) : true;
+        };
+      };
+      function assertOptions(options, schema, allowUnknown) {
+        if (typeof options !== "object") {
+          throw new TypeError("options must be an object");
+        }
+        var keys = Object.keys(options);
+        var i = keys.length;
+        while (i-- > 0) {
+          var opt = keys[i];
+          var validator = schema[opt];
+          if (validator) {
+            var value = options[opt];
+            var result = value === void 0 || validator(value, opt, options);
+            if (result !== true) {
+              throw new TypeError("option " + opt + " must be " + result);
+            }
+            continue;
+          }
+          if (allowUnknown !== true) {
+            throw Error("Unknown option " + opt);
+          }
+        }
+      }
+      module.exports = {
+        assertOptions,
+        validators
+      };
+    }
+  });
+
+  // node_modules/axios/lib/core/Axios.js
+  var require_Axios = __commonJS({
+    "node_modules/axios/lib/core/Axios.js"(exports, module) {
+      "use strict";
+      var utils = require_utils();
+      var buildURL = require_buildURL();
+      var InterceptorManager = require_InterceptorManager();
+      var dispatchRequest = require_dispatchRequest();
+      var mergeConfig = require_mergeConfig();
+      var validator = require_validator();
+      var validators = validator.validators;
+      function Axios(instanceConfig) {
+        this.defaults = instanceConfig;
+        this.interceptors = {
+          request: new InterceptorManager(),
+          response: new InterceptorManager()
+        };
+      }
+      Axios.prototype.request = function request(configOrUrl, config) {
+        if (typeof configOrUrl === "string") {
+          config = config || {};
+          config.url = configOrUrl;
+        } else {
+          config = configOrUrl || {};
+        }
+        config = mergeConfig(this.defaults, config);
+        if (config.method) {
+          config.method = config.method.toLowerCase();
+        } else if (this.defaults.method) {
+          config.method = this.defaults.method.toLowerCase();
+        } else {
+          config.method = "get";
+        }
+        var transitional = config.transitional;
+        if (transitional !== void 0) {
+          validator.assertOptions(transitional, {
+            silentJSONParsing: validators.transitional(validators.boolean),
+            forcedJSONParsing: validators.transitional(validators.boolean),
+            clarifyTimeoutError: validators.transitional(validators.boolean)
+          }, false);
+        }
+        var requestInterceptorChain = [];
+        var synchronousRequestInterceptors = true;
+        this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
+          if (typeof interceptor.runWhen === "function" && interceptor.runWhen(config) === false) {
+            return;
+          }
+          synchronousRequestInterceptors = synchronousRequestInterceptors && interceptor.synchronous;
+          requestInterceptorChain.unshift(interceptor.fulfilled, interceptor.rejected);
+        });
+        var responseInterceptorChain = [];
+        this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
+          responseInterceptorChain.push(interceptor.fulfilled, interceptor.rejected);
+        });
+        var promise;
+        if (!synchronousRequestInterceptors) {
+          var chain = [dispatchRequest, void 0];
+          Array.prototype.unshift.apply(chain, requestInterceptorChain);
+          chain = chain.concat(responseInterceptorChain);
+          promise = Promise.resolve(config);
+          while (chain.length) {
+            promise = promise.then(chain.shift(), chain.shift());
+          }
+          return promise;
+        }
+        var newConfig = config;
+        while (requestInterceptorChain.length) {
+          var onFulfilled = requestInterceptorChain.shift();
+          var onRejected = requestInterceptorChain.shift();
+          try {
+            newConfig = onFulfilled(newConfig);
+          } catch (error) {
+            onRejected(error);
+            break;
+          }
+        }
+        try {
+          promise = dispatchRequest(newConfig);
+        } catch (error) {
+          return Promise.reject(error);
+        }
+        while (responseInterceptorChain.length) {
+          promise = promise.then(responseInterceptorChain.shift(), responseInterceptorChain.shift());
+        }
+        return promise;
+      };
+      Axios.prototype.getUri = function getUri(config) {
+        config = mergeConfig(this.defaults, config);
+        return buildURL(config.url, config.params, config.paramsSerializer).replace(/^\?/, "");
+      };
+      utils.forEach(["delete", "get", "head", "options"], function forEachMethodNoData(method) {
+        Axios.prototype[method] = function(url, config) {
+          return this.request(mergeConfig(config || {}, {
+            method,
+            url,
+            data: (config || {}).data
+          }));
+        };
+      });
+      utils.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
+        Axios.prototype[method] = function(url, data, config) {
+          return this.request(mergeConfig(config || {}, {
+            method,
+            url,
+            data
+          }));
+        };
+      });
+      module.exports = Axios;
+    }
+  });
+
+  // node_modules/axios/lib/cancel/CancelToken.js
+  var require_CancelToken = __commonJS({
+    "node_modules/axios/lib/cancel/CancelToken.js"(exports, module) {
+      "use strict";
+      var Cancel = require_Cancel();
+      function CancelToken(executor) {
+        if (typeof executor !== "function") {
+          throw new TypeError("executor must be a function.");
+        }
+        var resolvePromise;
+        this.promise = new Promise(function promiseExecutor(resolve) {
+          resolvePromise = resolve;
+        });
+        var token = this;
+        this.promise.then(function(cancel) {
+          if (!token._listeners)
+            return;
+          var i;
+          var l = token._listeners.length;
+          for (i = 0; i < l; i++) {
+            token._listeners[i](cancel);
+          }
+          token._listeners = null;
+        });
+        this.promise.then = function(onfulfilled) {
+          var _resolve;
+          var promise = new Promise(function(resolve) {
+            token.subscribe(resolve);
+            _resolve = resolve;
+          }).then(onfulfilled);
+          promise.cancel = function reject() {
+            token.unsubscribe(_resolve);
+          };
+          return promise;
+        };
+        executor(function cancel(message) {
+          if (token.reason) {
+            return;
+          }
+          token.reason = new Cancel(message);
+          resolvePromise(token.reason);
+        });
+      }
+      CancelToken.prototype.throwIfRequested = function throwIfRequested() {
+        if (this.reason) {
+          throw this.reason;
+        }
+      };
+      CancelToken.prototype.subscribe = function subscribe(listener) {
+        if (this.reason) {
+          listener(this.reason);
+          return;
+        }
+        if (this._listeners) {
+          this._listeners.push(listener);
+        } else {
+          this._listeners = [listener];
+        }
+      };
+      CancelToken.prototype.unsubscribe = function unsubscribe(listener) {
+        if (!this._listeners) {
+          return;
+        }
+        var index = this._listeners.indexOf(listener);
+        if (index !== -1) {
+          this._listeners.splice(index, 1);
+        }
+      };
+      CancelToken.source = function source() {
+        var cancel;
+        var token = new CancelToken(function executor(c) {
+          cancel = c;
+        });
+        return {
+          token,
+          cancel
+        };
+      };
+      module.exports = CancelToken;
+    }
+  });
+
+  // node_modules/axios/lib/helpers/spread.js
+  var require_spread = __commonJS({
+    "node_modules/axios/lib/helpers/spread.js"(exports, module) {
+      "use strict";
+      module.exports = function spread(callback) {
+        return function wrap(arr) {
+          return callback.apply(null, arr);
+        };
+      };
+    }
+  });
+
+  // node_modules/axios/lib/helpers/isAxiosError.js
+  var require_isAxiosError = __commonJS({
+    "node_modules/axios/lib/helpers/isAxiosError.js"(exports, module) {
+      "use strict";
+      var utils = require_utils();
+      module.exports = function isAxiosError(payload) {
+        return utils.isObject(payload) && payload.isAxiosError === true;
+      };
+    }
+  });
+
+  // node_modules/axios/lib/axios.js
+  var require_axios = __commonJS({
+    "node_modules/axios/lib/axios.js"(exports, module) {
+      "use strict";
+      var utils = require_utils();
+      var bind = require_bind();
+      var Axios = require_Axios();
+      var mergeConfig = require_mergeConfig();
+      var defaults = require_defaults();
+      function createInstance(defaultConfig) {
+        var context = new Axios(defaultConfig);
+        var instance = bind(Axios.prototype.request, context);
+        utils.extend(instance, Axios.prototype, context);
+        utils.extend(instance, context);
+        instance.create = function create(instanceConfig) {
+          return createInstance(mergeConfig(defaultConfig, instanceConfig));
+        };
+        return instance;
+      }
+      var axios2 = createInstance(defaults);
+      axios2.Axios = Axios;
+      axios2.Cancel = require_Cancel();
+      axios2.CancelToken = require_CancelToken();
+      axios2.isCancel = require_isCancel();
+      axios2.VERSION = require_data().version;
+      axios2.all = function all(promises) {
+        return Promise.all(promises);
+      };
+      axios2.spread = require_spread();
+      axios2.isAxiosError = require_isAxiosError();
+      module.exports = axios2;
+      module.exports.default = axios2;
+    }
+  });
+
+  // node_modules/axios/index.js
+  var require_axios2 = __commonJS({
+    "node_modules/axios/index.js"(exports, module) {
+      module.exports = require_axios();
+    }
+  });
+
+  // src/lib/js-confetti.js
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+  function _defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor)
+        descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+  function _createClass(Constructor, protoProps, staticProps) {
+    if (protoProps)
+      _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps)
+      _defineProperties(Constructor, staticProps);
+    return Constructor;
+  }
+  function normalizeComputedStyleValue(string) {
+    return +string.replace(/px/, "");
+  }
+  function fixDPR(canvas) {
+    var dpr = window.devicePixelRatio;
+    var computedStyles = getComputedStyle(canvas);
+    var width = normalizeComputedStyleValue(computedStyles.getPropertyValue("width"));
+    var height = normalizeComputedStyleValue(computedStyles.getPropertyValue("height"));
+    canvas.setAttribute("width", (width * dpr).toString());
+    canvas.setAttribute("height", (height * dpr).toString());
+  }
+  function generateRandomNumber(min, max) {
+    var fractionDigits = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : 0;
+    var randomNumber = Math.random() * (max - min) + min;
+    return Math.floor(randomNumber * Math.pow(10, fractionDigits)) / Math.pow(10, fractionDigits);
+  }
+  function generateRandomArrayElement(arr) {
+    return arr[generateRandomNumber(0, arr.length)];
+  }
+  var FREE_FALLING_OBJECT_ACCELERATION = 125e-5;
+  var MIN_DRAG_FORCE_COEFFICIENT = 5e-4;
+  var MAX_DRAG_FORCE_COEFFICIENT = 9e-4;
+  var ROTATION_SLOWDOWN_ACCELERATION = 1e-5;
+  var INITIAL_SHAPE_RADIUS = 6;
+  var INITIAL_EMOJI_SIZE = 80;
+  var MIN_INITIAL_CONFETTI_SPEED = 0.9;
+  var MAX_INITIAL_CONFETTI_SPEED = 1.7;
+  var MIN_FINAL_X_CONFETTI_SPEED = 0.2;
+  var MAX_FINAL_X_CONFETTI_SPEED = 0.6;
+  var MIN_INITIAL_ROTATION_SPEED = 0.03;
+  var MAX_INITIAL_ROTATION_SPEED = 0.07;
+  var MIN_CONFETTI_ANGLE = 15;
+  var MAX_CONFETTI_ANGLE = 82;
+  var MAX_CONFETTI_POSITION_SHIFT = 150;
+  var SHAPE_VISIBILITY_TRESHOLD = 100;
+  var DEFAULT_CONFETTI_NUMBER = 250;
+  var DEFAULT_EMOJIS_NUMBER = 40;
+  var DEFAULT_CONFETTI_COLORS = ["#fcf403", "#62fc03", "#f4fc03", "#03e7fc", "#03fca5", "#a503fc", "#fc03ad", "#fc03c2"];
+  function getWindowWidthCoefficient(canvasWidth) {
+    var HD_SCREEN_WIDTH = 1920;
+    return Math.log(canvasWidth) / Math.log(HD_SCREEN_WIDTH);
+  }
+  var ConfettiShape = /* @__PURE__ */ function() {
+    function ConfettiShape2(args) {
+      _classCallCheck(this, ConfettiShape2);
+      var initialPosition = args.initialPosition, direction = args.direction, confettiRadius = args.confettiRadius, confettiColors = args.confettiColors, emojis = args.emojis, emojiSize = args.emojiSize, canvasWidth = args.canvasWidth;
+      args.images;
+      var resources = args.resources;
+      var randomConfettiSpeed = generateRandomNumber(MIN_INITIAL_CONFETTI_SPEED, MAX_INITIAL_CONFETTI_SPEED, 3);
+      var initialSpeed = randomConfettiSpeed * getWindowWidthCoefficient(canvasWidth);
+      this.confettiSpeed = {
+        x: initialSpeed,
+        y: initialSpeed
+      };
+      this.finalConfettiSpeedX = generateRandomNumber(MIN_FINAL_X_CONFETTI_SPEED, MAX_FINAL_X_CONFETTI_SPEED, 3);
+      this.rotationSpeed = emojis.length || resources.length ? 0.01 : generateRandomNumber(MIN_INITIAL_ROTATION_SPEED, MAX_INITIAL_ROTATION_SPEED, 3) * getWindowWidthCoefficient(canvasWidth);
+      this.dragForceCoefficient = generateRandomNumber(MIN_DRAG_FORCE_COEFFICIENT, MAX_DRAG_FORCE_COEFFICIENT, 6);
+      this.radius = {
+        x: confettiRadius,
+        y: confettiRadius
+      };
+      this.initialRadius = confettiRadius;
+      this.rotationAngle = direction === "left" ? generateRandomNumber(0, 0.2, 3) : generateRandomNumber(-0.2, 0, 3);
+      this.emojiSize = emojiSize;
+      this.emojiRotationAngle = generateRandomNumber(0, 2 * Math.PI);
+      this.radiusYUpdateDirection = "down";
+      var angle = direction === "left" ? generateRandomNumber(MAX_CONFETTI_ANGLE, MIN_CONFETTI_ANGLE) * Math.PI / 180 : generateRandomNumber(-MIN_CONFETTI_ANGLE, -MAX_CONFETTI_ANGLE) * Math.PI / 180;
+      this.absCos = Math.abs(Math.cos(angle));
+      this.absSin = Math.abs(Math.sin(angle));
+      var positionShift = generateRandomNumber(-MAX_CONFETTI_POSITION_SHIFT, 0);
+      var shiftedInitialPosition = {
+        x: initialPosition.x + (direction === "left" ? -positionShift : positionShift) * this.absCos,
+        y: initialPosition.y - positionShift * this.absSin
+      };
+      this.currentPosition = Object.assign({}, shiftedInitialPosition);
+      this.initialPosition = Object.assign({}, shiftedInitialPosition);
+      this.color = emojis.length || resources.length ? null : generateRandomArrayElement(confettiColors);
+      this.emoji = emojis.length ? generateRandomArrayElement(emojis) : null;
+      this.image = resources.length ? generateRandomArrayElement(resources) : null;
+      this.createdAt = new Date().getTime();
+      this.direction = direction;
+    }
+    _createClass(ConfettiShape2, [{
+      key: "draw",
+      value: function draw(canvasContext) {
+        var currentPosition = this.currentPosition, radius = this.radius, color = this.color, emoji = this.emoji, rotationAngle = this.rotationAngle, emojiRotationAngle = this.emojiRotationAngle, emojiSize = this.emojiSize, image = this.image;
+        var dpr = window.devicePixelRatio;
+        if (color) {
+          canvasContext.fillStyle = color;
+          canvasContext.beginPath();
+          canvasContext.ellipse(currentPosition.x * dpr, currentPosition.y * dpr, radius.x * dpr, radius.y * dpr, rotationAngle, 0, 2 * Math.PI);
+          canvasContext.fill();
+        } else if (image) {
+          canvasContext.save();
+          canvasContext.translate(dpr * currentPosition.x, dpr * currentPosition.y);
+          canvasContext.rotate(emojiRotationAngle);
+          canvasContext.drawImage(image, -image.width / 2, -image.height / 2, image.width, image.height);
+          canvasContext.restore();
+        } else if (emoji) {
+          canvasContext.font = "".concat(emojiSize, "px serif");
+          canvasContext.save();
+          canvasContext.translate(dpr * currentPosition.x, dpr * currentPosition.y);
+          canvasContext.rotate(emojiRotationAngle);
+          canvasContext.textAlign = "center";
+          canvasContext.fillText(emoji, 0, 0);
+          canvasContext.restore();
+        }
+      }
+    }, {
+      key: "updatePosition",
+      value: function updatePosition(iterationTimeDelta, currentTime) {
+        var confettiSpeed = this.confettiSpeed, dragForceCoefficient = this.dragForceCoefficient, finalConfettiSpeedX = this.finalConfettiSpeedX, radiusYUpdateDirection = this.radiusYUpdateDirection, rotationSpeed = this.rotationSpeed, createdAt = this.createdAt, direction = this.direction;
+        var timeDeltaSinceCreation = currentTime - createdAt;
+        if (confettiSpeed.x > finalConfettiSpeedX)
+          this.confettiSpeed.x -= dragForceCoefficient * iterationTimeDelta;
+        this.currentPosition.x += confettiSpeed.x * (direction === "left" ? -this.absCos : this.absCos) * iterationTimeDelta;
+        this.currentPosition.y = this.initialPosition.y - confettiSpeed.y * this.absSin * timeDeltaSinceCreation + FREE_FALLING_OBJECT_ACCELERATION * Math.pow(timeDeltaSinceCreation, 2) / 2;
+        this.rotationSpeed -= this.emoji || this.image ? 1e-4 : ROTATION_SLOWDOWN_ACCELERATION * iterationTimeDelta;
+        if (this.rotationSpeed < 0)
+          this.rotationSpeed = 0;
+        if (this.emoji || this.image) {
+          this.emojiRotationAngle += this.rotationSpeed * iterationTimeDelta % (2 * Math.PI);
+          return;
+        }
+        if (radiusYUpdateDirection === "down") {
+          this.radius.y -= iterationTimeDelta * rotationSpeed;
+          if (this.radius.y <= 0) {
+            this.radius.y = 0;
+            this.radiusYUpdateDirection = "up";
+          }
+        } else {
+          this.radius.y += iterationTimeDelta * rotationSpeed;
+          if (this.radius.y >= this.initialRadius) {
+            this.radius.y = this.initialRadius;
+            this.radiusYUpdateDirection = "down";
+          }
+        }
+      }
+    }, {
+      key: "getIsVisibleOnCanvas",
+      value: function getIsVisibleOnCanvas(canvasHeight) {
+        return this.currentPosition.y < canvasHeight + SHAPE_VISIBILITY_TRESHOLD;
+      }
+    }]);
+    return ConfettiShape2;
+  }();
+  function createCanvas() {
+    var canvas = document.createElement("canvas");
+    canvas.style.position = "fixed";
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    canvas.style.top = "0";
+    canvas.style.left = "0";
+    canvas.style.zIndex = "1000";
+    canvas.style.pointerEvents = "none";
+    document.body.appendChild(canvas);
+    return canvas;
+  }
+  function normalizeConfettiConfig(confettiConfig) {
+    var _confettiConfig$confe = confettiConfig.confettiRadius, confettiRadius = _confettiConfig$confe === void 0 ? INITIAL_SHAPE_RADIUS : _confettiConfig$confe, _confettiConfig$confe2 = confettiConfig.confettiNumber, confettiNumber = _confettiConfig$confe2 === void 0 ? confettiConfig.confettiesNumber || (confettiConfig.emojis ? DEFAULT_EMOJIS_NUMBER : DEFAULT_CONFETTI_NUMBER) : _confettiConfig$confe2, _confettiConfig$confe3 = confettiConfig.confettiColors, confettiColors = _confettiConfig$confe3 === void 0 ? DEFAULT_CONFETTI_COLORS : _confettiConfig$confe3, _confettiConfig$emoji = confettiConfig.emojis, emojis = _confettiConfig$emoji === void 0 ? confettiConfig.emojies || [] : _confettiConfig$emoji, _confettiConfig$emoji2 = confettiConfig.emojiSize, emojiSize = _confettiConfig$emoji2 === void 0 ? INITIAL_EMOJI_SIZE : _confettiConfig$emoji2, _confettiConfig$image = confettiConfig.images, images = _confettiConfig$image === void 0 ? [] : _confettiConfig$image;
+    if (confettiConfig.emojies)
+      console.error("emojies argument is deprecated, please use emojis instead");
+    if (confettiConfig.confettiesNumber)
+      console.error("confettiesNumber argument is deprecated, please use confettiNumber instead");
+    return {
+      confettiRadius,
+      confettiNumber,
+      confettiColors,
+      emojis,
+      emojiSize,
+      images
+    };
+  }
+  var ConfettiBatch = /* @__PURE__ */ function() {
+    function ConfettiBatch2(canvasContext) {
+      var _this = this;
+      _classCallCheck(this, ConfettiBatch2);
+      this.canvasContext = canvasContext;
+      this.shapes = [];
+      this.promise = new Promise(function(completionCallback) {
+        return _this.resolvePromise = completionCallback;
+      });
+    }
+    _createClass(ConfettiBatch2, [{
+      key: "getBatchCompletePromise",
+      value: function getBatchCompletePromise() {
+        return this.promise;
+      }
+    }, {
+      key: "addShapes",
+      value: function addShapes() {
+        var _this$shapes;
+        (_this$shapes = this.shapes).push.apply(_this$shapes, arguments);
+      }
+    }, {
+      key: "complete",
+      value: function complete() {
+        var _a;
+        if (this.shapes.length) {
+          return false;
+        }
+        (_a = this.resolvePromise) === null || _a === void 0 ? void 0 : _a.call(this);
+        return true;
+      }
+    }, {
+      key: "processShapes",
+      value: function processShapes(time, canvasHeight, cleanupInvisibleShapes) {
+        var _this2 = this;
+        var timeDelta = time.timeDelta, currentTime = time.currentTime;
+        this.shapes = this.shapes.filter(function(shape) {
+          shape.updatePosition(timeDelta, currentTime);
+          shape.draw(_this2.canvasContext);
+          if (!cleanupInvisibleShapes) {
+            return true;
+          }
+          return shape.getIsVisibleOnCanvas(canvasHeight);
+        });
+      }
+    }]);
+    return ConfettiBatch2;
+  }();
+  var JSConfetti = /* @__PURE__ */ function() {
+    function JSConfetti2() {
+      var jsConfettiConfig = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
+      _classCallCheck(this, JSConfetti2);
+      this.activeConfettiBatches = [];
+      this.canvas = jsConfettiConfig.canvas || createCanvas();
+      this.canvasContext = this.canvas.getContext("2d");
+      this.requestAnimationFrameRequested = false;
+      this.lastUpdated = new Date().getTime();
+      this.iterationIndex = 0;
+      this.loop = this.loop.bind(this);
+      requestAnimationFrame(this.loop);
+    }
+    _createClass(JSConfetti2, [{
+      key: "loop",
+      value: function loop() {
+        this.requestAnimationFrameRequested = false;
+        fixDPR(this.canvas);
+        var currentTime = new Date().getTime();
+        var timeDelta = currentTime - this.lastUpdated;
+        var canvasHeight = this.canvas.offsetHeight;
+        var cleanupInvisibleShapes = this.iterationIndex % 10 === 0;
+        this.activeConfettiBatches = this.activeConfettiBatches.filter(function(batch) {
+          batch.processShapes({
+            timeDelta,
+            currentTime
+          }, canvasHeight, cleanupInvisibleShapes);
+          if (!cleanupInvisibleShapes) {
+            return true;
+          }
+          return !batch.complete();
+        });
+        this.iterationIndex++;
+        this.queueAnimationFrameIfNeeded(currentTime);
+      }
+    }, {
+      key: "queueAnimationFrameIfNeeded",
+      value: function queueAnimationFrameIfNeeded(currentTime) {
+        if (this.requestAnimationFrameRequested) {
+          return;
+        }
+        if (this.activeConfettiBatches.length < 1) {
+          return;
+        }
+        this.requestAnimationFrameRequested = true;
+        this.lastUpdated = currentTime || new Date().getTime();
+        requestAnimationFrame(this.loop);
+      }
+    }, {
+      key: "_load",
+      value: function _load(url) {
+        return new Promise(function(resolve, reject) {
+          var img = new Image();
+          img.onload = function() {
+            resolve(img);
+          };
+          img.onerror = function(e) {
+            reject(e);
+          };
+          img.src = url;
+          if (img.complete) {
+            img.onload = null;
+            resolve(img);
+          }
+        });
+      }
+    }, {
+      key: "_loadImages",
+      value: function _loadImages(images) {
+        var _this3 = this;
+        if (images.length === 0)
+          return Promise.resolve([]);
+        var promises = images.map(function(src) {
+          return _this3._load(src);
+        });
+        return Promise.all(promises);
+      }
+    }, {
+      key: "addConfetti",
+      value: function addConfetti() {
+        var _this4 = this;
+        var confettiConfig = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
+        var _normalizeConfettiCon = normalizeConfettiConfig(confettiConfig), confettiRadius = _normalizeConfettiCon.confettiRadius, confettiNumber = _normalizeConfettiCon.confettiNumber, confettiColors = _normalizeConfettiCon.confettiColors, emojis = _normalizeConfettiCon.emojis, emojiSize = _normalizeConfettiCon.emojiSize, images = _normalizeConfettiCon.images;
+        var canvasRect = this.canvas.getBoundingClientRect();
+        var canvasWidth = canvasRect.width;
+        var canvasHeight = canvasRect.height;
+        var yPosition = canvasHeight * 5 / 7;
+        var leftConfettiPosition = {
+          x: 0,
+          y: yPosition
+        };
+        var rightConfettiPosition = {
+          x: canvasWidth,
+          y: yPosition
+        };
+        var confettiGroup = new ConfettiBatch(this.canvasContext);
+        this._loadImages(images).then(function(resources) {
+          for (var i = 0; i < confettiNumber / 2; i++) {
+            var confettiOnTheRight = new ConfettiShape({
+              initialPosition: leftConfettiPosition,
+              direction: "right",
+              confettiRadius,
+              confettiColors,
+              confettiNumber,
+              emojis,
+              emojiSize,
+              canvasWidth,
+              images,
+              resources
+            });
+            var confettiOnTheLeft = new ConfettiShape({
+              initialPosition: rightConfettiPosition,
+              direction: "left",
+              confettiRadius,
+              confettiColors,
+              confettiNumber,
+              emojis,
+              emojiSize,
+              canvasWidth,
+              images,
+              resources
+            });
+            confettiGroup.addShapes(confettiOnTheRight, confettiOnTheLeft);
+          }
+          _this4.activeConfettiBatches.push(confettiGroup);
+          _this4.queueAnimationFrameIfNeeded();
+        });
+        return confettiGroup.getBatchCompletePromise();
+      }
+    }]);
+    return JSConfetti2;
+  }();
+  var js_confetti_default = JSConfetti;
+
+  // src/modules/popper.ts
+  var Popper = class {
+    constructor(_op = {}) {
+      this.confetti = new js_confetti_default({
+        canvas: document.getElementById("popper")
+      });
+      this.options = {
+        pattern: [/8+|👏+/gim]
+      };
+      this._confetti = async () => {
+        return this.confetti.addConfetti(this.options);
+      };
+      Object.assign(this.options, _op);
+      document.body.addEventListener("click", () => this._confetti());
+    }
+    verify(comments) {
+      const total = comments.reduce((count, comment) => {
+        return this.options.pattern.reduce((c, ptt) => {
+          if (typeof ptt === "string") {
+            ptt = new RegExp(ptt, "igm");
+          }
+          console.log(comment.data.comment, ptt);
+          if (comment.data.comment.search(ptt) !== -1) {
+            return c + 1;
+          }
+          return c;
+        }, count);
+      }, 0);
+      for (let i = 0; i < Math.min(total, 10); i++) {
+        setTimeout(this._confetti, i * 200);
+      }
+    }
+  };
+
+  // src/modules/dropper.ts
+  var import_matter_js = __toESM(require_matter());
+  var WALL_SIZE = 30;
+  var WALL_OPTION = {
+    isStatic: true,
+    render: {
+      fillStyle: "transparent"
+    }
+  };
+  var DEFAULT_CONFIG = {
+    pattern: [/w/gim],
+    lifeTime: 3e3,
+    textures: [],
+    magnification: 3,
+    maxItems: 50
+  };
+  var DropItem = class {
+    constructor(x, y, lifeTime, texture, callback) {
+      this.x = x;
+      this.y = y;
+      this.lifeTime = lifeTime;
+      this.texture = texture;
+      this.callback = callback;
+      this._item = import_matter_js.Bodies.circle(x, y, texture.size, {
+        restitution: 0.9,
+        render: {
+          sprite: {
+            texture: texture.src,
+            xScale: texture.xScale || 1,
+            yScale: texture.yScale || 1
+          }
+        }
+      });
+      this._timer = setTimeout(() => {
+        callback(this._item);
+      }, lifeTime);
+    }
+    get body() {
+      return this._item;
+    }
+    remove() {
+      clearTimeout(this._timer);
+      this.callback(this._item);
+    }
+  };
+  var Dropper = class {
+    constructor(_op) {
+      this.stageWidth = window.innerWidth;
+      this.stageHeight = window.innerHeight;
+      this.engine = import_matter_js.Engine.create();
+      this.options = Object.assign({}, DEFAULT_CONFIG);
+      this._items = [];
+      Object.assign(this.options, _op);
+      const canvas = document.getElementById("dropper");
+      this.render = import_matter_js.Render.create({
+        canvas,
+        engine: this.engine,
+        options: {
+          background: "transparent",
+          width: this.stageWidth,
+          height: this.stageHeight,
+          wireframes: false
+        }
+      });
+      const leftWall = import_matter_js.Bodies.rectangle(-(WALL_SIZE / 2 - 1), this.stageHeight / 2, WALL_SIZE, this.stageHeight, WALL_OPTION);
+      const rightWall = import_matter_js.Bodies.rectangle(this.stageWidth + WALL_SIZE / 2 - 1, this.stageHeight / 2, WALL_SIZE, this.stageHeight, WALL_OPTION);
+      const ground = import_matter_js.Bodies.rectangle(this.stageWidth / 2, this.stageHeight + WALL_SIZE / 2 - 1, this.stageWidth, WALL_SIZE, WALL_OPTION);
+      import_matter_js.Composite.add(this.engine.world, [ground, leftWall, rightWall]);
+      import_matter_js.Render.run(this.render);
+      const runner = import_matter_js.Runner.create();
+      import_matter_js.Runner.run(runner, this.engine);
+      document.body.addEventListener("click", () => this.drop());
+    }
+    drop() {
+      const x = Math.random() * this.stageWidth;
+      const y = Math.random() * this.stageHeight / 3;
+      const texture = this.options.textures[Math.floor(Math.random() * this.options.textures.length)];
+      const item = new DropItem(x, y, this.options.lifeTime || DEFAULT_CONFIG.lifeTime, texture, (body) => {
+        import_matter_js.Composite.remove(this.engine.world, body);
+      });
+      this._items.unshift(item);
+      import_matter_js.Composite.add(this.engine.world, [item.body]);
+      const max = this.options.maxItems || DEFAULT_CONFIG.maxItems;
+      if (this._items.length > max) {
+        const deleted = this._items.splice(max, this._items.length);
+        deleted.forEach((d) => {
+          d.remove();
+        });
+      }
+    }
+    verify(comments) {
+      const total = comments.reduce((count, comment) => {
+        return this.options.pattern.reduce((c, ptt) => {
+          if (typeof ptt === "string") {
+            ptt = new RegExp(ptt, "igm");
+          }
+          const len = comment.data.comment.split(ptt).length - 1;
+          return c + len;
+        }, count);
+      }, 0);
+      const mag = this.options.magnification || DEFAULT_CONFIG.magnification;
+      for (let i = 0; i < total * mag; i++) {
+        this.drop();
+      }
+    }
+  };
+
+  // src/sdk/sdk.ts
+  var import_axios = __toESM(require_axios2());
+  var ONE_SDK = {
+    _timer: -1,
+    _lastId: "",
+    _commentSubscribers: /* @__PURE__ */ new Map(),
+    _listenerSubscribers: /* @__PURE__ */ new Map(),
+    init(jsonPath) {
+      const request = () => {
+        import_axios.default.get(jsonPath).then((res) => res.data).then(async (res) => {
+          const { comments, listeners } = res;
+          let index = comments.findIndex((comment) => {
+            return this._lastId === comment.data.id;
+          });
+          if (index === -1) {
+            index = 0;
+          }
+          const newComments = comments.slice(index + 1);
+          if (newComments.length !== 0) {
+            this._lastId = newComments[newComments.length - 1].data.id;
+            this._publishComment(newComments);
+          }
+          this._publishListener(listeners);
+          this._timer = setTimeout(request, 2e3);
+        }).catch((e) => {
+          console.error(e);
+          this._timer = setTimeout(request, 5e3);
+        });
+      };
+      request();
+    },
+    _publishComment(comments) {
+      this._commentSubscribers.forEach((subscriber) => {
+        subscriber(comments);
+      });
+    },
+    _publishListener(listeners) {
+      this._listenerSubscribers.forEach((subscriber) => {
+        subscriber(listeners);
+      });
+    },
+    subscribeComment(subscriber) {
+      this._commentSubscribers.set(subscriber, subscriber);
+    },
+    unsbscribeComment(subscriber) {
+      this._commentSubscribers.delete(subscriber);
+    },
+    subscribeListener(subscriber) {
+      this._listenerSubscribers.set(subscriber, subscriber);
+    },
+    unsubscribeListener(subscriber) {
+      this._listenerSubscribers.delete(subscriber);
+    }
+  };
+
+  // src/modules/notify.ts
+  var SAFE_MARGIN = 300;
+  var NotifyItem = class {
+    constructor(parent, conf, callback) {
+      this.parent = parent;
+      this.conf = conf;
+      this._element = document.createElement("div");
+      const img = new Image();
+      img.src = conf.image;
+      if (conf.width) {
+        img.width = conf.width;
+      }
+      if (conf.height) {
+        img.height = conf.height;
+      }
+      const x = conf.x || Math.floor(Math.random() * window.innerWidth - SAFE_MARGIN + SAFE_MARGIN / 2);
+      const y = conf.y || Math.floor(Math.random() * window.innerHeight - SAFE_MARGIN + SAFE_MARGIN / 2);
+      this._element.className = "notify";
+      this._element.style.transform = `translate(${x}px, ${y}px)`;
+      this._element.appendChild(img);
+      this.parent.appendChild(this._element);
+      this._timer = setTimeout(() => {
+        this.remove();
+      }, conf.lifeTime || 5e3);
+    }
+    remove() {
+      clearInterval(this._timer);
+      if (this._element) {
+        this.parent.removeChild(this._element);
+        this._element = null;
+      }
+    }
+  };
+  var Notify = class {
+    constructor(_op) {
+      this._options = {
+        items: [],
+        maxItems: 20
+      };
+      this._container = document.getElementById("notify");
+      this._items = [];
+      Object.assign(this._options, _op);
+      document.body.addEventListener("click", () => {
+        const item = this._options.items[Math.floor(Math.random() * this._options.items.length)];
+        this.showItem(item);
+      });
+    }
+    showItem(conf) {
+      const n = new NotifyItem(this._container, conf, (item) => {
+        item.remove();
+      });
+      if (conf.only) {
+        const index = this._items.findIndex((item) => item.conf === conf);
+        console.log(index);
+        if (index !== -1) {
+          const deleted = this._items.splice(index, 1);
+          deleted.forEach((d) => {
+            d.remove();
+          });
+        }
+      }
+      this._items.unshift(n);
+      const max = this._options.maxItems || 20;
+      if (this._items.length > max) {
+        const deleted = this._items.splice(max, this._items.length);
+        deleted.forEach((d) => {
+          d.remove();
+        });
+      }
+    }
+    verify(comments) {
+      const hits = [];
+      comments.forEach((comment) => {
+        const hit = this._options.items.find((item) => {
+          return item.pattern.some((ptt) => {
+            if (typeof ptt === "string") {
+              ptt = new RegExp(ptt, "gim");
+            }
+            if (comment.data.comment.search(ptt) !== -1) {
+              return true;
+            }
+            return false;
+          });
+        });
+        if (hit) {
+          hits.push(hit);
+        }
+      });
+      console.log(hits);
+      if (hits.length !== 0) {
+        hits.forEach((item) => {
+          this.showItem(item);
+        });
+      }
+    }
+  };
+
+  // src/index.ts
+  var DEFAULT_OPTIONS = {
+    jsonPath: "../../comment.json",
+    use: {
+      popper: true,
+      dropper: true,
+      notify: true
+    },
+    popperConfig: {
+      pattern: ["88", "\u{1F44F}"]
+    },
+    dropperConfig: {
+      pattern: ["ww", "\u8349"],
+      textures: [
+        {
+          src: "./paw.png",
+          size: 24,
+          xScale: 1.5,
+          yScale: 1.5
+        }
+      ]
+    },
+    notifyConfig: {
+      items: [],
+      maxItems: 20
+    }
+  };
+  function main(_op = {}) {
+    const options = Object.assign({}, DEFAULT_OPTIONS, _op);
+    const modules = [];
+    if (options.use.popper) {
+      const popper = new Popper(options.popperConfig);
+      modules.push(popper);
+    }
+    if (options.use.dropper) {
+      const dropper = new Dropper(options.dropperConfig);
+      modules.push(dropper);
+    }
+    if (options.use.notify) {
+      const notify = new Notify(options.notifyConfig);
+      modules.push(notify);
+    }
+    ONE_SDK.init(options.jsonPath);
+    ONE_SDK.subscribeComment((comments) => {
+      modules.forEach((mod) => {
+        mod.verify(comments);
+      });
+    });
+  }
+  window.WordParty = {
+    start: main
+  };
+})();
 /*!
  * matter-js 0.18.0 by @liabru
  * http://brm.io/matter-js/

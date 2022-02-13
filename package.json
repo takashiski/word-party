@@ -6,7 +6,9 @@
   "scripts": {
     "start": "esbuild src/index.ts --bundle --sourcemap --target=chrome80 --outfile=public/word-party.js --watch",
     "check": "tsc --noEmit",
-    "build": "esbuild src/index.ts --bundle --minify --target=chrome80 --outfile=public/word-party.js",
+    "build": "npm run build:normal && npm run build:min",
+    "build:normal": "esbuild src/index.ts --bundle --target=chrome80 --outfile=public/word-party.js",
+    "build:min": "esbuild src/index.ts --bundle --minify --target=chrome80 --outfile=public/word-party.min.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -21,6 +23,7 @@
     "path": "path-browserify"
   },
   "dependencies": {
+    "axios": "^0.26.0",
     "js-confetti": "^0.10.2",
     "matter-js": "^0.18.0"
   }

@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { Comment, CommentData, Listener } from '../common/types/Comment'
 type CommentSubscriber = (comments: Comment[]) => void
 type ListenerSubscriber = (listeners: Listener[]) => void
@@ -9,8 +10,8 @@ export const ONE_SDK = {
   _listenerSubscribers: new Map<ListenerSubscriber, ListenerSubscriber>(),
   init(jsonPath: string) {
     const request = () => {
-      fetch(jsonPath)
-        .then(res => res.json())
+      axios.get(jsonPath)
+        .then(res => res.data)
         .then(async(res: CommentData) => {
           const { comments, listeners } = res
           let index = comments.findIndex((comment) => {
