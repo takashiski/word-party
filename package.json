@@ -1,0 +1,27 @@
+{
+  "name": "onecomme-word-party",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/word-party.js",
+  "scripts": {
+    "start": "esbuild src/index.ts --bundle --sourcemap --target=chrome80 --outfile=public/word-party.js --watch",
+    "check": "tsc --noEmit",
+    "build": "esbuild src/index.ts --bundle --minify --target=chrome80 --outfile=public/word-party.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/matter-js": "^0.17.7",
+    "esbuild": "^0.14.21",
+    "typescript": "^4.5.5"
+  },
+  "browser": {
+    "path": "path-browserify"
+  },
+  "dependencies": {
+    "js-confetti": "^0.10.2",
+    "matter-js": "^0.18.0"
+  }
+}
