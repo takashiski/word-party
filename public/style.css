@@ -21,5 +21,5 @@ html, body {
   left: 0;
 }
 .notify img {
-  max-width: 120px;
+  max-width: 100%;
 }
