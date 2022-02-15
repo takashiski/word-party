@@ -1,1 +1,4 @@
 node_modules
+public/word-party.js
+public/word-party.min.js
+public/word-party.js.map
