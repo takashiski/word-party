@@ -32,7 +32,6 @@ export class Popper implements WordPartyModule {
         if (typeof ptt === 'string') {
           ptt = new RegExp(ptt, 'igm')
         }
-        console.log(comment.data.comment, ptt)
         if (comment.data.comment.search(ptt) !== -1) {
           return c + 1
         }

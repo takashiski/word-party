@@ -6206,7 +6206,6 @@
           if (typeof ptt === "string") {
             ptt = new RegExp(ptt, "igm");
           }
-          console.log(comment.data.comment, ptt);
           if (comment.data.comment.search(ptt) !== -1) {
             return c + 1;
           }
@@ -6396,8 +6395,8 @@
       if (conf.height) {
         img.height = conf.height;
       }
-      const x = conf.x || Math.floor(Math.random() * window.innerWidth - SAFE_MARGIN + SAFE_MARGIN / 2);
-      const y = conf.y || Math.floor(Math.random() * window.innerHeight - SAFE_MARGIN + SAFE_MARGIN / 2);
+      const x = typeof conf.x === "number" ? conf.x : this._getRandomPositionX(conf.x);
+      const y = typeof conf.y === "number" ? conf.y : this._getRandomPositionY(conf.y);
       this._element.className = "notify";
       this._element.style.transform = `translate(${x}px, ${y}px)`;
       this._element.appendChild(img);
@@ -6405,6 +6404,23 @@
       this._timer = setTimeout(() => {
         this.remove();
       }, conf.lifeTime || 5e3);
+    }
+    _getRandomPosition(range) {
+      if (range) {
+        return Math.random() * (range[1] - range[0]) + range[0];
+      }
+    }
+    _getRandomPositionX(range) {
+      if (range) {
+        return this._getRandomPosition(range);
+      }
+      return Math.floor(Math.random() * window.innerWidth - SAFE_MARGIN + SAFE_MARGIN / 2);
+    }
+    _getRandomPositionY(range) {
+      if (range) {
+        return this._getRandomPosition(range);
+      }
+      return Math.floor(Math.random() * window.innerHeight - SAFE_MARGIN + SAFE_MARGIN / 2);
     }
     remove() {
       clearInterval(this._timer);
@@ -6434,7 +6450,6 @@
       });
       if (conf.only) {
         const index = this._items.findIndex((item) => item.conf === conf);
-        console.log(index);
         if (index !== -1) {
           const deleted = this._items.splice(index, 1);
           deleted.forEach((d) => {
@@ -6469,7 +6484,6 @@
           hits.push(hit);
         }
       });
-      console.log(hits);
       if (hits.length !== 0) {
         hits.forEach((item) => {
           this.showItem(item);

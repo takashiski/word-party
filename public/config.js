@@ -43,9 +43,9 @@ window.WordParty.start({
     {
       pattern: ['❤'],
       image: './heart.gif',
-      y: 300,
-      x: 620,
-      only: true // 連続しても必ず１個しか表示したくないとき
+      y: 300, // 固定位置
+      x: [300, 620], // 300～620の間でランダム
+      // only: true // 連続しても必ず１個しか表示したくないとき
     }
   ],
     maxItems: 20

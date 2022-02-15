@@ -7,8 +7,8 @@ interface NotifyItemConfig {
   only?: boolean
   width?: number
   height?: number
-  x?: number
-  y?: number
+  x?: number | [number, number]
+  y?: number | [number, number]
 }
 export interface NitifyConfig {
   items: NotifyItemConfig[]
@@ -27,8 +27,9 @@ class NotifyItem {
     if (conf.height) {
       img.height = conf.height
     }
-    const x = conf.x || Math.floor(Math.random() * window.innerWidth - SAFE_MARGIN + SAFE_MARGIN / 2)
-    const y = conf.y || Math.floor(Math.random() * window.innerHeight - SAFE_MARGIN + SAFE_MARGIN / 2)
+    const x = typeof conf.x === 'number' ? conf.x : this._getRandomPositionX(conf.x)
+    const y = typeof conf.y === 'number' ? conf.y : this._getRandomPositionY(conf.y)
+
     this._element.className = 'notify'
     this._element.style.transform = `translate(${x}px, ${y}px)`;
     this._element.appendChild(img)
@@ -36,6 +37,23 @@ class NotifyItem {
     this._timer = setTimeout(() => {
       this.remove()
     }, conf.lifeTime || 5000)
+  }
+  private _getRandomPosition(range: [number, number] | undefined) {
+    if (range) {
+      return Math.random() * (range[1] - range[0]) + range[0]
+    }
+  }
+  private _getRandomPositionX(range: [number, number] | undefined) {
+    if (range) {
+      return this._getRandomPosition(range)
+    }
+    return Math.floor(Math.random() * window.innerWidth - SAFE_MARGIN + SAFE_MARGIN / 2)
+  }
+  private _getRandomPositionY(range: [number, number] | undefined) {
+    if (range) {
+      return this._getRandomPosition(range)
+    }
+    return Math.floor(Math.random() * window.innerHeight - SAFE_MARGIN + SAFE_MARGIN / 2)
   }
   remove() {
     clearInterval(this._timer)
@@ -67,7 +85,6 @@ export class Notify implements WordPartyModule {
     
     if (conf.only) {
       const index = this._items.findIndex(item => item.conf === conf)
-      console.log(index)
       if (index !== -1) {
         const deleted = this._items.splice(index, 1)
         deleted.forEach((d) => {
@@ -102,7 +119,6 @@ export class Notify implements WordPartyModule {
         hits.push(hit)
       }
     })
-    console.log(hits)
     if (hits.length !== 0) {
       hits.forEach(item => {
         this.showItem(item)
