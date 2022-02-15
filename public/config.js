@@ -36,7 +36,9 @@ window.WordParty.start({
     items: [{
       pattern: ['★','☆'],　// 発火する文字列パターン
       image: './piyo.gif',　// 画像パス
-      lifeTime: 5000,  // 自動で消えるまでの時間
+      lifeTime: 50000,  // 自動で消えるまでの時間
+      // width: 100, // 横幅
+      // height: 100, // 縦幅
       // y: 300, // 未指定だとランダム
       // x: 300 // 未指定だとランダム
     },
