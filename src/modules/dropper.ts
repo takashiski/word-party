@@ -2,6 +2,7 @@ import { Engine, Render, Runner, Bodies, Composite } from 'matter-js'
 import { Comment } from 'common/types/Comment'
 import { WordPartyModule } from './index'
 const WALL_SIZE = 30
+const DEFAULT_LIFETIME = 5000
 const WALL_OPTION = {
   isStatic: true,
   render: {
@@ -15,23 +16,22 @@ interface SpliteTexture {
   xScale?: number
   yScale?: number
 }
-export interface DropperConfig {
-  use?: boolean
+export interface DropperItemConfig {
   trigger?: number
   pattern: (RegExp | string)[]
   textures: SpliteTexture[]
   lifeTime?: number
   magnification?: number
+}
+export interface DropperConfig {
+  use?: boolean
+  items: DropperItemConfig[]
   maxItems?: number
 }
 const DEFAULT_CONFIG: Required<DropperConfig> = {
   use: true,
-  trigger: -1,
-  pattern: [/w/gim],
-  lifeTime: 3000,
-  textures: [],
-  magnification: 3,
-  maxItems: 50,
+  items: [],
+  maxItems: 20,
 }
 class DropItem {
   private _item: Matter.Body
@@ -121,19 +121,21 @@ export class Dropper implements WordPartyModule {
     Runner.run(runner, this.engine)
 
     document.body.addEventListener('mousedown', (e: MouseEvent) => {
-      if (e.button === this.options.trigger) {
-        e.preventDefault()
-        this.drop(e.clientX, e.clientY)
-      }
+      this.options.items.forEach((item) => {
+        if (e.button === item.trigger) {
+          e.preventDefault()
+          this.drop(item, e.clientX, e.clientY)
+        }
+      })
     })
   }
-  drop(x: number = Math.random() * this.stageWidth, y: number = Math.random() * this.stageHeight / 3) {
-    const texture = this.options.textures[Math.floor(Math.random() * this.options.textures.length)]
-    const item = new DropItem(x, y, this.options.lifeTime || DEFAULT_CONFIG.lifeTime, texture, (body) => {
+  drop(itemConfig: DropperItemConfig, x: number = Math.random() * this.stageWidth, y: number = Math.random() * this.stageHeight / 3) {
+    const texture = itemConfig.textures[Math.floor(Math.random() * itemConfig.textures.length)]
+    const dropItem = new DropItem(x, y, itemConfig.lifeTime || DEFAULT_LIFETIME, texture, (body) => {
       Composite.remove(this.engine.world, body)
     })
-    this._items.unshift(item)
-    Composite.add(this.engine.world, [item.body])
+    this._items.unshift(dropItem)
+    Composite.add(this.engine.world, [dropItem.body])
 
     const max = this.options.maxItems || DEFAULT_CONFIG.maxItems
     if (this._items.length > max) {
@@ -144,19 +146,23 @@ export class Dropper implements WordPartyModule {
     }
   }
   verify(comments: Comment[]) {
-    const total = comments.reduce((count, comment) => {
-      return this.options.pattern.reduce((c, ptt) => {
+    this.options.items.forEach(item => {
+      item.pattern.forEach(ptt => {
         if (typeof ptt === 'string') {
           ptt = new RegExp(ptt, 'igm')
         }
-        const len = comment.data.comment.split(ptt).length - 1
-       return c + len
-      }, count)
-    }, 0)
-    const mag = this.options.magnification || DEFAULT_CONFIG.magnification
-    for (let i = 0; i < total * mag; i++) {
-      this.drop()
-    }
+        let total = comments.reduce((count, comment) => {
+          if (comment.data.comment.search(ptt) !== -1) {
+            return count + comment.data.comment.split(ptt).length - 1
+          }
+          return count
+        }, 0)
+        total *= item.magnification || 1
+        for (let i = 0; i < total; i++) {
+          this.drop(item)
+        }
+      })
+    })
   }
 }
 

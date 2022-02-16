@@ -3,6 +3,7 @@ import { WordPartyModule } from 'modules'
 interface NotifyItemConfig {
   pattern: (RegExp | string)[],
   image: string
+  images: string[]
   lifeTime: number
   trigger?: number
   only?: boolean
@@ -22,7 +23,8 @@ class NotifyItem {
   private _timer: number
   constructor(public parent: HTMLElement, public conf: NotifyItemConfig, callback: (item: NotifyItem) => void) {
     const img = new Image()
-    img.src = conf.image + `?${Date.now()}`
+    const src = conf.images ? conf.images[Math.floor(Math.random() * conf.images.length)] : conf.image
+    img.src = src + `?${Date.now()}`
     if (conf.width) {
       img.width = conf.width
     }

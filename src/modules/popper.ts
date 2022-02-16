@@ -3,8 +3,7 @@ import { Comment } from 'common/types/Comment'
 // @ts-ignore
 import JSConfetti from 'lib/js-confetti'
 import { WordPartyModule } from 'modules'
-export interface PopperConfig {
-  use?: boolean
+export interface PopperItemConfig {
   trigger?: number
   pattern: (RegExp | string)[]
   confettiRadius?: number,
@@ -14,42 +13,51 @@ export interface PopperConfig {
   emojiSize?: number,
   images?: string[]
 }
+export interface PopperConfig {
+  use?: boolean
+  items: PopperItemConfig[]
+  maxItems?: number
+}
 export class Popper implements WordPartyModule {
   private confetti = new JSConfetti({
     canvas: document.getElementById('popper') as HTMLCanvasElement
   })
   private options: PopperConfig = {
     use: true,
-    trigger: -1,
-    pattern: [/8+|👏+/gim]
+    items: []
   }
   constructor(_op: Partial<PopperConfig> = {}) {
     Object.assign(this.options, _op)
     document.body.addEventListener('mousedown', (e: MouseEvent) => {
-      if (e.button === this.options.trigger) {
-        e.preventDefault()
-        this._confetti()
-      }
+      this.options.items.forEach((item) => {
+        if (e.button === item.trigger) {
+          e.preventDefault()
+          this._confetti(item)
+        }
+      })
     })
   }
-  _confetti = async () => {
-    return this.confetti.addConfetti(this.options)
+  _confetti = async (config: PopperItemConfig) => {
+    return this.confetti.addConfetti(config)
   }
   verify(comments: Comment[]) {
-    const total = comments.reduce((count, comment) => {
-      return this.options.pattern.reduce((c, ptt) => {
+    this.options.items.forEach(item => {
+      let total = 0
+      item.pattern.forEach(ptt => {
         if (typeof ptt === 'string') {
           ptt = new RegExp(ptt, 'igm')
         }
-        if (comment.data.comment.search(ptt) !== -1) {
-          return c + 1
+        total += comments.reduce((count, comment) => {
+          if (comment.data.comment.search(ptt) !== -1) {
+            return count + 1
+          }
+          return count
+        }, 0)
+        for (let i = 0; i < Math.min(total, this.options.maxItems || 10); i++) {
+          setTimeout(() => this._confetti(item), i * 200)
         }
-        return c
-      }, count)
-    }, 0)
-    for (let i = 0; i < Math.min(total, 10); i++) {
-      setTimeout(this._confetti, i * 200)
-    }
+      })
+    })
   }
 }
 
