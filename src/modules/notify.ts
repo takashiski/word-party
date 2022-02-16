@@ -22,7 +22,7 @@ class NotifyItem {
   private _timer: number
   constructor(public parent: HTMLElement, public conf: NotifyItemConfig, callback: (item: NotifyItem) => void) {
     const img = new Image()
-    img.src = conf.image
+    img.src = conf.image + `?${Date.now()}`
     if (conf.width) {
       img.width = conf.width
     }
