@@ -7,11 +7,6 @@ import { NitifyConfig, Notify } from 'modules/notify';
 
 interface WordPartyOptions {
   jsonPath: string
-  use: {
-    popper: boolean
-    dropper: boolean
-    notify: boolean
-  }
   popperConfig: PopperConfig
   dropperConfig: DropperConfig
   notifyConfig: NitifyConfig
@@ -19,11 +14,6 @@ interface WordPartyOptions {
 
 const DEFAULT_OPTIONS: WordPartyOptions = {
   jsonPath: '../../comment.json',
-  use: {
-    popper: true,
-    dropper: true,
-    notify: true
-  },
   popperConfig: {
     pattern: ['88', '👏'],
   },
@@ -47,15 +37,15 @@ const DEFAULT_OPTIONS: WordPartyOptions = {
 function main(_op: Partial<WordPartyOptions> = {}) {
   const options = Object.assign({}, DEFAULT_OPTIONS, _op)
   const modules: WordPartyModule[] = []
-  if (options.use.popper) {
+  if (options.popperConfig.use !== false) {
     const popper = new Popper(options.popperConfig)
     modules.push(popper)
   }
-  if (options.use.dropper) {
+  if (options.dropperConfig.use !== false) {
     const dropper = new Dropper(options.dropperConfig)
     modules.push(dropper)
   }
-  if (options.use.notify) {
+  if (options.notifyConfig.use !== false) {
     const notify = new Notify(options.notifyConfig)
     modules.push(notify)
   }
@@ -65,6 +55,9 @@ function main(_op: Partial<WordPartyOptions> = {}) {
       mod.verify(comments)
     })
   })
+  document.body.addEventListener('contextmenu', e => {
+    e.preventDefault();
+  });
 }
 
 (window as any).WordParty = {

@@ -16,6 +16,8 @@ interface SpliteTexture {
   yScale?: number
 }
 export interface DropperConfig {
+  use?: boolean
+  trigger?: number
   pattern: (RegExp | string)[]
   textures: SpliteTexture[]
   lifeTime?: number
@@ -23,6 +25,8 @@ export interface DropperConfig {
   maxItems?: number
 }
 const DEFAULT_CONFIG: Required<DropperConfig> = {
+  use: true,
+  trigger: -1,
   pattern: [/w/gim],
   lifeTime: 3000,
   textures: [],
@@ -116,11 +120,14 @@ export class Dropper implements WordPartyModule {
     const runner = Runner.create()
     Runner.run(runner, this.engine)
 
-    document.body.addEventListener('click', () => this.drop())
+    document.body.addEventListener('mousedown', (e: MouseEvent) => {
+      if (e.button === this.options.trigger) {
+        e.preventDefault()
+        this.drop(e.clientX, e.clientY)
+      }
+    })
   }
-  drop() {
-    const x = Math.random() * this.stageWidth
-    const y = Math.random() * this.stageHeight / 3
+  drop(x: number = Math.random() * this.stageWidth, y: number = Math.random() * this.stageHeight / 3) {
     const texture = this.options.textures[Math.floor(Math.random() * this.options.textures.length)]
     const item = new DropItem(x, y, this.options.lifeTime || DEFAULT_CONFIG.lifeTime, texture, (body) => {
       Composite.remove(this.engine.world, body)

@@ -1,8 +1,8 @@
 {
-  "name": "onecomme-word-party",
-  "version": "0.0.1",
+  "name": "word-party",
+  "version": "1.0.0",
   "description": "",
-  "main": "dist/word-party.js",
+  "main": "public/word-party.js",
   "scripts": {
     "start": "esbuild src/index.ts --bundle --sourcemap --target=chrome80 --outfile=public/word-party.js --watch",
     "check": "tsc --noEmit",

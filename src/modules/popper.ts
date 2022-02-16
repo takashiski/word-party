@@ -4,6 +4,8 @@ import { Comment } from 'common/types/Comment'
 import JSConfetti from 'lib/js-confetti'
 import { WordPartyModule } from 'modules'
 export interface PopperConfig {
+  use?: boolean
+  trigger?: number
   pattern: (RegExp | string)[]
   confettiRadius?: number,
   confettiNumber?: number,
@@ -17,11 +19,18 @@ export class Popper implements WordPartyModule {
     canvas: document.getElementById('popper') as HTMLCanvasElement
   })
   private options: PopperConfig = {
+    use: true,
+    trigger: -1,
     pattern: [/8+|👏+/gim]
   }
   constructor(_op: Partial<PopperConfig> = {}) {
     Object.assign(this.options, _op)
-    document.body.addEventListener('click', () => this._confetti())
+    document.body.addEventListener('mousedown', (e: MouseEvent) => {
+      if (e.button === this.options.trigger) {
+        e.preventDefault()
+        this._confetti()
+      }
+    })
   }
   _confetti = async () => {
     return this.confetti.addConfetti(this.options)

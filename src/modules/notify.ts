@@ -4,6 +4,7 @@ interface NotifyItemConfig {
   pattern: (RegExp | string)[],
   image: string
   lifeTime: number
+  trigger?: number
   only?: boolean
   width?: number
   height?: number
@@ -11,6 +12,7 @@ interface NotifyItemConfig {
   y?: number | [number, number]
 }
 export interface NitifyConfig {
+  use?: boolean
   items: NotifyItemConfig[]
   maxItems?: number
 }
@@ -65,21 +67,31 @@ class NotifyItem {
   }
 }
 export class Notify implements WordPartyModule {
-  private _options: NitifyConfig = {
+  private options: NitifyConfig = {
     items: [],
     maxItems: 20
   }
   private _container: HTMLElement = document.getElementById('notify') as HTMLElement
   private _items: NotifyItem[] =[]
   constructor(_op: NitifyConfig) {
-    Object.assign(this._options, _op)
-    document.body.addEventListener('click', () => {
-      const item = this._options.items[Math.floor(Math.random() * this._options.items.length)]
-      this.showItem(item)
+    Object.assign(this.options, _op)
+    document.body.addEventListener('mousedown', (e: MouseEvent) => {
+      const item = this.options.items.find(item => item.trigger === e.button)
+      if (item) {
+        e.preventDefault()
+        this.showItem(item, e.clientX, e.clientY)
+      }
     })
   }
-  showItem(conf: NotifyItemConfig) {
-    const n = new NotifyItem(this._container, conf, (item) => {
+  showItem(conf: NotifyItemConfig, x: number = NaN, y: number = NaN) {
+    const config = Object.assign({}, conf)
+    if (!isNaN(x)) {
+      config.x = x
+    }
+    if (!isNaN(y)) {
+      config.y = y
+    }
+    const n = new NotifyItem(this._container, config, (item) => {
       item.remove()
     })
     
@@ -93,7 +105,7 @@ export class Notify implements WordPartyModule {
       }
     }
     this._items.unshift(n)
-    const max = this._options.maxItems || 20
+    const max = this.options.maxItems || 20
     if (this._items.length > max) {
       const deleted = this._items.splice(max, this._items.length)
       deleted.forEach((d) => {
@@ -104,7 +116,7 @@ export class Notify implements WordPartyModule {
   verify(comments: Comment[]): void {
     const hits: NotifyItemConfig[] = []
     comments.forEach((comment) => {
-      const hit = this._options.items.find((item) => {
+      const hit = this.options.items.find((item) => {
         return item.pattern.some((ptt) => {
           if (typeof ptt === 'string') {
             ptt = new RegExp(ptt, 'gim')
