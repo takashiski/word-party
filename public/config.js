@@ -73,9 +73,10 @@ window.WordParty.start({
         // x: 300 // 未指定だとランダム
       },
       {
-        trigger: 3,
+        trigger: 2,
         pattern: ['❤'],
-        images: ['./heart.gif', 'paw.png'],
+        images: ['./heart.gif', 'question.gif'],
+        width: 120,
         y: 300, // 固定位置
         x: [300, 620], // 300～620の間でランダム
         // only: true // 連続しても必ず１個しか表示したくないとき
