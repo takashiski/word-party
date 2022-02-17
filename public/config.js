@@ -35,19 +35,25 @@ window.WordParty.start({
           src: './paw.png', // 画像パス
           size: 34,  // 当たり判定範囲の直径（円形）
           xScale: 1.5, // 画像のx拡大率
-          yScale: 1.5  // 画像のy拡大率
+          yScale: 1.5,  // 画像のy拡大率
         }
       ]
     },{
-      pattern: ['草'],  // 発火するパターン
-      lifeTime: 2000,  // 落ちたオブジェクトが消えるまでの時間
-      magnification: 20,  // 発火パターンで検知したワードにかける数(wwでmagnificationが3なら2*3で6個オブジェクトを出す
+      pattern: ['🎈'],  // 発火するパターン
+      lifeTime: 5000,  // 落ちたオブジェクトが消えるまでの時間
+      magnification: 3,  // 発火パターンで検知したワードにかける数(wwでmagnificationが3なら2*3で6個オブジェクトを出す
       textures: [ // 落とすオブジェクトに使う画像（必須）
         {
-          src: './paw.png', // 画像パス
+          src: './balloon.png', // 画像パス
+          angle: 0, // 角度を固定
           size: 34,  // 当たり判定範囲の直径（円形）
           xScale: 1.5, // 画像のx拡大率
-          yScale: 1.5  // 画像のy拡大率
+          yScale: 1.5,  // 画像のy拡大率
+          density: 0.001, //  密度
+          frictionAir: 0.05, // 空気抵抗(空気摩擦)
+          restitution: 0.9, // 弾力性
+          friction: 0.1, // 本体の摩擦
+          gravity: -1.5,  // 重力方向をマイナス方面に変換
         }
       ]
     }]
@@ -57,7 +63,7 @@ window.WordParty.start({
     maxItems: 10,
     items: [
       {
-        trigger: 2, // マウスによる発火（-1=なし, 0=左, 1=中, 2=右, 3=副ボタン1, 4=副ボタン2)
+        // trigger: 2, // マウスによる発火（-1=なし, 0=左, 1=中, 2=右, 3=副ボタン1, 4=副ボタン2)
         pattern: ['★','☆'],　// 発火する文字列パターン
         image: './piyo.gif',　// 画像パス
         lifeTime: 5000,  // 自動で消えるまでの時間

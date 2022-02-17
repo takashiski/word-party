@@ -1,20 +1,29 @@
-import { Engine, Render, Runner, Bodies, Composite } from 'matter-js'
+import { Engine, Render, Runner, Bodies, Composite, Body, Events } from 'matter-js'
 import { Comment } from 'common/types/Comment'
 import { WordPartyModule } from './index'
 const WALL_SIZE = 30
 const DEFAULT_LIFETIME = 5000
+const DEFAULT_DENSITY = 0.001 // 密度: 単位面積あたりの質量
+const DEFAULT_FRICTION_AIR = 0.01 // 空気抵抗(空気摩擦)
+const DEFAULT_RESTITUTION = 0.9 // 弾力性
+const DEFAULT_FRICTION = 0.1 // 本体の摩擦
 const WALL_OPTION = {
   isStatic: true,
   render: {
     fillStyle: 'transparent'
   }
 }
-const LIFE_TIME = 3000
 interface SpliteTexture {
   src: string
   size: number
   xScale?: number
   yScale?: number
+  density?: number
+  frictionAir?: number
+  restitution?: number
+  friction?: number
+  angle?: number
+  gravity?: number
 }
 export interface DropperItemConfig {
   trigger?: number
@@ -33,6 +42,7 @@ const DEFAULT_CONFIG: Required<DropperConfig> = {
   items: [],
   maxItems: 20,
 }
+const NOOP = () => {}
 class DropItem {
   private _item: Matter.Body
   private _timer: number
@@ -44,18 +54,19 @@ class DropItem {
     public y: number,
     public lifeTime: number,
     public texture: SpliteTexture,
-    public callback: (item: Matter.Body) => void
+    public gravity: number = 0,
+    public callback: (item: Matter.Body) => void = NOOP
   ) {
     this._item = Bodies.circle(
       x,
       y,
       texture.size,
       {
-        // density: 0.0005, // 密度: 単位面積あたりの質量
-        // frictionAir: 0.06, // 空気抵抗(空気摩擦)
-        restitution: 0.9, // 弾力性
-        // friction: 0.01, // 本体の摩擦
-        // angle: -Math.PI * 0.15,
+        angle: Object.hasOwnProperty.call(texture, 'angle') ? texture.angle : Math.random() * Math.PI * 2,
+        density: Object.hasOwnProperty.call(texture, 'density') ? texture.density : DEFAULT_DENSITY, // 密度: 単位面積あたりの質量
+        frictionAir: Object.hasOwnProperty.call(texture, 'frictionAir') ? texture.frictionAir : DEFAULT_FRICTION_AIR, // 密度: 単位面積あたりの質量
+        restitution: Object.hasOwnProperty.call(texture, 'restitution') ? texture.restitution : DEFAULT_RESTITUTION, // 弾力性
+        friction: Object.hasOwnProperty.call(texture, 'friction') ? texture.friction : DEFAULT_FRICTION, // 本体の摩擦
         render: {
           sprite: {
             texture: texture.src,
@@ -119,7 +130,6 @@ export class Dropper implements WordPartyModule {
 
     const runner = Runner.create()
     Runner.run(runner, this.engine)
-
     document.body.addEventListener('mousedown', (e: MouseEvent) => {
       this.options.items.forEach((item) => {
         if (e.button === item.trigger) {
@@ -128,15 +138,26 @@ export class Dropper implements WordPartyModule {
         }
       })
     })
+    Events.on(this.engine, 'beforeUpdate', ()=> {
+      const gravity = this.engine.gravity;
+      this._items.forEach(item => {
+        if (item.gravity) {
+          Body.applyForce(item.body, item.body.position, {
+            x: gravity.x * gravity.scale * item.body.mass * item.gravity,
+            y: gravity.y * gravity.scale * item.body.mass * item.gravity
+          })
+        }
+      })
+    });
   }
   drop(itemConfig: DropperItemConfig, x: number = Math.random() * this.stageWidth, y: number = Math.random() * this.stageHeight / 3) {
     const texture = itemConfig.textures[Math.floor(Math.random() * itemConfig.textures.length)]
-    const dropItem = new DropItem(x, y, itemConfig.lifeTime || DEFAULT_LIFETIME, texture, (body) => {
+    console.log(texture)
+    const dropItem = new DropItem(x, y, itemConfig.lifeTime || DEFAULT_LIFETIME, texture, texture.gravity, (body) => {
       Composite.remove(this.engine.world, body)
     })
     this._items.unshift(dropItem)
     Composite.add(this.engine.world, [dropItem.body])
-
     const max = this.options.maxItems || DEFAULT_CONFIG.maxItems
     if (this._items.length > max) {
       const deleted = this._items.splice(max, this._items.length)

@@ -11,3 +11,8 @@ https://onecomme.notion.site/WordParty-cd90f19e9dca472784980bac9ce0564f
 この演出に使うアニメーション素材としてとてもぴったりなのでオススメです
 
 https://demsato.booth.pm/items/3122939
+
+
+絵文字素材としてOpenMojiの絵文字pngもお借りしました
+
+https://openmoji.org/
