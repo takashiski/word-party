@@ -152,7 +152,6 @@ export class Dropper implements WordPartyModule {
   }
   drop(itemConfig: DropperItemConfig, x: number = Math.random() * this.stageWidth, y: number = Math.random() * this.stageHeight / 3) {
     const texture = itemConfig.textures[Math.floor(Math.random() * itemConfig.textures.length)]
-    console.log(texture)
     const dropItem = new DropItem(x, y, itemConfig.lifeTime || DEFAULT_LIFETIME, texture, texture.gravity, (body) => {
       Composite.remove(this.engine.world, body)
     })

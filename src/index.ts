@@ -15,18 +15,10 @@ interface WordPartyOptions {
 const DEFAULT_OPTIONS: WordPartyOptions = {
   jsonPath: '../../comment.json',
   popperConfig: {
-    pattern: ['88', '👏'],
+    items: [],
   },
   dropperConfig: {
-    pattern: ['ww', '草'],
-    textures: [
-      {
-        src: './paw.png',
-        size: 24,
-        xScale: 1.5,
-        yScale: 1.5
-      }
-    ]
+    items: [],
   },
   notifyConfig: {
     items: [],
