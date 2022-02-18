@@ -150,9 +150,22 @@ export class Dropper implements WordPartyModule {
       })
     });
   }
-  drop(itemConfig: DropperItemConfig, x: number = Math.random() * this.stageWidth, y: number = Math.random() * this.stageHeight / 3) {
+  drop(itemConfig: DropperItemConfig, x = NaN, y = NaN) {
     const texture = itemConfig.textures[Math.floor(Math.random() * itemConfig.textures.length)]
-    const dropItem = new DropItem(x, y, itemConfig.lifeTime || DEFAULT_LIFETIME, texture, texture.gravity, (body) => {
+    const position = {
+      x,
+      y
+    }
+    if (isNaN(position.x)) {
+      position.x = Math.random() * this.stageWidth
+    }
+    if (isNaN(position.y)) {
+      position.y = Math.random() * this.stageHeight / 3
+      if (texture.gravity && texture.gravity < 0) {
+        position.y += this.stageHeight / 3 * 2
+      }
+    }
+    const dropItem = new DropItem(position.x, position.y, itemConfig.lifeTime || DEFAULT_LIFETIME, texture, texture.gravity, (body) => {
       Composite.remove(this.engine.world, body)
     })
     this._items.unshift(dropItem)

@@ -15,14 +15,13 @@ interface WordPartyOptions {
 const DEFAULT_OPTIONS: WordPartyOptions = {
   jsonPath: '../../comment.json',
   popperConfig: {
-    items: [],
+    items: []
   },
   dropperConfig: {
-    items: [],
+    items: []
   },
   notifyConfig: {
-    items: [],
-    maxItems: 20
+    items: []
   }
 }
 
