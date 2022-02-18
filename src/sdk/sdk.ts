@@ -9,6 +9,7 @@ export const ONE_SDK = {
   _commentSubscribers: new Map<CommentSubscriber, CommentSubscriber>(),
   _listenerSubscribers: new Map<ListenerSubscriber, ListenerSubscriber>(),
   init(jsonPath: string) {
+    let initialized = false
     const request = () => {
       axios.get(jsonPath)
         .then(res => res.data)
@@ -23,9 +24,14 @@ export const ONE_SDK = {
           const newComments = comments.slice(index + 1)
           if (newComments.length !== 0) {
             this._lastId = newComments[newComments.length - 1].data.id
-            this._publishComment(newComments)
+            if (initialized) {
+              this._publishComment(newComments)
+            }
           }
-          this._publishListener(listeners)
+          if (initialized) {
+            this._publishListener(listeners)
+          }
+          initialized = true
           this._timer = setTimeout(request, 2000)
         })
         .catch((e) => {
