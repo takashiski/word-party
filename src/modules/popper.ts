@@ -40,7 +40,7 @@ export class Popper implements WordPartyModule {
   _confetti = async (config: PopperItemConfig) => {
     return this.confetti.addConfetti(config)
   }
-  verify(comments: Comment[]) {
+  verify(comments: string[]) {
     this.options.items.forEach(item => {
       let total = 0
       item.pattern.forEach(ptt => {
@@ -48,7 +48,7 @@ export class Popper implements WordPartyModule {
           ptt = new RegExp(ptt, 'igm')
         }
         total += comments.reduce((count, comment) => {
-          if (comment.data.comment.search(ptt) !== -1) {
+          if (comment.search(ptt) !== -1) {
             return count + 1
           }
           return count

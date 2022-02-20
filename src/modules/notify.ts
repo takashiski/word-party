@@ -115,7 +115,7 @@ export class Notify implements WordPartyModule {
       })
     }
   }
-  verify(comments: Comment[]): void {
+  verify(comments: string[]): void {
     const hits: NotifyItemConfig[] = []
     comments.forEach((comment) => {
       const hit = this.options.items.find((item) => {
@@ -123,7 +123,7 @@ export class Notify implements WordPartyModule {
           if (typeof ptt === 'string') {
             ptt = new RegExp(ptt, 'gim')
           }
-          if (comment.data.comment.search(ptt) !== -1) {
+          if (comment.search(ptt) !== -1) {
             return true
           }
           return false

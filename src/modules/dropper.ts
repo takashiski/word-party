@@ -178,15 +178,15 @@ export class Dropper implements WordPartyModule {
       })
     }
   }
-  verify(comments: Comment[]) {
+  verify(comments: string[]) {
     this.options.items.forEach(item => {
       item.pattern.forEach(ptt => {
         if (typeof ptt === 'string') {
           ptt = new RegExp(ptt, 'igm')
         }
         let total = comments.reduce((count, comment) => {
-          if (comment.data.comment.search(ptt) !== -1) {
-            return count + comment.data.comment.split(ptt).length - 1
+          if (comment.search(ptt) !== -1) {
+            return count + comment.split(ptt).length - 1
           }
           return count
         }, 0)
