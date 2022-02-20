@@ -1,6 +1,6 @@
 {
   "name": "word-party",
-  "version": "2.0.0-beta.0",
+  "version": "2.0.0-beta.5",
   "description": "",
   "main": "public/word-party.js",
   "scripts": {
