@@ -22,21 +22,37 @@ class NotifyItem {
   private _element: HTMLDivElement = document.createElement('div')
   private _timer: number
   constructor(public parent: HTMLElement, public conf: NotifyItemConfig, callback: (item: NotifyItem) => void) {
-    const img = new Image()
     const src = conf.images ? conf.images[Math.floor(Math.random() * conf.images.length)] : conf.image
-    img.src = src + `?${Date.now()}`
-    if (conf.width) {
-      img.width = conf.width
-    }
-    if (conf.height) {
-      img.height = conf.height
+    
+    if (src.endsWith('.webm')) {
+      const video = document.createElement('video')
+      video.src = src
+      video.style.pointerEvents = 'none'
+      video.autoplay = true
+      video.muted = true
+      if (conf.width) {
+        video.width = conf.width
+      }
+      if (conf.height) {
+        video.height = conf.height
+      }
+      this._element.appendChild(video)
+    } else {
+      const img = new Image()
+      img.src = src + `?${Date.now()}`
+      if (conf.width) {
+        img.width = conf.width
+      }
+      if (conf.height) {
+        img.height = conf.height
+      }
+      this._element.appendChild(img)
     }
     const x = typeof conf.x === 'number' ? conf.x : this._getRandomPositionX(conf.x)
     const y = typeof conf.y === 'number' ? conf.y : this._getRandomPositionY(conf.y)
-
     this._element.className = 'notify'
     this._element.style.transform = `translate(${x}px, ${y}px)`;
-    this._element.appendChild(img)
+    
     this.parent.appendChild(this._element)
     this._timer = setTimeout(() => {
       this.remove()
