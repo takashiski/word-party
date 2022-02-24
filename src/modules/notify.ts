@@ -29,7 +29,7 @@ class NotifyItem {
       video.src = src
       video.style.pointerEvents = 'none'
       video.autoplay = true
-      video.muted = true
+      // video.muted = true
       if (conf.width) {
         video.width = conf.width
       }
