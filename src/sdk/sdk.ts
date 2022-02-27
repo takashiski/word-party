@@ -18,9 +18,6 @@ export const ONE_SDK = {
           let index = comments.findIndex((comment) => {
             return this._lastId === comment.data.id
           })
-          if (index === -1) {
-            index = 0
-          }
           const newComments = comments.slice(index + 1)
           if (newComments.length !== 0) {
             this._lastId = newComments[newComments.length - 1].data.id
