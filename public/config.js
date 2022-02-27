@@ -27,7 +27,7 @@ window.WordParty.start({
     maxItems: 50,  // 画面に出す最大オブジェクト数（古いものから時間に関係なく消える）
     items: [{
       trigger: 1,
-      pattern: ['w'],  // 発火するパターン
+      pattern: [/^w+|w+$/],  // 発火するパターン
       lifeTime: 5000,  // 落ちたオブジェクトが消えるまでの時間
       magnification: 5,  // 発火パターンで検知したワードにかける数(wwでmagnificationが3なら2*3で6個オブジェクトを出す
       textures: [ // 落とすオブジェクトに使う画像（必須）
