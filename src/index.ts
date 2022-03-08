@@ -46,7 +46,14 @@ function main(_op: Partial<WordPartyOptions> = {}) {
   ONE_SDK.init(options.jsonPath)
   ONE_SDK.subscribeComment((comments: Comment[]) => {
     const commentString = comments.map((comment) => {
-      return striptags(comment.data.comment.replace(IMAGE_ALT, '$1'))
+      let com = striptags(comment.data.comment.replace(IMAGE_ALT, '$1'))
+      if (comment.service === 'youtube' && comment.data.paidText) {
+        com = `${comment.data.paidText} ${com}`
+      }
+      if (comment.data.hasGift) {
+        com = `__GIFT__ ${com}`
+      }
+      return com
     })
     modules.forEach(mod => {
       mod.verify(commentString)
