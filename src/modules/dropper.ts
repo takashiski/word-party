@@ -13,29 +13,29 @@ const WALL_OPTION = {
     fillStyle: 'transparent'
   }
 }
-interface SpliteTexture {
+export interface DropperTextureConfig {
   src: string
   size: number
-  xScale?: number
-  yScale?: number
-  density?: number
-  frictionAir?: number
-  restitution?: number
-  friction?: number
-  angle?: number
-  gravity?: number
+  xScale: number
+  yScale: number
+  angle: number
+  density: number
+  frictionAir: number
+  restitution: number
+  friction: number
+  gravity: number
 }
 export interface DropperItemConfig {
-  trigger?: number
-  pattern: (RegExp | string)[]
-  textures: SpliteTexture[]
-  lifeTime?: number
-  magnification?: number
+  trigger: number
+  pattern: string[]
+  lifeTime: number
+  magnification: number
+  textures: DropperTextureConfig[]
 }
 export interface DropperConfig {
-  use?: boolean
+  use: boolean
+  maxItems: number
   items: DropperItemConfig[]
-  maxItems?: number
 }
 const DEFAULT_CONFIG: Required<DropperConfig> = {
   use: true,
@@ -53,7 +53,7 @@ class DropItem {
     public x: number,
     public y: number,
     public lifeTime: number,
-    public texture: SpliteTexture,
+    public texture: DropperTextureConfig,
     public gravity: number = 0,
     public callback: (item: Matter.Body) => void = NOOP
   ) {
@@ -181,12 +181,15 @@ export class Dropper implements WordPartyModule {
   verify(comments: string[]) {
     this.options.items.forEach(item => {
       item.pattern.forEach(ptt => {
+        let pattern: RegExp
         if (typeof ptt === 'string') {
-          ptt = new RegExp(ptt, 'igm')
+          pattern = new RegExp(ptt, 'igm')
+        } else {
+          pattern = ptt
         }
         let total = comments.reduce((count, comment) => {
-          if (comment.search(ptt) !== -1) {
-            return count + comment.split(ptt).length - 1
+          if (comment.search(pattern) !== -1) {
+            return count + comment.split(pattern).length - 1
           }
           return count
         }, 0)

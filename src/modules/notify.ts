@@ -1,51 +1,34 @@
-import { Comment } from 'common/types/Comment'
 import { WordPartyModule } from 'modules'
-interface NotifyItemConfig {
-  pattern: (RegExp | string)[],
-  image: string
-  images: string[]
+export interface NotifyItemConfig {
+  trigger: number
+  pattern: string[]
   lifeTime: number
-  trigger?: number
-  only?: boolean
-  width?: number
-  height?: number
+  images: string[]
   x?: number | [number, number]
   y?: number | [number, number]
+  only?: boolean
 }
-export interface NitifyConfig {
-  use?: boolean
+export interface NotifyConfig {
+  use: boolean
+  maxItems: number
   items: NotifyItemConfig[]
-  maxItems?: number
 }
 const SAFE_MARGIN = 300
 class NotifyItem {
   private _element: HTMLDivElement = document.createElement('div')
   private _timer: number
   constructor(public parent: HTMLElement, public conf: NotifyItemConfig, callback: (item: NotifyItem) => void) {
-    const src = conf.images ? conf.images[Math.floor(Math.random() * conf.images.length)] : conf.image
+    const src = conf.images[Math.floor(Math.random() * conf.images.length)]
     
     if (src.endsWith('.webm')) {
       const video = document.createElement('video')
       video.src = src
       video.style.pointerEvents = 'none'
       video.autoplay = true
-      // video.muted = true
-      if (conf.width) {
-        video.width = conf.width
-      }
-      if (conf.height) {
-        video.height = conf.height
-      }
       this._element.appendChild(video)
     } else {
       const img = new Image()
       img.src = src + `?${Date.now()}`
-      if (conf.width) {
-        img.width = conf.width
-      }
-      if (conf.height) {
-        img.height = conf.height
-      }
       this._element.appendChild(img)
     }
     const x = typeof conf.x === 'number' ? conf.x : this._getRandomPositionX(conf.x)
@@ -85,13 +68,14 @@ class NotifyItem {
   }
 }
 export class Notify implements WordPartyModule {
-  private options: NitifyConfig = {
+  private options: NotifyConfig = {
+    use: true,
     items: [],
     maxItems: 20
   }
   private _container: HTMLElement = document.getElementById('notify') as HTMLElement
   private _items: NotifyItem[] =[]
-  constructor(_op: NitifyConfig) {
+  constructor(_op: NotifyConfig) {
     Object.assign(this.options, _op)
     document.body.addEventListener('mousedown', (e: MouseEvent) => {
       const item = this.options.items.find(item => item.trigger === e.button)
@@ -136,10 +120,13 @@ export class Notify implements WordPartyModule {
     comments.forEach((comment) => {
       const hit = this.options.items.find((item) => {
         return item.pattern.some((ptt) => {
+          let pattern: RegExp
           if (typeof ptt === 'string') {
-            ptt = new RegExp(ptt, 'gim')
+            pattern = new RegExp(ptt, 'gim')
+          } else {
+            pattern = ptt
           }
-          if (comment.search(ptt) !== -1) {
+          if (comment.search(pattern) !== -1) {
             return true
           }
           return false

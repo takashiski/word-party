@@ -3,7 +3,7 @@ import { Dropper, DropperConfig } from './modules/dropper';
 import { ONE_SDK  } from './sdk/sdk'
 import { Comment } from './common/types/Comment'
 import { WordPartyModule } from 'modules';
-import { NitifyConfig, Notify } from 'modules/notify';
+import { NotifyConfig, Notify } from 'modules/notify';
 
 import striptags from 'striptags'
 const IMAGE_ALT = /<img\s.*?alt=\"(.*?)\"\s?.*?\/?>/g
@@ -12,18 +12,24 @@ interface WordPartyOptions {
   jsonPath: string
   popperConfig: PopperConfig
   dropperConfig: DropperConfig
-  notifyConfig: NitifyConfig
+  notifyConfig: NotifyConfig
 }
 
 const DEFAULT_OPTIONS: WordPartyOptions = {
   jsonPath: '../../comment.json',
   popperConfig: {
+    use: true,
+    maxItems: 20,
     items: []
   },
   dropperConfig: {
+    use: true,
+    maxItems: 20,
     items: []
   },
   notifyConfig: {
+    use: true,
+    maxItems: 20,
     items: []
   }
 }
@@ -43,22 +49,22 @@ function main(_op: Partial<WordPartyOptions> = {}) {
     const notify = new Notify(options.notifyConfig)
     modules.push(notify)
   }
-  ONE_SDK.init(options.jsonPath)
-  ONE_SDK.subscribeComment((comments: Comment[]) => {
-    const commentString = comments.map((comment) => {
-      let com = striptags(comment.data.comment.replace(IMAGE_ALT, '$1'))
-      if (comment.service === 'youtube' && comment.data.paidText) {
-        com = `${comment.data.paidText} ${com}`
-      }
-      if (comment.data.hasGift) {
-        com = `__GIFT__ ${com}`
-      }
-      return com
-    })
-    modules.forEach(mod => {
-      mod.verify(commentString)
-    })
-  })
+  // ONE_SDK.init(options.jsonPath)
+  // ONE_SDK.subscribeComment((comments: Comment[]) => {
+  //   const commentString = comments.map((comment) => {
+  //     let com = striptags(comment.data.comment.replace(IMAGE_ALT, '$1'))
+  //     if (comment.service === 'youtube' && comment.data.paidText) {
+  //       com = `${comment.data.paidText} ${com}`
+  //     }
+  //     if (comment.data.hasGift) {
+  //       com = `__GIFT__ ${com}`
+  //     }
+  //     return com
+  //   })
+  //   modules.forEach(mod => {
+  //     mod.verify(commentString)
+  //   })
+  // })
   document.body.addEventListener('contextmenu', e => {
     e.preventDefault();
   });

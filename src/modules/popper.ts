@@ -3,20 +3,21 @@ import { Comment } from 'common/types/Comment'
 // @ts-ignore
 import JSConfetti from 'lib/js-confetti'
 import { WordPartyModule } from 'modules'
+export type PopperItemType = 'default' | 'emoji' | 'image'
 export interface PopperItemConfig {
-  trigger?: number
-  pattern: (RegExp | string)[]
-  confettiRadius?: number,
-  confettiNumber?: number,
-  confettiColors?: string[],
-  emojis?: string[],
-  emojiSize?: number,
+  trigger: number
+  type: PopperItemType
+  pattern: string[]
+  amount: number
+  size?: number
   images?: string[]
+  emojis?: string[]
+  colors?: string[]
 }
 export interface PopperConfig {
-  use?: boolean
+  use: boolean
+  maxItems: number
   items: PopperItemConfig[]
-  maxItems?: number
 }
 export class Popper implements WordPartyModule {
   private confetti = new JSConfetti({
@@ -24,6 +25,7 @@ export class Popper implements WordPartyModule {
   })
   private options: PopperConfig = {
     use: true,
+    maxItems: 20,
     items: []
   }
   constructor(_op: Partial<PopperConfig> = {}) {
@@ -38,17 +40,38 @@ export class Popper implements WordPartyModule {
     })
   }
   _confetti = async (config: PopperItemConfig) => {
-    return this.confetti.addConfetti(config)
+    const confettiConfig: any = {
+      confettiNumber: config.amount
+    }
+    switch (config.type) {
+      case 'default':
+        confettiConfig.confettiRadius = config.size || 20
+        if (config.colors) {
+          confettiConfig.confettiColors = config.colors
+        }
+        break
+      case 'emoji':
+        confettiConfig.emojis = config.emojis || []
+        confettiConfig.emojiSize = config.size || 100
+        break
+      case 'image':
+        confettiConfig.images = config.images || []
+    }
+    console.log(confettiConfig)
+    return this.confetti.addConfetti(confettiConfig)
   }
   verify(comments: string[]) {
     this.options.items.forEach(item => {
       let total = 0
       item.pattern.forEach(ptt => {
+        let pattern: RegExp
         if (typeof ptt === 'string') {
-          ptt = new RegExp(ptt, 'igm')
+          pattern = new RegExp(ptt, 'igm')
+        } else {
+          pattern = ptt
         }
         total += comments.reduce((count, comment) => {
-          if (comment.search(ptt) !== -1) {
+          if (comment.search(pattern) !== -1) {
             return count + 1
           }
           return count
