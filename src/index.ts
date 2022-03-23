@@ -54,8 +54,14 @@ function checkComments(comments: Comment[]) {
   })
   verify(commentStrings)
 }
-function start(_op: Partial<WordPartyOptions> = {}, skitSdk = false) {
+function destroy() {
+  modules.forEach(mod => {
+    mod.destroy()
+  })
   modules = []
+}
+function start(_op: Partial<WordPartyOptions> = {}, skitSdk = false) {
+  destroy()
   const options = Object.assign({}, DEFAULT_OPTIONS, _op)
   if (options.popperConfig.use !== false) {
     const popper = new Popper(options.popperConfig)
@@ -81,5 +87,6 @@ function start(_op: Partial<WordPartyOptions> = {}, skitSdk = false) {
 export const WordParty = {
   start,
   verify,
+  destroy,
   checkComments,
 }

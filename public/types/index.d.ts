@@ -10,10 +10,12 @@ interface WordPartyOptions {
 }
 declare function verify(commentStrings: string[]): void;
 declare function checkComments(comments: Comment[]): void;
+declare function destroy(): void;
 declare function start(_op?: Partial<WordPartyOptions>, skitSdk?: boolean): void;
 export declare const WordParty: {
     start: typeof start;
     verify: typeof verify;
+    destroy: typeof destroy;
     checkComments: typeof checkComments;
 };
 export {};

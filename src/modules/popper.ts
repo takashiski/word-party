@@ -31,7 +31,6 @@ export class Popper implements WordPartyModule {
   }
   constructor(_op: Partial<PopperConfig> = {}) {
     Object.assign(this.options, _op)
-    document.body.removeEventListener('mousedown', this._onMouseDown)
     document.body.addEventListener('mousedown', this._onMouseDown)
   }
   _onMouseDown = (e: MouseEvent) => {
@@ -82,6 +81,9 @@ export class Popper implements WordPartyModule {
         }
       })
     })
+  }
+  destroy(): void {
+    document.body.removeEventListener('mousedown', this._onMouseDown)
   }
 }
 

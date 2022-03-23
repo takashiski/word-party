@@ -28,7 +28,11 @@ class NotifyItem {
       this._element.appendChild(video)
     } else {
       const img = new Image()
-      img.src = src + `?${Date.now()}`
+      if(src.startsWith('data:')) {
+        img.src = src
+      } else {
+        img.src = src + `?${Date.now()}`
+      }
       this._element.appendChild(img)
     }
     const x = typeof conf.x === 'number' ? conf.x : this._getRandomPositionX(conf.x)
@@ -77,7 +81,6 @@ export class Notify implements WordPartyModule {
   private _items: NotifyItem[] =[]
   constructor(_op: NotifyConfig) {
     Object.assign(this.options, _op)
-    document.body.removeEventListener('mousedown', this._onMouseDown)
     document.body.addEventListener('mousedown', this._onMouseDown)
   }
   _onMouseDown = (e: MouseEvent) => {
@@ -143,5 +146,12 @@ export class Notify implements WordPartyModule {
         this.showItem(item)
       })
     }
+  }
+  destroy(): void {
+    document.body.removeEventListener('mousedown', this._onMouseDown)
+    this._items.forEach((d) => {
+      d.remove()
+    })
+    this._items = []
   }
 }

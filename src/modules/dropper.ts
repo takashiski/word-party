@@ -89,6 +89,7 @@ export class Dropper implements WordPartyModule {
   public stageHeight = window.innerHeight
   public engine = Engine.create()
   public render: Render
+  public runner: Runner
   public options: DropperConfig = Object.assign({}, DEFAULT_CONFIG)
   private _items: DropItem[] = []
   constructor(_op: DropperConfig) {
@@ -128,21 +129,21 @@ export class Dropper implements WordPartyModule {
     Composite.add(this.engine.world, [ground, leftWall, rightWall])
     Render.run(this.render)
 
-    const runner = Runner.create()
-    Runner.run(runner, this.engine)
-    document.body.removeEventListener('mousedown', this._onMouseDown)
+    this.runner = Runner.create()
+    Runner.run(this.runner, this.engine)
     document.body.addEventListener('mousedown', this._onMouseDown)
-    Events.on(this.engine, 'beforeUpdate', ()=> {
-      const gravity = this.engine.gravity;
-      this._items.forEach(item => {
-        if (item.gravity) {
-          Body.applyForce(item.body, item.body.position, {
-            x: gravity.x * gravity.scale * item.body.mass * item.gravity,
-            y: gravity.y * gravity.scale * item.body.mass * item.gravity
-          })
-        }
-      })
-    });
+    Events.on(this.engine, 'beforeUpdate', this._onBeforeUpdate)
+  }
+  _onBeforeUpdate = () => {
+    const gravity = this.engine.gravity;
+    this._items.forEach(item => {
+      if (item.gravity) {
+        Body.applyForce(item.body, item.body.position, {
+          x: gravity.x * gravity.scale * item.body.mass * item.gravity,
+          y: gravity.y * gravity.scale * item.body.mass * item.gravity
+        })
+      }
+    })
   }
   _onMouseDown = (e: MouseEvent) => {
     this.options.items.forEach((item) => {
@@ -154,6 +155,7 @@ export class Dropper implements WordPartyModule {
   }
   drop(itemConfig: DropperItemConfig, x = NaN, y = NaN) {
     const texture = itemConfig.textures[Math.floor(Math.random() * itemConfig.textures.length)]
+    if (!texture.src) return  
     const position = {
       x,
       y
@@ -167,17 +169,21 @@ export class Dropper implements WordPartyModule {
         position.y += this.stageHeight / 3 * 2
       }
     }
-    const dropItem = new DropItem(position.x, position.y, itemConfig.lifeTime || DEFAULT_LIFETIME, texture, texture.gravity, (body) => {
-      Composite.remove(this.engine.world, body)
-    })
-    this._items.unshift(dropItem)
-    Composite.add(this.engine.world, [dropItem.body])
-    const max = this.options.maxItems || DEFAULT_CONFIG.maxItems
-    if (this._items.length > max) {
-      const deleted = this._items.splice(max, this._items.length)
-      deleted.forEach((d) => {
-        d.remove()
+    try {
+      const dropItem = new DropItem(position.x, position.y, itemConfig.lifeTime || DEFAULT_LIFETIME, texture, texture.gravity, (body) => {
+        Composite.remove(this.engine.world, body)
       })
+      this._items.unshift(dropItem)
+      Composite.add(this.engine.world, [dropItem.body])
+      const max = this.options.maxItems || DEFAULT_CONFIG.maxItems
+      if (this._items.length > max) {
+        const deleted = this._items.splice(max, this._items.length)
+        deleted.forEach((d) => {
+          d.remove()
+        })
+      }
+    } catch(e) {
+      console.error(e)
     }
   }
   verify(comments: string[]) {
@@ -201,6 +207,15 @@ export class Dropper implements WordPartyModule {
         }
       })
     })
+  }
+  destroy(): void { 
+    document.body.removeEventListener('mousedown', this._onMouseDown)
+    Events.off(this.engine, 'beforeUpdate', this._onBeforeUpdate)
+    Composite.clear(this.engine.world, false)
+    Engine.clear(this.engine);
+    Render.stop(this.render);
+    Runner.stop(this.runner);
+    this.render.textures = {};
   }
 }
 

@@ -23,4 +23,5 @@ export declare class Popper implements WordPartyModule {
     _onMouseDown: (e: MouseEvent) => void;
     _confetti: (config: PopperItemConfig) => any;
     verify(comments: string[]): void;
+    destroy(): void;
 }

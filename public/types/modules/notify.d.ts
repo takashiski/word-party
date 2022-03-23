@@ -21,4 +21,5 @@ export declare class Notify implements WordPartyModule {
     _onMouseDown: (e: MouseEvent) => void;
     showItem(conf: NotifyItemConfig, x?: number, y?: number): void;
     verify(comments: string[]): void;
+    destroy(): void;
 }
