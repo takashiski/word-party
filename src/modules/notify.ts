@@ -77,13 +77,15 @@ export class Notify implements WordPartyModule {
   private _items: NotifyItem[] =[]
   constructor(_op: NotifyConfig) {
     Object.assign(this.options, _op)
-    document.body.addEventListener('mousedown', (e: MouseEvent) => {
-      const item = this.options.items.find(item => item.trigger === e.button)
-      if (item) {
-        e.preventDefault()
-        this.showItem(item, e.clientX, e.clientY)
-      }
-    })
+    document.body.removeEventListener('mousedown', this._onMouseDown)
+    document.body.addEventListener('mousedown', this._onMouseDown)
+  }
+  _onMouseDown = (e: MouseEvent) => {
+    const item = this.options.items.find(item => item.trigger === e.button)
+    if (item) {
+      e.preventDefault()
+      this.showItem(item, e.clientX, e.clientY)
+    }
   }
   showItem(conf: NotifyItemConfig, x: number = NaN, y: number = NaN) {
     const config = Object.assign({}, conf)

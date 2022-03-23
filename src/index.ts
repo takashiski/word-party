@@ -33,10 +33,30 @@ const DEFAULT_OPTIONS: WordPartyOptions = {
     items: []
   }
 }
+let modules: WordPartyModule[] = []
 
-function main(_op: Partial<WordPartyOptions> = {}) {
+function verify(commentStrings: string[]) {
+  modules.forEach(mod => {
+    mod.verify(commentStrings)
+  })
+}
+
+function checkComments(comments: Comment[]) {
+  const commentStrings = comments.map((comment) => {
+    let com = striptags(comment.data.comment.replace(IMAGE_ALT, '$1'))
+    if (comment.service === 'youtube' && comment.data.paidText) {
+      com = `${comment.data.paidText} ${com}`
+    }
+    if (comment.data.hasGift) {
+      com = `__GIFT__ ${com}`
+    }
+    return com
+  })
+  verify(commentStrings)
+}
+function start(_op: Partial<WordPartyOptions> = {}, skitSdk = false) {
+  modules = []
   const options = Object.assign({}, DEFAULT_OPTIONS, _op)
-  const modules: WordPartyModule[] = []
   if (options.popperConfig.use !== false) {
     const popper = new Popper(options.popperConfig)
     modules.push(popper)
@@ -49,27 +69,17 @@ function main(_op: Partial<WordPartyOptions> = {}) {
     const notify = new Notify(options.notifyConfig)
     modules.push(notify)
   }
-  // ONE_SDK.init(options.jsonPath)
-  // ONE_SDK.subscribeComment((comments: Comment[]) => {
-  //   const commentString = comments.map((comment) => {
-  //     let com = striptags(comment.data.comment.replace(IMAGE_ALT, '$1'))
-  //     if (comment.service === 'youtube' && comment.data.paidText) {
-  //       com = `${comment.data.paidText} ${com}`
-  //     }
-  //     if (comment.data.hasGift) {
-  //       com = `__GIFT__ ${com}`
-  //     }
-  //     return com
-  //   })
-  //   modules.forEach(mod => {
-  //     mod.verify(commentString)
-  //   })
-  // })
+  if (skitSdk) return
+  ONE_SDK.init(options.jsonPath)
+  ONE_SDK.subscribeComment(checkComments)
+  
   document.body.addEventListener('contextmenu', e => {
-    e.preventDefault();
-  });
+    e.preventDefault()
+  })
 }
 
-(window as any).WordParty = {
-  start: main
+export const WordParty = {
+  start,
+  verify,
+  checkComments,
 }

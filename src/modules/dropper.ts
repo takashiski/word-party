@@ -130,14 +130,8 @@ export class Dropper implements WordPartyModule {
 
     const runner = Runner.create()
     Runner.run(runner, this.engine)
-    document.body.addEventListener('mousedown', (e: MouseEvent) => {
-      this.options.items.forEach((item) => {
-        if (e.button === item.trigger) {
-          e.preventDefault()
-          this.drop(item, e.clientX, e.clientY)
-        }
-      })
-    })
+    document.body.removeEventListener('mousedown', this._onMouseDown)
+    document.body.addEventListener('mousedown', this._onMouseDown)
     Events.on(this.engine, 'beforeUpdate', ()=> {
       const gravity = this.engine.gravity;
       this._items.forEach(item => {
@@ -149,6 +143,14 @@ export class Dropper implements WordPartyModule {
         }
       })
     });
+  }
+  _onMouseDown = (e: MouseEvent) => {
+    this.options.items.forEach((item) => {
+      if (e.button === item.trigger) {
+        e.preventDefault()
+        this.drop(item, e.clientX, e.clientY)
+      }
+    })
   }
   drop(itemConfig: DropperItemConfig, x = NaN, y = NaN) {
     const texture = itemConfig.textures[Math.floor(Math.random() * itemConfig.textures.length)]

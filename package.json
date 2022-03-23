@@ -6,24 +6,23 @@
   "scripts": {
     "start": "esbuild src/index.ts --bundle --sourcemap --target=chrome80 --outfile=public/word-party.js --watch",
     "check": "tsc --noEmit",
-    "build": "npm run build:normal && npm run build:min",
-    "build:normal": "esbuild src/index.ts --bundle --target=chrome80 --outfile=public/word-party.js",
-    "build:min": "esbuild src/index.ts --bundle --minify --target=chrome80 --outfile=public/word-party.min.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node ./build.js && npm run ts-types",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ts-types": "tsc --emitDeclarationOnly --outDir public/types"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/matter-js": "^0.17.7",
-    "esbuild": "^0.14.21",
-    "typescript": "^4.5.5"
+    "esbuild": "^0.14.27",
+    "typescript": "^4.6.2"
   },
   "browser": {
     "path": "path-browserify"
   },
   "dependencies": {
-    "axios": "^0.26.0",
+    "axios": "^0.26.1",
     "js-confetti": "^0.10.2",
     "matter-js": "^0.18.0",
     "striptags": "^3.2.0"

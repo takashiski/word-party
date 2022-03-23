@@ -20,8 +20,9 @@ export interface PopperConfig {
   items: PopperItemConfig[]
 }
 export class Popper implements WordPartyModule {
+  private canvas = document.getElementById('popper') as HTMLCanvasElement
   private confetti = new JSConfetti({
-    canvas: document.getElementById('popper') as HTMLCanvasElement
+    canvas: this.canvas
   })
   private options: PopperConfig = {
     use: true,
@@ -30,16 +31,17 @@ export class Popper implements WordPartyModule {
   }
   constructor(_op: Partial<PopperConfig> = {}) {
     Object.assign(this.options, _op)
-    document.body.addEventListener('mousedown', (e: MouseEvent) => {
-      this.options.items.forEach((item) => {
-        if (e.button === item.trigger) {
-          e.preventDefault()
-          this._confetti(item)
-        }
-      })
+    document.body.removeEventListener('mousedown', this._onMouseDown)
+    document.body.addEventListener('mousedown', this._onMouseDown)
+  }
+  _onMouseDown = (e: MouseEvent) => {
+    this.options.items.forEach((item) => {
+      if (e.button === item.trigger) {
+        this._confetti(item)
+      }
     })
   }
-  _confetti = async (config: PopperItemConfig) => {
+  _confetti = (config: PopperItemConfig) => {
     const confettiConfig: any = {
       confettiNumber: config.amount
     }
@@ -57,7 +59,6 @@ export class Popper implements WordPartyModule {
       case 'image':
         confettiConfig.images = config.images || []
     }
-    console.log(confettiConfig)
     return this.confetti.addConfetti(confettiConfig)
   }
   verify(comments: string[]) {
