@@ -60,9 +60,10 @@ function destroy() {
   })
   modules = []
 }
+let options: WordPartyOptions = Object.assign({}, DEFAULT_OPTIONS)
 function start(_op: Partial<WordPartyOptions> = {}, skitSdk = false) {
   destroy()
-  const options = Object.assign({}, DEFAULT_OPTIONS, _op)
+  options = Object.assign(options, _op)
   if (options.popperConfig.use !== false) {
     const popper = new Popper(options.popperConfig)
     modules.push(popper)
@@ -90,3 +91,6 @@ export const WordParty = {
   destroy,
   checkComments,
 }
+try {
+  ;(window as any).WordParty = WordParty
+} catch(e) {}

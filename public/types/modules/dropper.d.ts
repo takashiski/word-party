@@ -1,4 +1,4 @@
-import { Engine, Render, Runner } from 'matter-js';
+import { Engine, Render, Runner, Body } from 'matter-js';
 import { WordPartyModule } from './index';
 export interface DropperTextureConfig {
     src: string;
@@ -30,10 +30,15 @@ export declare class Dropper implements WordPartyModule {
     engine: Engine;
     render: Render;
     runner: Runner;
+    leftWall: Body;
+    rightWall: Body;
+    ground: Body;
     options: DropperConfig;
     private _items;
     constructor(_op: DropperConfig);
+    init(): void;
     _onBeforeUpdate: () => void;
+    _onResize: () => void;
     _onMouseDown: (e: MouseEvent) => void;
     drop(itemConfig: DropperItemConfig, x?: number, y?: number): void;
     verify(comments: string[]): void;

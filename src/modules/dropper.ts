@@ -88,12 +88,18 @@ export class Dropper implements WordPartyModule {
   public stageWidth = window.innerWidth
   public stageHeight = window.innerHeight
   public engine = Engine.create()
-  public render: Render
-  public runner: Runner
+  public render!: Render
+  public runner!: Runner
+  public leftWall!: Body
+  public rightWall!: Body
+  public ground!: Body
   public options: DropperConfig = Object.assign({}, DEFAULT_CONFIG)
   private _items: DropItem[] = []
   constructor(_op: DropperConfig) {
     Object.assign(this.options, _op)
+    this.init()
+  }
+  init() {
     const canvas = document.getElementById('dropper') as HTMLCanvasElement
     this.render = Render.create({
       canvas,
@@ -122,15 +128,19 @@ export class Dropper implements WordPartyModule {
       }
     })
 
-    const leftWall = Bodies.rectangle(-(WALL_SIZE / 2 - 1), this.stageHeight / 2, WALL_SIZE, this.stageHeight, WALL_OPTION)
-    const rightWall = Bodies.rectangle(this.stageWidth + WALL_SIZE / 2 - 1, this.stageHeight / 2, WALL_SIZE, this.stageHeight, WALL_OPTION)
-    const ground = Bodies.rectangle(this.stageWidth / 2, this.stageHeight + WALL_SIZE / 2 - 1, this.stageWidth, WALL_SIZE, WALL_OPTION)
+    this.render.canvas
 
-    Composite.add(this.engine.world, [ground, leftWall, rightWall])
+    this.leftWall = Bodies.rectangle(-(WALL_SIZE / 2 - 1), this.stageHeight / 2, WALL_SIZE, this.stageHeight, WALL_OPTION)
+    this.rightWall = Bodies.rectangle(this.stageWidth + WALL_SIZE / 2 - 1, this.stageHeight / 2, WALL_SIZE, this.stageHeight, WALL_OPTION)
+    this.ground = Bodies.rectangle(this.stageWidth / 2, this.stageHeight + WALL_SIZE / 2 - 1, this.stageWidth, WALL_SIZE, WALL_OPTION)
+
+    Composite.add(this.engine.world, [this.ground, this.leftWall, this.rightWall])
     Render.run(this.render)
 
     this.runner = Runner.create()
     Runner.run(this.runner, this.engine)
+    
+    window.addEventListener('resize', this._onResize)
     document.body.addEventListener('mousedown', this._onMouseDown)
     Events.on(this.engine, 'beforeUpdate', this._onBeforeUpdate)
   }
@@ -144,6 +154,13 @@ export class Dropper implements WordPartyModule {
         })
       }
     })
+  }
+  
+  _onResize = () => {
+    this.stageWidth = window.innerWidth
+    this.stageHeight = window.innerHeight
+    this.destroy()
+    this.init()
   }
   _onMouseDown = (e: MouseEvent) => {
     this.options.items.forEach((item) => {
@@ -210,6 +227,7 @@ export class Dropper implements WordPartyModule {
   }
   destroy(): void { 
     document.body.removeEventListener('mousedown', this._onMouseDown)
+    window.removeEventListener('resize', this._onResize)
     Events.off(this.engine, 'beforeUpdate', this._onBeforeUpdate)
     Composite.clear(this.engine.world, false)
     Engine.clear(this.engine);

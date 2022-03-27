@@ -8,8 +8,7 @@ esbuild
     minify: false,
     splitting: false,
     platform: 'browser',
-    format: 'cjs',
-    target: ['esnext'],
+    format: 'iife',
     outfile: 'public/word-party.js',
     target: ['chrome80']
   })
@@ -23,7 +22,8 @@ esbuild
     minify: true,
     splitting: false,
     platform: 'browser',
-    format: 'cjs',
+    format: 'iife',
+    globalName: 'WordParty',
     target: ['esnext'],
     outfile: 'public/word-party.min.js',
     target: ['chrome80']
