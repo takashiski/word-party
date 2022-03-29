@@ -12,4 +12,5 @@ export interface BaseResponse {
 	badges: BaseBadge[]
 	timestamp: number
 	comment: string
+	isFirstTime?: boolean
 }

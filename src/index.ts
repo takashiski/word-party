@@ -50,6 +50,9 @@ function main(_op: Partial<WordPartyOptions> = {}) {
       if (comment.service === 'youtube' && comment.data.paidText) {
         com = `${comment.data.paidText} ${com}`
       }
+      if (comment.data.isFirstTime) {
+        com = `__NEW__ ${com}`
+      }
       if (comment.data.hasGift) {
         com = `__GIFT__ ${com}`
       }
