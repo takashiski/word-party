@@ -5,26 +5,23 @@ window.WordParty.init({
             "maxItems": 20
         },
         "dropper": {
-            "maxItems": 50
+            "maxItems": 20
         },
         "notifier": {
             "maxItems": 20
         }
     }
 }).setup([{
-    "pattern": ["8888"],
+    "pattern": ["88+\nパチパチ\n👏"],
     "effect": "popper",
     "trigger": 0,
     "options": {
         "type": "default",
-        "amount": 100,
-        "size": 16,
-        "images": [],
-        "emojis": [],
-        "colors": []
+        "amount": 20,
+        "size": 16
     }
 }, {
-    "pattern": ["w+$"],
+    "pattern": ["w+$\n草\nワロタ\n笑\nワラ"],
     "effect": "dropper",
     "trigger": 1,
     "options": {
@@ -32,12 +29,16 @@ window.WordParty.init({
         "magnification": 3,
         "texture": {
             "src": "resources/000.png",
-            "size": 32,
-            "gravity": 0
+            "size": 14,
+            "gravity": 0,
+            "density": 0.001,
+            "frictionAir": 0.01,
+            "restitution": 0.9,
+            "friction": 0.1
         }
     }
 }, {
-    "pattern": ["test"],
+    "pattern": ["❤\n♡\n♥"],
     "effect": "notifier",
     "trigger": 2,
     "options": {
