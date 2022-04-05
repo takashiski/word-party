@@ -1,7 +1,5 @@
-import { WordPartyModule } from 'modules';
+import { WordPartyTriggerParams, WordPartyModule } from './index';
 export interface NotifyItemConfig {
-    trigger: number;
-    pattern: string[];
     lifeTime: number;
     images: string[];
     x?: number | [number, number];
@@ -9,17 +7,14 @@ export interface NotifyItemConfig {
     only?: boolean;
 }
 export interface NotifyConfig {
-    use: boolean;
     maxItems: number;
-    items: NotifyItemConfig[];
 }
 export declare class Notify implements WordPartyModule {
     private options;
     private _container;
     private _items;
     constructor(_op: NotifyConfig);
-    _onMouseDown: (e: MouseEvent) => void;
     showItem(conf: NotifyItemConfig, x?: number, y?: number): void;
-    verify(comments: string[]): void;
+    fire(config: NotifyItemConfig, {}: WordPartyTriggerParams): void;
     destroy(): void;
 }

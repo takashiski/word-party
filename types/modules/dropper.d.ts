@@ -1,5 +1,5 @@
 import { Engine, Render, Runner, Body } from 'matter-js';
-import { WordPartyModule } from './index';
+import { WordPartyModule, WordPartyTriggerParams } from './index';
 export interface DropperTextureConfig {
     src: string;
     size: number;
@@ -13,16 +13,12 @@ export interface DropperTextureConfig {
     gravity: number;
 }
 export interface DropperItemConfig {
-    trigger: number;
-    pattern: string[];
     lifeTime: number;
     magnification: number;
-    textures: DropperTextureConfig[];
+    texture: DropperTextureConfig;
 }
 export interface DropperConfig {
-    use: boolean;
     maxItems: number;
-    items: DropperItemConfig[];
 }
 export declare class Dropper implements WordPartyModule {
     stageWidth: number;
@@ -39,8 +35,7 @@ export declare class Dropper implements WordPartyModule {
     init(): void;
     _onBeforeUpdate: () => void;
     _onResize: () => void;
-    _onMouseDown: (e: MouseEvent) => void;
     drop(itemConfig: DropperItemConfig, x?: number, y?: number): void;
-    verify(comments: string[]): void;
+    fire(config: DropperItemConfig, { hitCount }: WordPartyTriggerParams): void;
     destroy(): void;
 }

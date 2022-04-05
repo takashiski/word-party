@@ -1,4 +1,4 @@
-import { BiliBili } from 'common/types/BiliBili';
+import { BiliBili } from './BiliBili';
 import { BaseBadge } from './BaseResponse';
 import { YouTube } from "./YouTube";
 import { Twicas } from "./Twicas";

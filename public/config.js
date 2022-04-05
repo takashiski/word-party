@@ -1,50 +1,50 @@
-window.WordParty.start({
-  popperConfig: {
-    use: true,
-    maxItems: 10,
-    items: [
-      { trigger: 0, type: 'default', pattern: ['88'], size: 10, amount: 20 },
-    ],
-  },
-  dropperConfig: {
-    use: true,
-    maxItems: 50,
-    items: [
-      {
-        trigger: 1,
-        pattern: ['w'],
-        lifeTime: 5000,
-        magnification: 5,
-        textures: [
-          {
-            src: './paw.png',
-            size: 34,
-            xScale: 1.5,
-            yScale: 1.5,
-            angle: 0,
-            density: 0.001,
-            frictionAir: 0.05,
-            restitution: 0.9,
-            friction: 0.1,
-            gravity: 1,
-          },
-        ],
-      },
-    ],
-  },
-  notifyConfig: {
-    use: true,
-    maxItems: 10,
-    items: [
-      {
-        trigger: 2,
-        pattern: ['❤'],
-        images: ['./heart.gif', 'question.gif'],
-        lifeTime: 5000,
-        x: [0, 1920],
-        y: [0, 1080],
-        only: false,
-      },
-    ],
-  },
-});
+window.WordParty.init({
+    "apiPort": 11180,
+    "modules": {
+        "popper": {
+            "maxItems": 20
+        },
+        "dropper": {
+            "maxItems": 50
+        },
+        "notifier": {
+            "maxItems": 20
+        }
+    }
+}).setup([{
+    "pattern": ["8888"],
+    "effect": "popper",
+    "trigger": 0,
+    "options": {
+        "type": "default",
+        "amount": 100,
+        "size": 16,
+        "images": [],
+        "emojis": [],
+        "colors": []
+    }
+}, {
+    "pattern": ["w+$"],
+    "effect": "dropper",
+    "trigger": 1,
+    "options": {
+        "lifeTime": 5000,
+        "magnification": 3,
+        "texture": {
+            "src": "resources/000.png",
+            "size": 32,
+            "gravity": 0
+        }
+    }
+}, {
+    "pattern": ["test"],
+    "effect": "notifier",
+    "trigger": 2,
+    "options": {
+        "lifeTime": 5000,
+        "images": ["resources/001.gif"],
+        "x": [0, 1920],
+        "y": [0, 1080],
+        "only": false
+    }
+}]).start()

@@ -1,96 +1,139 @@
+import { WordPartyItemOption, WordPartyModules } from './modules/index';
+import { Comment } from './common/types/Comment'
+import { NotifyConfig, Notify } from './modules/notify';
 import { Popper, PopperConfig } from './modules/popper';
 import { Dropper, DropperConfig } from './modules/dropper';
-import { ONE_SDK  } from './sdk/sdk'
-import { Comment } from './common/types/Comment'
-import { WordPartyModule } from 'modules';
-import { NotifyConfig, Notify } from 'modules/notify';
-
 import striptags from 'striptags'
+import merge from 'lodash.merge'
+
 const IMAGE_ALT = /<img\s.*?alt=\"(.*?)\"\s?.*?\/?>/g
 
+type WordPartyEffect = 'popper' | 'dropper' | 'notifier'
+export interface WordPartyItem {
+  pattern: (RegExp | string)[]
+  effect: WordPartyEffect
+  trigger: number
+  options: WordPartyItemOption
+}
 interface WordPartyOptions {
-  jsonPath: string
-  popperConfig: PopperConfig
-  dropperConfig: DropperConfig
-  notifyConfig: NotifyConfig
-}
-
-const DEFAULT_OPTIONS: WordPartyOptions = {
-  jsonPath: '../../comment.json',
-  popperConfig: {
-    use: true,
-    maxItems: 20,
-    items: []
-  },
-  dropperConfig: {
-    use: true,
-    maxItems: 20,
-    items: []
-  },
-  notifyConfig: {
-    use: true,
-    maxItems: 20,
-    items: []
+  apiPort: number
+  modules: {
+    popper: PopperConfig
+    dropper: DropperConfig
+    notifier: NotifyConfig
   }
 }
-let modules: WordPartyModule[] = []
-
-function verify(commentStrings: string[]) {
-  modules.forEach(mod => {
-    mod.verify(commentStrings)
-  })
-}
-
-function checkComments(comments: Comment[]) {
-  const commentStrings = comments.map((comment) => {
-    let com = striptags(comment.data.comment.replace(IMAGE_ALT, '$1'))
-    if (comment.service === 'youtube' && comment.data.paidText) {
-      com = `${comment.data.paidText} ${com}`
+const DEFAULT_OPTIONS = {
+  apiPort: 11180,
+  modules: {
+    popper: {
+      maxItems: 20,
+    },
+    dropper: {
+      maxItems: 20,
+    },
+    notifier: {
+      maxItems: 20,
     }
-    if (comment.data.hasGift) {
-      com = `__GIFT__ ${com}`
-    }
-    return com
-  })
-  verify(commentStrings)
+  }
 }
-function destroy() {
-  modules.forEach(mod => {
-    mod.destroy()
-  })
-  modules = []
-}
-let options: WordPartyOptions = Object.assign({}, DEFAULT_OPTIONS)
-function start(_op: Partial<WordPartyOptions> = {}, skitSdk = false) {
-  destroy()
-  options = Object.assign(options, _op)
-  if (options.popperConfig.use !== false) {
-    const popper = new Popper(options.popperConfig)
-    modules.push(popper)
+class WordParty {
+  public Modules = new WordPartyModules()
+  private _items: WordPartyItem[] = []
+  private _options: WordPartyOptions = merge({}, DEFAULT_OPTIONS)
+  init(options: WordPartyOptions) {
+    this._options = merge(DEFAULT_OPTIONS, options)
+    this.Modules.initialize()
+    const popper = new Popper(this._options.modules.popper)
+    this.Modules.register('popper', popper)
+    const dropper = new Dropper(this._options.modules.dropper)
+    this.Modules.register('dropper', dropper)
+    const notify = new Notify(this._options.modules.notifier)
+    this.Modules.register('notifier', notify)
+
+    document.body.removeEventListener('mousedown', this._handleOnMouseDown)
+    document.body.addEventListener('mousedown', this._handleOnMouseDown)
+    
+    document.body.removeEventListener('contextmenu', this._handleOnContextMenu)
+    document.body.addEventListener('contextmenu', this._handleOnContextMenu)
+    return this
   }
-  if (options.dropperConfig.use !== false) {
-    const dropper = new Dropper(options.dropperConfig)
-    modules.push(dropper)
+  private _handleOnMouseDown = (e: MouseEvent) => {
+    const matches = this._items.filter(item => {
+      return item.trigger === e.button
+    })
+    matches.forEach(match => {
+      this.Modules.fire(match, `mousedown.${e.button}`, 1)
+    })
   }
-  if (options.notifyConfig.use !== false) {
-    const notify = new Notify(options.notifyConfig)
-    modules.push(notify)
-  }
-  if (skitSdk) return
-  ONE_SDK.init(options.jsonPath)
-  ONE_SDK.subscribeComment(checkComments)
-  
-  document.body.addEventListener('contextmenu', e => {
+  private _handleOnContextMenu = (e: MouseEvent) => {
     e.preventDefault()
-  })
+  }
+  setup(items: WordPartyItem[], ) {
+    this._items = items
+    return this
+  }
+  destroy() {
+    this.Modules.destroy()
+    this._items = []
+    this._options = merge({}, DEFAULT_OPTIONS)
+  }
+  start() {
+    let lastCommentId: null | string = null
+    const OneSDK = (window as any).OneSDK
+    OneSDK.setup({
+      port: this._options.apiPort,
+      commentLimit: 20
+    })
+    OneSDK.subscribe((comments: Comment[]) => {
+      if (lastCommentId === null) {
+        const last = comments[comments.length - 1]
+        if (last) {
+          lastCommentId = last.data.id
+        } else {
+          lastCommentId = ''
+        }
+      }
+      const index = comments.findIndex(comment => {
+        return comment.data.id === lastCommentId
+      })
+      const diff = comments.slice(index === -1 ? 0 : index + 1)
+      if (diff.length !== 0) {
+        lastCommentId = diff[diff.length - 1].data.id
+        this.verify(diff)
+      }
+    })
+    OneSDK.connect()
+    return this
+  }
+  verify(comments: Comment[]) {
+    const commentStrings = this._formatComments(comments)
+    this._items.forEach(item => {
+      item.pattern.forEach(ptt => {
+        const pattern: RegExp = typeof ptt === 'string' ? new RegExp(ptt, 'igm') : ptt
+        commentStrings.forEach((comment) => {
+          const hitCount = comment.split(pattern).length - 1
+          if (hitCount !== 0) {
+            this.Modules.fire(item, comment, hitCount)
+          }
+        })
+      })
+    })
+  }
+  private _formatComments(comments: Comment[]) {
+    return comments.map((comment) => {
+      let com = striptags(comment.data.comment.replace(IMAGE_ALT, '$1'))
+      if (comment.service === 'youtube' && comment.data.paidText) {
+        com = `${comment.data.paidText} ${com}`
+      }
+      if (comment.data.hasGift) {
+        com = `__GIFT__ ${com}`
+      }
+      if (comment.data.isFirstTime) {
+        com = `__NEW__ ${com}`
+      }
+      return com
+    })
+  }
 }
-
-export const WordParty = {
-  start,
-  verify,
-  destroy,
-  checkComments,
-}
-try {
-  ;(window as any).WordParty = WordParty
-} catch(e) {}
+export default new WordParty()

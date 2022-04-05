@@ -1,29 +1,36 @@
 {
   "name": "word-party",
-  "version": "2.0.0",
-  "description": "",
-  "main": "public/word-party.js",
+  "version": "1.0.0",
+  "description": "wordparty",
+  "main": "./public/word-party.js",
+  "types": "./types/index.d.ts",
   "scripts": {
-    "start": "esbuild src/index.ts --bundle --sourcemap --target=chrome80 --outfile=public/word-party.js --watch",
+    "start": "webpack --watch",
     "check": "tsc --noEmit",
-    "build": "node ./build.js && npm run ts-types",
+    "build": "webpack --mode=production --node-env=production",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "ts-types": "tsc --emitDeclarationOnly --outDir public/types"
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production"
   },
   "keywords": [],
-  "author": "",
+  "author": "ASTIE",
   "license": "ISC",
   "devDependencies": {
+    "@types/lodash.merge": "^4.6.6",
     "@types/matter-js": "^0.17.7",
-    "esbuild": "^0.14.27",
-    "typescript": "^4.6.2"
+    "prettier": "^2.5.1",
+    "terser-webpack-plugin": "^5.3.1",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.6.3",
+    "webpack": "^5.71.0",
+    "webpack-cli": "^4.9.2"
   },
   "browser": {
     "path": "path-browserify"
   },
   "dependencies": {
-    "axios": "^0.26.1",
     "js-confetti": "^0.10.2",
+    "lodash.merge": "^4.6.2",
     "matter-js": "^0.18.0",
     "striptags": "^3.2.0"
   }

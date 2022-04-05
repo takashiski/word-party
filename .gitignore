@@ -1,5 +1,4 @@
 node_modules
 public/word-party.js
-public/word-party.min.js
-public/word-party.js.map
-public/word-party.esm.js
+public/word-party.js.LICENSE.txt
+public/onesdk.pro.js

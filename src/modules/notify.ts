@@ -1,7 +1,5 @@
-import { WordPartyModule } from 'modules'
+import { WordPartyTriggerParams, WordPartyModule } from './index';
 export interface NotifyItemConfig {
-  trigger: number
-  pattern: string[]
   lifeTime: number
   images: string[]
   x?: number | [number, number]
@@ -9,9 +7,7 @@ export interface NotifyItemConfig {
   only?: boolean
 }
 export interface NotifyConfig {
-  use: boolean
   maxItems: number
-  items: NotifyItemConfig[]
 }
 const SAFE_MARGIN = 300
 class NotifyItem {
@@ -41,7 +37,7 @@ class NotifyItem {
     this._element.style.transform = `translate(${x}px, ${y}px)`;
     
     this.parent.appendChild(this._element)
-    this._timer = setTimeout(() => {
+    this._timer = window.setTimeout(() => {
       this.remove()
     }, conf.lifeTime || 5000)
   }
@@ -73,22 +69,12 @@ class NotifyItem {
 }
 export class Notify implements WordPartyModule {
   private options: NotifyConfig = {
-    use: true,
-    items: [],
     maxItems: 20
   }
   private _container: HTMLElement = document.getElementById('notify') as HTMLElement
   private _items: NotifyItem[] =[]
   constructor(_op: NotifyConfig) {
     Object.assign(this.options, _op)
-    document.body.addEventListener('mousedown', this._onMouseDown)
-  }
-  _onMouseDown = (e: MouseEvent) => {
-    const item = this.options.items.find(item => item.trigger === e.button)
-    if (item) {
-      e.preventDefault()
-      this.showItem(item, e.clientX, e.clientY)
-    }
   }
   showItem(conf: NotifyItemConfig, x: number = NaN, y: number = NaN) {
     const config = Object.assign({}, conf)
@@ -120,35 +106,10 @@ export class Notify implements WordPartyModule {
       })
     }
   }
-  verify(comments: string[]): void {
-    const hits: NotifyItemConfig[] = []
-    comments.forEach((comment) => {
-      const hit = this.options.items.find((item) => {
-        return item.pattern.some((ptt) => {
-          let pattern: RegExp
-          if (typeof ptt === 'string') {
-            pattern = new RegExp(ptt, 'gim')
-          } else {
-            pattern = ptt
-          }
-          if (comment.search(pattern) !== -1) {
-            return true
-          }
-          return false
-        })
-      })
-      if (hit) {
-        hits.push(hit)
-      }
-    })
-    if (hits.length !== 0) {
-      hits.forEach(item => {
-        this.showItem(item)
-      })
-    }
+  fire(config: NotifyItemConfig, {}: WordPartyTriggerParams): void {
+    this.showItem(config)
   }
   destroy(): void {
-    document.body.removeEventListener('mousedown', this._onMouseDown)
     this._items.forEach((d) => {
       d.remove()
     })

@@ -1,6 +1,5 @@
 import { Engine, Render, Runner, Bodies, Composite, Body, Events } from 'matter-js'
-import { Comment } from 'common/types/Comment'
-import { WordPartyModule } from './index'
+import { WordPartyModule, WordPartyTriggerParams } from './index'
 const WALL_SIZE = 30
 const DEFAULT_LIFETIME = 5000
 const DEFAULT_DENSITY = 0.001 // 密度: 単位面積あたりの質量
@@ -26,20 +25,14 @@ export interface DropperTextureConfig {
   gravity: number
 }
 export interface DropperItemConfig {
-  trigger: number
-  pattern: string[]
   lifeTime: number
   magnification: number
-  textures: DropperTextureConfig[]
+  texture: DropperTextureConfig
 }
 export interface DropperConfig {
-  use: boolean
   maxItems: number
-  items: DropperItemConfig[]
 }
 const DEFAULT_CONFIG: Required<DropperConfig> = {
-  use: true,
-  items: [],
   maxItems: 20,
 }
 const NOOP = () => {}
@@ -75,7 +68,7 @@ class DropItem {
           }
         }
       })
-    this._timer = setTimeout(() => {
+    this._timer = window.setTimeout(() => {
       callback(this._item)
     }, lifeTime)
   }
@@ -141,7 +134,6 @@ export class Dropper implements WordPartyModule {
     Runner.run(this.runner, this.engine)
     
     window.addEventListener('resize', this._onResize)
-    document.body.addEventListener('mousedown', this._onMouseDown)
     Events.on(this.engine, 'beforeUpdate', this._onBeforeUpdate)
   }
   _onBeforeUpdate = () => {
@@ -162,16 +154,8 @@ export class Dropper implements WordPartyModule {
     this.destroy()
     this.init()
   }
-  _onMouseDown = (e: MouseEvent) => {
-    this.options.items.forEach((item) => {
-      if (e.button === item.trigger) {
-        e.preventDefault()
-        this.drop(item, e.clientX, e.clientY)
-      }
-    })
-  }
   drop(itemConfig: DropperItemConfig, x = NaN, y = NaN) {
-    const texture = itemConfig.textures[Math.floor(Math.random() * itemConfig.textures.length)]
+    const texture = itemConfig.texture
     if (!texture.src) return  
     const position = {
       x,
@@ -203,30 +187,13 @@ export class Dropper implements WordPartyModule {
       console.error(e)
     }
   }
-  verify(comments: string[]) {
-    this.options.items.forEach(item => {
-      item.pattern.forEach(ptt => {
-        let pattern: RegExp
-        if (typeof ptt === 'string') {
-          pattern = new RegExp(ptt, 'igm')
-        } else {
-          pattern = ptt
-        }
-        let total = comments.reduce((count, comment) => {
-          if (comment.search(pattern) !== -1) {
-            return count + comment.split(pattern).length - 1
-          }
-          return count
-        }, 0)
-        total *= item.magnification || 1
-        for (let i = 0; i < total; i++) {
-          this.drop(item)
-        }
-      })
-    })
+  fire(config: DropperItemConfig, { hitCount }: WordPartyTriggerParams) {
+    const total = hitCount * (config.magnification || 1)
+    for (let i = 0; i < total; i++) {
+      this.drop(config)
+    }
   }
   destroy(): void { 
-    document.body.removeEventListener('mousedown', this._onMouseDown)
     window.removeEventListener('resize', this._onResize)
     Events.off(this.engine, 'beforeUpdate', this._onBeforeUpdate)
     Composite.clear(this.engine.world, false)
