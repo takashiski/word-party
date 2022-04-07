@@ -2,6 +2,7 @@ import { Engine, Render, Runner, Body } from 'matter-js';
 import { WordPartyModule, WordPartyTriggerParams } from './index';
 export interface DropperTextureConfig {
     src: string;
+    content: string;
     size: number;
     xScale: number;
     yScale: number;
@@ -21,6 +22,8 @@ export interface DropperConfig {
     maxItems: number;
 }
 export declare class Dropper implements WordPartyModule {
+    private canvas;
+    private _renderId;
     stageWidth: number;
     stageHeight: number;
     engine: Engine;
@@ -33,6 +36,7 @@ export declare class Dropper implements WordPartyModule {
     private _items;
     constructor(_op: DropperConfig);
     init(): void;
+    private _render;
     _onBeforeUpdate: () => void;
     _onResize: () => void;
     drop(itemConfig: DropperItemConfig, x?: number, y?: number): void;

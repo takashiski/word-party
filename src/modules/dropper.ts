@@ -14,6 +14,7 @@ const WALL_OPTION = {
 }
 export interface DropperTextureConfig {
   src: string
+  content: string
   size: number
   xScale: number
   yScale: number
@@ -50,6 +51,19 @@ class DropItem {
     public gravity: number = 0,
     public callback: (item: Matter.Body) => void = NOOP
   ) {
+    const render = texture.src ? {
+      sprite: {
+        texture: texture.src,
+        xScale: texture.xScale || 1,
+        yScale: texture.yScale || 1,
+      }
+    } : {
+      fillStyle: 'transparent',
+      text:{
+        content: texture.content,
+        size: texture.size,
+      },
+    }
     this._item = Bodies.circle(
       x,
       y,
@@ -60,13 +74,7 @@ class DropItem {
         frictionAir: Object.hasOwnProperty.call(texture, 'frictionAir') ? texture.frictionAir : DEFAULT_FRICTION_AIR, // 密度: 単位面積あたりの質量
         restitution: Object.hasOwnProperty.call(texture, 'restitution') ? texture.restitution : DEFAULT_RESTITUTION, // 弾力性
         friction: Object.hasOwnProperty.call(texture, 'friction') ? texture.friction : DEFAULT_FRICTION, // 本体の摩擦
-        render: {
-          sprite: {
-            texture: texture.src,
-            xScale: texture.xScale || 1,
-            yScale: texture.yScale || 1,
-          }
-        }
+        render
       })
     this._timer = window.setTimeout(() => {
       callback(this._item)
@@ -78,6 +86,8 @@ class DropItem {
   }
 }
 export class Dropper implements WordPartyModule {
+  private canvas: HTMLCanvasElement
+  private _renderId: number = -1
   public stageWidth = window.innerWidth
   public stageHeight = window.innerHeight
   public engine = Engine.create()
@@ -90,12 +100,12 @@ export class Dropper implements WordPartyModule {
   private _items: DropItem[] = []
   constructor(_op: DropperConfig) {
     Object.assign(this.options, _op)
+    this.canvas = document.getElementById('dropper') as HTMLCanvasElement
     this.init()
   }
   init() {
-    const canvas = document.getElementById('dropper') as HTMLCanvasElement
     this.render = Render.create({
-      canvas,
+      canvas: this.canvas,
       engine: this.engine,
       options: {
         background: 'transparent',
@@ -120,9 +130,6 @@ export class Dropper implements WordPartyModule {
         // showInternalEdges: true
       }
     })
-
-    this.render.canvas
-
     this.leftWall = Bodies.rectangle(-(WALL_SIZE / 2 - 1), this.stageHeight / 2, WALL_SIZE, this.stageHeight, WALL_OPTION)
     this.rightWall = Bodies.rectangle(this.stageWidth + WALL_SIZE / 2 - 1, this.stageHeight / 2, WALL_SIZE, this.stageHeight, WALL_OPTION)
     this.ground = Bodies.rectangle(this.stageWidth / 2, this.stageHeight + WALL_SIZE / 2 - 1, this.stageWidth, WALL_SIZE, WALL_OPTION)
@@ -135,6 +142,46 @@ export class Dropper implements WordPartyModule {
     
     window.addEventListener('resize', this._onResize)
     Events.on(this.engine, 'beforeUpdate', this._onBeforeUpdate)
+    this._render()
+  }
+  private _render = () => {
+    const context = this.render.context
+    const bodies = Composite.allBodies(this.engine.world)
+    this._renderId = window.requestAnimationFrame(this._render)
+    
+    for (let i = 0; i < bodies.length; i += 1) {
+      const part = bodies[i]
+      const render = part.render as any
+      if(render.text) {
+        let fontsize = 30
+        let fontfamily = 'Arial' 
+        let color = '#000000'
+        if (render.text.size) {
+          fontsize = render.text.size * 2
+        }
+        let content = '';
+        if(typeof render.text === 'string') {
+          content = render.text
+        } else if(render.text.content) {
+          content = render.text.content
+        }
+        
+        context.textBaseline = 'middle'
+        context.textAlign = 'center'
+        context.fillStyle = color
+        context.font = `${fontsize}px ${fontfamily}`
+        context.save()
+        context.translate(part.position.x, part.position.y)
+
+        // NOTE: テキストを回転させる
+        const x = part.vertices[1].x - part.vertices[0].x
+        const y = part.vertices[1].y - part.vertices[0].y
+        const radian = Math.atan2(y, x)
+        context.rotate(radian)
+        context.fillText(content, 0, 0)
+        context.restore()
+      }
+    }
   }
   _onBeforeUpdate = () => {
     const gravity = this.engine.gravity;
@@ -156,7 +203,7 @@ export class Dropper implements WordPartyModule {
   }
   drop(itemConfig: DropperItemConfig, x = NaN, y = NaN) {
     const texture = itemConfig.texture
-    if (!texture.src) return  
+    // if (!texture.src) return  
     const position = {
       x,
       y
@@ -195,6 +242,7 @@ export class Dropper implements WordPartyModule {
   }
   destroy(): void { 
     window.removeEventListener('resize', this._onResize)
+    window.cancelAnimationFrame(this._renderId)
     Events.off(this.engine, 'beforeUpdate', this._onBeforeUpdate)
     Composite.clear(this.engine.world, false)
     Engine.clear(this.engine);
