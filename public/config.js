@@ -12,7 +12,7 @@ window.WordParty.init({
         }
     }
 }).setup([{
-    "pattern": ["88+\nパチパチ\n👏"],
+    "pattern": ["88+","パチパチ","👏","ナイス","nf","ないす","ノ","丿"],
     "effect": "popper",
     "trigger": 0,
     "options": {
@@ -21,15 +21,15 @@ window.WordParty.init({
         "size": 16
     }
 }, {
-    "pattern": ["w+$\n草\nワロタ\n笑\nワラ"],
+    "pattern": ["w+$","草","ワロタ", "笑", "ワラ","すごい"],
     "effect": "dropper",
     "trigger": 1,
     "options": {
         "lifeTime": 5000,
         "magnification": 3,
         "texture": {
-            "src": "resources/000.png",
-            "size": 14,
+            "content": "🍖",
+            "size": 32,
             "gravity": 0,
             "density": 0.001,
             "frictionAir": 0.01,
@@ -38,7 +38,7 @@ window.WordParty.init({
         }
     }
 }, {
-    "pattern": ["❤\n♡\n♥"],
+    "pattern": ["❤","♡","♥"],
     "effect": "notifier",
     "trigger": 2,
     "options": {
