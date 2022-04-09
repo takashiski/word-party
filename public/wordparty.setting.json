@@ -14,13 +14,16 @@
         }
     },
     "items": [{
-        "pattern": ["88+\nパチパチ\n👏"],
+        "pattern": ["88+\nパチパチ\n👏\nナイス\nないす\nnf\ngg"],
         "effect": "popper",
         "trigger": 0,
         "options": {
             "type": "default",
             "amount": 20,
-            "size": 16
+            "size": 50,
+            "images": [],
+            "emojis": [],
+            "colors": []
         }
     }, {
         "pattern": ["w+$\n草\nワロタ\n笑\nワラ"],
@@ -30,13 +33,14 @@
             "lifeTime": 5000,
             "magnification": 3,
             "texture": {
-                "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAA3NCSVQICAjb4U/gAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAkRoAAJEaAU1rYs0AAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAADuElEQVRYR61WS2sUQRCunpnNRi+JYFSIhhgNiC8EMQqCIggi6CE+8Sj6EwwEPEm8JEdPgtHgIQdBvYh68ZKoBzUKAaMH40GMuEpEQSMmm5nxq+7KZGe2Z/aRfFDb1VVfV3dPV9c2VYFmV7lDrvJ+Q75BvwKbZ1wxeOwzHOa6Q7A1G1f9aHSU+woBw7i4t8QfgW1JHo+FK28YdcAh73IyaCTkHhEasW7lQDiG0GoGPqlXSAZcEEd5j4VHrNs4IgVQXMOsAR55+yzBSmUWtBWQlawnfDHhWDqoBY60ZQhI7RQ1DQ05ym1hYd2Y7MiKlboAonC1KKkIKGiBVORlxcpYAM1LmwXmVMuzImMBwZQoqfDJnWKRbgbSY2XkQO6lqGn4QTQ3aYT1dCDWC1HLoBfgUO4ispWv3C8pMmuJZidDCl+z347wLn4CI1q3wsSY/Qh1HVdHM4dX4Dk1AVm8CwYfUnp1PqOAbUaBOZ6wL8hf+Dt0AI18B9sSHCOIoWMhZsLn89xcQvsSDhH3LSI3ou1P+IoOOefMxItgG/viXLcfLo4xEbdH/j5ewKDdqctoDweXL3Eb3OtY9W622cA+5miu3jkvzOspjRkXd5AXMGB3avmEGIoD1QnFMRIxS8QdcJAlWdnehl1tF71myNg207MAc/PuuJbzPV2ljUmE4Umf/PvSW4BCfd+L9O/CN27GPZhRFI6DNwJf0VD00Z0gpe5JN4mffji/Xms4p97yzyNCbrcmCTDxQXy6d1au8r4gGc8IlRfQbeFo4TmFppHD42HUQsQm8+3C4YDHYMv854MEuOPnzYh8O/cTfn6ojMKZM5xFNOF//VGc7N4UH+98D2wzcX+qFLHYwzyOY5T6eA6Ym9jHKMtwHhiS2o8C9wH/dHdg8iEtGMxVcQNzqsQ0zpivLB/LWRx0J/LkOfLkiXFXD4VVPyjdRbWCT/0M420P2AgVn0o4zwtK0SXp1gRFqk2RMxdS8FRMZahUZFqxkwm00ZnVgTknVF1FKo5LP4asBwk/Nq+hWcrkjAZfBTfQWr926hEgGY8qpa5Kd0nAUbTiKAo4ijExRUg7AgcJNI6BdZdhC77jVmxC+8d0DaxHgN0fWObJGWuQ0KdEj2BdAOrAck+uoVSwTdQI1gWgYFTx0KwdYajK4qblQB458AbHsFX6MeCdN0ahGsZC34PzD/0cvlonop1GwENCS6KAHNiBdtp0KwPlV79u+C03D5nBokbkOZZaP/j24Po+BJ8fnzzuK2QYe9oolBIQ/QdvJXhfF/EQRQAAAABJRU5ErkJggg==",
-                "size": 14,
+                "src": "",
+                "size": 32,
                 "gravity": 0,
                 "density": 0.001,
                 "frictionAir": 0.01,
                 "restitution": 0.9,
-                "friction": 0.1
+                "friction": 0.1,
+                "content": "🤣"
             }
         }
     }, {
