@@ -12,7 +12,7 @@ window.WordParty.init({
         }
     }
 }).setup([{
-    "pattern": ["88+\nパチパチ\n👏\nナイス\nないす\nnf\ngg"],
+    "pattern": ["88+", "パチパチ", "👏", "ナイス", "ないす", "nf", "gg", "gg"],
     "effect": "popper",
     "trigger": 0,
     "options": {
@@ -24,7 +24,7 @@ window.WordParty.init({
         "colors": []
     }
 }, {
-    "pattern": ["w+$\n草\nワロタ\n笑\nワラ"],
+    "pattern": ["w+$", "草", "ワロタ", "笑", "ワラ"],
     "effect": "dropper",
     "trigger": 1,
     "options": {
@@ -42,7 +42,7 @@ window.WordParty.init({
         }
     }
 }, {
-    "pattern": ["❤\n♡\n♥"],
+    "pattern": ["❤", "♡", "♥", "♥"],
     "effect": "notifier",
     "trigger": 2,
     "options": {

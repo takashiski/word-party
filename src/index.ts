@@ -5,7 +5,6 @@ import { Popper, PopperConfig } from './modules/popper';
 import { Dropper, DropperConfig } from './modules/dropper';
 import striptags from 'striptags'
 import merge from 'lodash.merge'
-import escapeStringRegexp from 'lodash.escaperegexp';
 const IMAGE_ALT = /<img\s.*?alt=\"(.*?)\"\s?.*?\/?>/g
 
 type WordPartyEffect = 'popper' | 'dropper' | 'notifier'
@@ -110,7 +109,7 @@ class WordParty {
     const commentStrings = this._formatComments(comments)
     this._items.forEach(item => {
       item.pattern.forEach(ptt => {
-        const pattern: RegExp = typeof ptt === 'string' ? new RegExp(escapeStringRegexp(ptt), 'igm') : ptt
+        const pattern: RegExp = typeof ptt === 'string' ? new RegExp(ptt, 'igm') : ptt
         commentStrings.forEach((comment) => {
           const hitCount = comment.split(pattern).length - 1
           if (hitCount !== 0) {
