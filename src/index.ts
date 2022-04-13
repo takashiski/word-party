@@ -84,22 +84,25 @@ class WordParty {
       port: this._options.apiPort,
       commentLimit: 20
     })
-    OneSDK.subscribe((comments: Comment[]) => {
-      if (lastCommentId === null) {
-        const last = comments[comments.length - 1]
-        if (last) {
-          lastCommentId = last.data.id
-        } else {
-          lastCommentId = ''
+    OneSDK.subscribe({
+      action: 'comments',
+      callback: (comments: Comment[]) => {
+        if (lastCommentId === null) {
+          const last = comments[comments.length - 1]
+          if (last) {
+            lastCommentId = last.data.id
+          } else {
+            lastCommentId = ''
+          }
         }
-      }
-      const index = comments.findIndex(comment => {
-        return comment.data.id === lastCommentId
-      })
-      const diff = comments.slice(index === -1 ? 0 : index + 1)
-      if (diff.length !== 0) {
-        lastCommentId = diff[diff.length - 1].data.id
-        this.verify(diff)
+        const index = comments.findIndex(comment => {
+          return comment.data.id === lastCommentId
+        })
+        const diff = comments.slice(index === -1 ? 0 : index + 1)
+        if (diff.length !== 0) {
+          lastCommentId = diff[diff.length - 1].data.id
+          this.verify(diff)
+        }
       }
     })
     OneSDK.connect()
