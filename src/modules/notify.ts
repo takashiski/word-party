@@ -4,6 +4,8 @@ export interface NotifyItemConfig {
   images: string[]
   x?: number | [number, number]
   y?: number | [number, number]
+  width?: number
+  height?: number
   only?: boolean
 }
 export interface NotifyConfig {
@@ -21,6 +23,12 @@ class NotifyItem {
       video.src = src
       video.style.pointerEvents = 'none'
       video.autoplay = true
+      if (conf.width) {
+        video.width = conf.width
+      }
+      if (conf.height) {
+        video.height = conf.height
+      }
       this._element.appendChild(video)
     } else {
       const img = new Image()
@@ -28,6 +36,12 @@ class NotifyItem {
         img.src = src
       } else {
         img.src = src + `?${Date.now()}`
+      }
+      if (conf.width) {
+        img.width = conf.width
+      }
+      if (conf.height) {
+        img.height = conf.height
       }
       this._element.appendChild(img)
     }

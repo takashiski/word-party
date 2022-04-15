@@ -4,6 +4,8 @@ export interface NotifyItemConfig {
     images: string[];
     x?: number | [number, number];
     y?: number | [number, number];
+    width?: number;
+    height?: number;
     only?: boolean;
 }
 export interface NotifyConfig {
