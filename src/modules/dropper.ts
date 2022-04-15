@@ -69,7 +69,7 @@ class DropItem {
       y,
       texture.size,
       {
-        angle: Object.hasOwnProperty.call(texture, 'angle') ? texture.angle : Math.random() * Math.PI * 2,
+        angle: Object.hasOwnProperty.call(texture, 'angle') ? texture.angle * (Math.PI / 180) : Math.random() * Math.PI * 2,
         density: Object.hasOwnProperty.call(texture, 'density') ? texture.density : DEFAULT_DENSITY, // 密度: 単位面積あたりの質量
         frictionAir: Object.hasOwnProperty.call(texture, 'frictionAir') ? texture.frictionAir : DEFAULT_FRICTION_AIR, // 密度: 単位面積あたりの質量
         restitution: Object.hasOwnProperty.call(texture, 'restitution') ? texture.restitution : DEFAULT_RESTITUTION, // 弾力性
