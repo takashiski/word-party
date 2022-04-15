@@ -30,6 +30,12 @@ class NotifyItem {
         video.height = conf.height
       }
       this._element.appendChild(video)
+    }if (src.endsWith('.mp3') || src.endsWith('.wav')) {
+      const audio = document.createElement('audio')
+      audio.src = src
+      audio.style.pointerEvents = 'none'
+      audio.autoplay = true
+      this._element.appendChild(audio)
     } else {
       const img = new Image()
       if(src.startsWith('data:')) {
