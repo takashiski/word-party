@@ -30,7 +30,7 @@ class NotifyItem {
         video.height = conf.height
       }
       this._element.appendChild(video)
-    }if (src.endsWith('.mp3') || src.endsWith('.wav')) {
+    } else if (src.endsWith('.mp3') || src.endsWith('.wav')) {
       const audio = document.createElement('audio')
       audio.src = src
       audio.style.pointerEvents = 'none'
